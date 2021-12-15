@@ -59,7 +59,7 @@ export const BUNDLED_PLAYSETS: readonly string[] = [
 	'wh03_flight_1180'
 ];
 
-export async function loadBundledPlayset(id: string): Promise<Playset> {
+export async function loadBundledPlayset(id: string, fetch = globalThis.fetch): Promise<Playset> {
 	const res = await fetch(`/bundled/${id}.json`, {
 		headers: {
 			'Content-Type': 'application/json'
@@ -70,11 +70,11 @@ export async function loadBundledPlayset(id: string): Promise<Playset> {
 	return {
 		...json,
 		id,
-		cover: `bundled/${id}-cover.small.jpg`,
+		cover: `/bundled/${id}-cover.small.jpg`,
 		pages: [
-			`bundled/${id}-cover.jpg`,
-			`bundled/${id}-credits.png`,
-			`bundled/${id}-score.png`,
+			`/bundled/${id}-cover.jpg`,
+			`/bundled/${id}-credits.png`,
+			`/bundled/${id}-score.png`,
 		],
 	}
 }

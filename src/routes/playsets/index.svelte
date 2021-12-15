@@ -2,7 +2,9 @@
 	import { BUNDLED_PLAYSETS, loadBundledPlayset, Playset } from '$lib/playset';
 	import { playsetLink } from '$lib/playset';
 
-	const playsetsReady = Promise.all(BUNDLED_PLAYSETS.map(loadBundledPlayset))
+	const playsetsReady = Promise.all(BUNDLED_PLAYSETS.map(loadBundledPlayset)).then((playsets) =>
+		playsets.sort((a, b) => a.title.localeCompare(b.title))
+	);
 	let loading = 0;
 </script>
 

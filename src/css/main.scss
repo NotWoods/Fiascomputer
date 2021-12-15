@@ -1,12 +1,12 @@
 @import 'defaults';
 @import 'defs';
 
-html, body {
+html, body, #svelte {
     width: 100%;
     height: 100%;
 }
 
-body {
+#svelte {
     display: flex;
     flex-direction: column;
 }

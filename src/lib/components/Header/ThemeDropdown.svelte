@@ -15,7 +15,7 @@
 </svelte:head>
 
 <MenuItem {menuItems} id="theme">
-  <select id="theme-control" bind:value={selected}>
+  <select id="theme-control" bind:value={selected} on:change={onChange}>
     <option value="red">Fiasco Red</option>
     <option value="blue">Companion Blue</option>
     <option value="green">Town Green</option>
