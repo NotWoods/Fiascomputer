@@ -1,3 +1,7 @@
+<svelte:head>
+	<title>Add Playset | Fiascomputer</title>
+</svelte:head>
+
 <div id="add-playset" class="page add-playset-page" data-title="Add Playset">
   <h2 class="heading">Add playset</h2>
   <ul class="add-playset-method-list">

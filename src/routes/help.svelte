@@ -1,3 +1,7 @@
+<svelte:head>
+	<title>Help | Fiascomputer</title>
+</svelte:head>
+
 <div id="help" class="page help-page" data-title="Help">
   <div class="document">
       <h2 class="title">Help</h2>

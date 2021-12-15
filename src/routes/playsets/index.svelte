@@ -1,3 +1,7 @@
+<svelte:head>
+	<title>Playsets | Fiascomputer</title>
+</svelte:head>
+
 <div id="playsets" class="page playsets-page">
   <h2>Select Playset</h2>
   <ul class="playsets">

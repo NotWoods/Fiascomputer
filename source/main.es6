@@ -11,7 +11,6 @@ import renderPlaysets from './views/playsets.js';
 import renderPlayers from './views/players.js';
 import renderPlaysetPreview from './views/playset-preview.js';
 import renderHelp from './views/help.js';
-import renderVersion from './views/version.js';
 import { parseInteger, capitalize, startsWith, withParams } from 'utils';
 import createQueue from './queue.js';
 import * as storage from './storage.js';
@@ -44,17 +43,17 @@ dom.on(document, 'DOMContentLoaded', () => {
             }
         };
         const c = current;
-        
+
         let collaborate = R.identity;
         // Try to authenticate with Google Drive without a popup, then register
         // whether it was successful or not, for later use.
         let authSuccess = false;
         loadCollabOnce().then(() => authCollab()).then(() => authSuccess = true);
-        
+
         let allPlaysets = {};
         let changedPlaysets = {};
         const deletedPlaysets = {};
-        
+
         const routes = {
             depth: 0,
             routes: routesWithSession([
@@ -77,7 +76,7 @@ dom.on(document, 'DOMContentLoaded', () => {
             ]),
             default: 'playsets'
         };
-        
+
         // Add a session query parameter to each route, because practically every
         // page needs to know which session is active.
         function routesWithSession(routes) {
@@ -88,7 +87,7 @@ dom.on(document, 'DOMContentLoaded', () => {
                 return r2;
             });
         }
-        
+
         function connectToSession(id) {
             const initial = {
                 pairs: c.pairs(),
@@ -117,7 +116,7 @@ dom.on(document, 'DOMContentLoaded', () => {
                 return result;
             });
         }
-        
+
         let currentRequest = {};
         const root = '/';
         const nav = dom.activateNavigation(location => {
@@ -234,7 +233,7 @@ dom.on(document, 'DOMContentLoaded', () => {
                 showPage('version');
             }
         }));
-        
+
         function checkForSession(callbacks) {
             return R.mapObjIndexed(handler => {
                 return function(request) {
@@ -261,7 +260,7 @@ dom.on(document, 'DOMContentLoaded', () => {
                 };
             }, callbacks);
         }
-        
+
         function checkForNewVersion(callbacks) {
             let checked = localStorage.version === config.version;
             return R.mapObjIndexed(handler => {
@@ -373,7 +372,7 @@ dom.on(document, 'DOMContentLoaded', () => {
                 console.log('Unhandled change type: ' + type);
             }
         }
-        
+
         change('activePlayers', c.session().players.count);
 
         function readState() {
@@ -382,7 +381,7 @@ dom.on(document, 'DOMContentLoaded', () => {
                 pairs: c.pairs()
             };
         }
-        
+
         const pages = {
             join: joinPage(dom.id('join'), {
                 login: () => {
@@ -501,7 +500,7 @@ dom.on(document, 'DOMContentLoaded', () => {
                         'you can edit the playset to fix them.'
                     );
                 }
-                
+
                 return playsets.map(playsetToLists);
             })
             .then(playsets => {
@@ -510,11 +509,11 @@ dom.on(document, 'DOMContentLoaded', () => {
                 R.range(0, playsets.length - 1).forEach(pages.playsets.playsetLoadStarted);
                 return Promise.all(playsets.map((playset, index) => {
                     playset.id = uniqueIdentifier(simplifyString(playset.title), Object.keys(allPlaysets));
-                    
+
                     if ( playset.subtitle.trim() === '' ) {
                         playset.subtitle = '...somewhere';
                     }
-                    
+
                     const numbers = pageNumbers(pdf)[index];
                     const queuePage = createQueue(1);
                     return queuePage(() => loadPage(pdf, numbers.cover, 0.5, 'image/jpeg'))
@@ -541,14 +540,14 @@ dom.on(document, 'DOMContentLoaded', () => {
                             storage.write(db, 'thumbnails', playset.pages[0], thumbnail).catch(console.error);
                             addPlayset(playset);
                             savePlayset(playset);
-                            
+
                             return playset;
                         });
                     });
                 }));
             });
         };
-        
+
         function addPlayset(playset) {
             allPlaysets[playset.id] = playset;
             if ( !(playset.id in state.sessions) ) {
@@ -557,7 +556,7 @@ dom.on(document, 'DOMContentLoaded', () => {
             pages.playsets.playsetAdded(playset, playset.id in deletedPlaysets, loadPlaysetPageThumbnail);
             return playset;
         }
-        
+
         function simplifyString(str) {
             return (
                 str
@@ -584,7 +583,7 @@ dom.on(document, 'DOMContentLoaded', () => {
             db.createObjectStore('thumbnails');
         }).then(result => {
             db = result;
-            
+
             const loadPlaysets = 'launched' in localStorage
                 ? loadSavedPlaysets
                 : loadBundledPlaysets;
@@ -607,7 +606,7 @@ dom.on(document, 'DOMContentLoaded', () => {
         function savePlayset(playset) {
             return storage.write(db, 'playsets', playset.id, playset);
         }
-        
+
         function deletePlayset(playset) {
             return storage.remove(db, 'playsets', playset.id).catch(console.error);
         }
@@ -615,7 +614,7 @@ dom.on(document, 'DOMContentLoaded', () => {
         function loadSavedPlaysets() {
             return storage.read(db, 'playsets').catch(console.error);
         }
-        
+
         function loadBundledPlaysets() {
             const ids = [
                 'ak02_heroes_of_pinnacle_city',
@@ -677,7 +676,7 @@ dom.on(document, 'DOMContentLoaded', () => {
                 return table;
             });
         }
-        
+
         function request(method, url, options) {
             return new Promise((resolve, reject) => {
                 var req = new XMLHttpRequest();
@@ -689,7 +688,7 @@ dom.on(document, 'DOMContentLoaded', () => {
                 req.send();
             });
         }
-        
+
         function loadPlaysetPage(key) {
             if ( startsWith(key, '/') ) {
                 return Promise.resolve(key);
@@ -698,7 +697,7 @@ dom.on(document, 'DOMContentLoaded', () => {
                 return loadSavedPlaysetPage(key);
             }
         }
-        
+
         function loadPlaysetPageThumbnail(key) {
             if ( startsWith(key, '/') ) {
                 const url = key.replace(/\.(jpg|png)$/, '.small.$1');
@@ -708,11 +707,11 @@ dom.on(document, 'DOMContentLoaded', () => {
                 return loadSavedPlaysetPageThumbnail(key);
             }
         }
-        
+
         const loadSavedPlaysetPage = R.memoize(function(key) {
             return storage.read(db, 'pages', key);
         });
-        
+
         const loadSavedPlaysetPageThumbnail = R.memoize(function(key) {
             return storage.read(db, 'thumbnails', key);
         });
@@ -743,7 +742,7 @@ dom.on(document, 'DOMContentLoaded', () => {
         function sessionInProgress(id) {
             return Boolean(state.sessions[id].players.count);
         }
-        
+
         function emptySession() {
             return {
                 players: {
@@ -770,11 +769,11 @@ dom.on(document, 'DOMContentLoaded', () => {
                 Object.keys(changedPlaysets),
                 Object.keys(deletedPlaysets)
             );
-            
+
             if ( playsets.length === 0 ) {
                 return false;
             }
-            
+
             console.log('Saving playsets...');
             return Promise.all(playsets
             .map(id => {
@@ -790,19 +789,19 @@ dom.on(document, 'DOMContentLoaded', () => {
                 console.error('Failed saving playsets');
                 after();
             });
-            
+
             function after() {
                 changedPlaysets = {};
             }
         }
-        
+
         setInterval(saveEverything, 20 * 1000);
-        
+
         function saveEverything() {
             State.write(state);
             savePlaysets();
         }
-        
+
         function handleExit(event) {
             State.write(state);
             if ( savePlaysets() ) {
@@ -810,7 +809,7 @@ dom.on(document, 'DOMContentLoaded', () => {
             }
         }
     }
-    
+
     const loadCollabOnce = R.memoize(loadCollab);
     start();
 });

@@ -1,3 +1,7 @@
+<svelte:head>
+	<title>Fiascomputer | Create and visualize Fiasco setups</title>
+</svelte:head>
+
 <div id="intro" class="page intro-page">
   <div class="document">
       <h2 class="heading">
