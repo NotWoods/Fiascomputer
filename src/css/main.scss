@@ -702,7 +702,7 @@ html:not(.player-list) #player-list {
         }
     }
 
-    .players-3 .setup-page {
+    .players-3.setup-page {
         .pairs {
             min-width: 3 * $slot-width;
         }
@@ -733,7 +733,7 @@ html:not(.player-list) #player-list {
         }
     }
 
-    .players-4 .setup-page {
+    .players-4.setup-page {
         .pairs {
             min-width: 4 * $slot-width;
         }
@@ -767,7 +767,7 @@ html:not(.player-list) #player-list {
         }
     }
 
-    .players-5 .setup-page {
+    .players-5.setup-page {
         .pairs {
             min-width: 5 * $slot-width;
         }
@@ -833,14 +833,14 @@ html:not(.player-list) #player-list {
     }
 }
 
-.players-3 .setup-page {
+.players-3.setup-page {
     #pair-4 { display: none; }
     #pair-5 { display: none; }
     #player-4 { display: none; }
     #player-5 { display: none; }
 }
 
-.players-4 .setup-page {
+.players-4.setup-page {
     #pair-5 { display: none; }
     #player-5 { display: none; }
 }

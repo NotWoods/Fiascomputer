@@ -1,5 +1,11 @@
 <script lang="ts" context="module">
+	import { hasTrailingSlash, redirectToAlwaysTrailingSlash } from '$lib/trailing-slash';
+
 	export const load: import('@sveltejs/kit').Load = async ({ page, fetch }) => {
+		if (!hasTrailingSlash(page)) {
+			return redirectToAlwaysTrailingSlash(page);
+		}
+
 		return {
 			props: {
 				playset: await loadBundledPlayset(page.params.playset, fetch)
@@ -35,11 +41,7 @@
 
 <div id="playset-preview" class="page playset-preview-page">
 	<h2 class="playset-name">
-		<Editable
-			class="playset-name-text"
-			value={playset.title}
-			onChange={changeTitle}
-		/>
+		<Editable class="playset-name-text" value={playset.title} onChange={changeTitle} />
 	</h2>
 	<!-- We use both `inner` and `outer` below to properly achieve 100% image height with proper aspect ratio. -->
 	<div class="pages-outer">

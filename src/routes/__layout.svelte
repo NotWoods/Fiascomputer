@@ -4,10 +4,6 @@
   import '../css/main.scss'
 </script>
 
-<svelte:head>
-  <link rel="stylesheet" href="/css/client.css">
-</svelte:head>
-
 <Header menuItems={new Set([
   'enter-fullscreen',
   'leave-fullscreen',

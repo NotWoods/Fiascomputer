@@ -1,6 +1,5 @@
 import R from 'ramda';
 import * as dom from 'dom';
-import { parseInteger } from 'utils';
 
 export default function(page, options, signal) {
     const maxPlayers = options.players.length;
@@ -109,7 +108,7 @@ export default function(page, options, signal) {
             dom.first('.detail-heading', node).textContent = name;
         }
     }
-    
+
     function renderPlayerName(i, name) {
         dom.all('.player-name', page)[i].textContent = name;
     }
@@ -122,22 +121,6 @@ export default function(page, options, signal) {
 
     R.range(0, maxPlayers).forEach(enableDetailSelector);
     R.range(0, maxPlayers).forEach(enablePlayerNameEditing);
-    
-    const playerDropdown = dom.id('player-count-control');
-    let latestPlayerCount = null;
-    dom.select(
-        playerDropdown,
-        value => {
-            if (value === 'invite') {
-                playerDropdown.value = latestPlayerCount;
-                signal.invitePlayers();
-            }
-            else {
-                signal.changePlayerCount(parseInteger(value))
-            }
-        },
-        options.activePlayers
-    );
 
     return {
         relationshipChanged: function(index, relationship) {
