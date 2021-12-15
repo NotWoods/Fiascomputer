@@ -1,9 +1,10 @@
 <script lang="ts">
-  import MenuItem from './MenuItem.svelte'
-  import FullscreenButtons from './FullscreenButtons.svelte'
-  import ThemeDropdown from './ThemeDropdown.svelte'
+	import MenuItem from './MenuItem.svelte';
+	import FullscreenButtons from './FullscreenButtons.svelte';
+	import ThemeDropdown from './ThemeDropdown.svelte';
 
 	export let menuItems: Set<string>;
+	export let removeHelp = false;
 </script>
 
 <header>
@@ -17,7 +18,9 @@
 			</li>
 		</ul>
 	</div>
-	<a href="/help" id="help-button">Help</a>
+	{#if !removeHelp}
+		<a href="/help" id="help-button">Help</a>
+	{/if}
 	<button id="menu-button">Menu</button>
 	<ul id="menu">
 		<MenuItem {menuItems} id="invite-players">

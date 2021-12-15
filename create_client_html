@@ -21,11 +21,11 @@ pages = [
 ]
 
 def alter_doc():
-    keep_menu_items(menu_items)
-    remove_help()
+    # keep_menu_items(menu_items)
+    # remove_help()
     include_pages(pages)
     prefix_links('/join')
-    add_client_stylesheet()
+    # add_client_stylesheet()
 
 def keep_menu_items(names):
     ids = [n + '-menu-item' for n in names]
@@ -52,7 +52,7 @@ def prefix_links(prefix):
         is_absolute = a.has_attr('data-absolute')
         if not is_external and not is_absolute:
             a['href'] = prefix + a['href']
-    
+
     script = doc.select('script[src="/bundle.js"]')[0]
     script['src'] = prefix + script['src']
 

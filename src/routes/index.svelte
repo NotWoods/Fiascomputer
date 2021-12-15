@@ -5,6 +5,7 @@
 
 <svelte:head>
     <title>Fiascomputer | Create and visualize Fiasco setups</title>
+    <link rel="stylesheet" href="/css/client.scss">
 </svelte:head>
 
 <Header menuItems={new Set([

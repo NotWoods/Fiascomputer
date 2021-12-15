@@ -7,10 +7,10 @@
 </script>
 
 <svelte:head>
-  <link rel="stylesheet" disabled={selected !== 'red'} href="/css/red.scss" title="Fiasco Red">
-  <link rel="alternate stylesheet" disabled={selected !== 'blue'} href="/css/blue.scss" title="Companion Blue">
-  <link rel="alternate stylesheet" disabled={selected !== 'green'} href="/css/green.scss" title="Town Green">
-  <link rel="alternate stylesheet" disabled={selected !== 'gray'} href="/css/gray.scss" title="Plain Gray">
+  <link rel="stylesheet" disabled={selected !== 'red'} href="/css/theme/red.scss" title="Fiasco Red">
+  <link rel="alternate stylesheet" disabled={selected !== 'blue'} href="/css/theme/blue.scss" title="Companion Blue">
+  <link rel="alternate stylesheet" disabled={selected !== 'green'} href="/css/theme/green.scss" title="Town Green">
+  <link rel="alternate stylesheet" disabled={selected !== 'gray'} href="/css/theme/gray.scss" title="Plain Gray">
 </svelte:head>
 
 <MenuItem {menuItems} id="theme">
