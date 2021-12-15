@@ -84,13 +84,13 @@ export function drag(node, callbacks) {
         event.dataTransfer.dropEffect = 'copy';
         callbacks.before();
     });
-    
+
     on(node, 'drop', event => {
         event.preventDefault();
         callbacks.drop([].slice.call(event.dataTransfer.files));
         callbacks.after();
     });
-    
+
     on(node, 'dragleave', event => {
         event.preventDefault();
         callbacks.after();
@@ -121,9 +121,9 @@ export function key(event) {
 export function makeEditable(options) {
     const editableNode = options.node;
     const triggerNode = options.trigger;
-    
+
     ensureStrut();
-    
+
     on(triggerNode, 'click', () => {
         editableNode.contentEditable = 'true';
         editableNode.focus();
@@ -159,7 +159,7 @@ export function makeEditable(options) {
             options.blur();
         }
     });
-    
+
     // If the element is an editable link, we want to prevent the link from
     // working. While removing the `href` would also work, that would not stop
     // `click` event listeners from taking effect.
@@ -170,7 +170,7 @@ export function makeEditable(options) {
             }
         });
     }
-    
+
     // Make sure that nodes cannot "disappear" by having their contents emptied
     // and suddenly no longer taking up any height. Also known as "strut".
     function ensureStrut() {
@@ -219,45 +219,15 @@ export function origin(link) {
     }
 }
 
-export function enterFullscreen() {
-    [
-        'webkitRequestFullscreen',
-        'webkitRequestFullScreen',
-        'mozRequestFullscreen',
-        'mozRequestFullScreen',
-        'requestFullscreen'
-    ].forEach(f => {
-        if ( f in document.documentElement ) {
-            document.documentElement[f]();
-        }
-    });
-}
-
-export function leaveFullscreen() {
-    [
-        'webkitExitFullscreen',
-        'webkitExitFullScreen',
-        'mozExitFullscreen',
-        'mozExitFullScreen',
-        'mozCancelFullScreen',
-        'mozCancelFullscreen',
-        'exitFullscreen'
-    ].forEach(f => {
-        if ( f in document ) {
-            document[f]();
-        }
-    });
-}
-
 export function activateMenu(options) {
     const menu = options.menu;
     const button = options.button;
-    
+
     on(button, 'click', () => {
         const dataset = document.documentElement.dataset;
         dataset.menu = dataset.menu === 'false' ? 'true' : 'false';
     });
-    
+
     on(menu, 'change', event => {
         document.documentElement.dataset.menu = 'false';
     });
@@ -281,7 +251,7 @@ export function activateToggle(options) {
     const element = options.element;
     const button = options.button;
     const className = options.class;
-    
+
     on(button, 'click', () => {
         document.documentElement.classList.toggle(className);
     });
@@ -301,46 +271,6 @@ export function activateToggle(options) {
     });
 }
 
-export function isInFullscreen() {
-    return Boolean(
-        document.webkitFullscreenElement ||
-        document.mozFullscreenElement ||
-        document.fullscreenElement
-    );
-}
-
-function onFullscreenChange(callback) {
-    [
-        'webkitfullscreenchange',
-        'mozfullscreenchange',
-        'fullscreenchange'
-    ].forEach(element => {
-        on(document, element, event => callback());
-    });
-}
-
-export function activateFullscreenButtons(options) {
-    var enterButton = options.enter;
-    var leaveButton = options.leave;
-    
-    onFullscreenChange(() => {
-        document.documentElement.classList.toggle('fullscreen', isInFullscreen());
-    });
-
-    on(enterButton, 'click', enterFullscreen);
-    on(leaveButton, 'click', leaveFullscreen);
-}
-
-export function activateThemeDropdown(dropdown, initial, onChange) {
-    select(dropdown, event => {
-        const name = dropdown.value;
-        const stylesheets = all('link[rel~=stylesheet][title]', document.head);
-        stylesheets.forEach(link => link.disabled = true);
-        stylesheets.filter(link => contains(link.href, name))[0].disabled = false;
-        onChange(name);
-    }, initial);
-}
-
 export function activateNavigation(onPageChange) {
     on(document, 'click', event => {
         const link = closest(event.target, 'a');
@@ -354,9 +284,9 @@ export function activateNavigation(onPageChange) {
             }
         }
     });
-    
+
     on(window, 'popstate', () => onPageChange(location));
-    
+
     return {
         go: (path, search, options) => {
             if ( path !== location.pathname || options.force ) {
@@ -383,11 +313,11 @@ export function showPage(name, title, literalTitle) {
     if ( !activePage ) {
         throw new Error('No such page: ' + name);
     }
-    
+
     pages.forEach(page => {
         page.hidden = page !== activePage;
     });
-    
+
     if ( title !== undefined && literalTitle === true ) {
         document.title = title;
     }
@@ -400,7 +330,7 @@ export function showPage(name, title, literalTitle) {
     else {
         document.title = 'Fiascomputer';
     }
-    
+
     return activePage;
 }
 
