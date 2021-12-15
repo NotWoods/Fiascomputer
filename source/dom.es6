@@ -219,34 +219,6 @@ export function origin(link) {
     }
 }
 
-export function activateMenu(options) {
-    const menu = options.menu;
-    const button = options.button;
-
-    on(button, 'click', () => {
-        const dataset = document.documentElement.dataset;
-        dataset.menu = dataset.menu === 'false' ? 'true' : 'false';
-    });
-
-    on(menu, 'change', event => {
-        document.documentElement.dataset.menu = 'false';
-    });
-
-    on(document, 'click', event => {
-        const menuButtonWasClicked = event.target === button;
-        if ( !menuButtonWasClicked ) {
-            const elementOutsideMenuWasClicked = !menu.contains(event.target);
-            const controlInsideMenuWasClicked =
-                !elementOutsideMenuWasClicked && (
-                    event.target.tagName === 'A' || event.target.tagName === 'BUTTON'
-                );
-            if ( elementOutsideMenuWasClicked || controlInsideMenuWasClicked ) {
-                document.documentElement.dataset.menu = 'false';
-            }
-        }
-    });
-}
-
 export function activateToggle(options) {
     const element = options.element;
     const button = options.button;

@@ -7,4 +7,5 @@ tests/specs/*.js
 css/*.css
 css/*.css.map
 join/index.html
+.svelte-kit
 node_modules

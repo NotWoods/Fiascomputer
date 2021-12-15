@@ -2,15 +2,16 @@
 	import MenuItem from './MenuItem.svelte';
 
 	export let menuItems: Set<string>;
+  export let onChange: () => void;
 
 	let selected = 'red'
 </script>
 
 <svelte:head>
-  <link rel="stylesheet" disabled={selected !== 'red'} href="/css/theme/red.scss" title="Fiasco Red">
-  <link rel="alternate stylesheet" disabled={selected !== 'blue'} href="/css/theme/blue.scss" title="Companion Blue">
-  <link rel="alternate stylesheet" disabled={selected !== 'green'} href="/css/theme/green.scss" title="Town Green">
-  <link rel="alternate stylesheet" disabled={selected !== 'gray'} href="/css/theme/gray.scss" title="Plain Gray">
+  <link rel="stylesheet" disabled={selected !== 'red' || undefined} href="/css/red.css" title="Fiasco Red">
+  <link rel="alternate stylesheet" disabled={selected !== 'blue' || undefined} href="/css/blue.css" title="Companion Blue">
+  <link rel="alternate stylesheet" disabled={selected !== 'green' || undefined} href="/css/green.css" title="Town Green">
+  <link rel="alternate stylesheet" disabled={selected !== 'gray' || undefined} href="/css/gray.css" title="Plain Gray">
 </svelte:head>
 
 <MenuItem {menuItems} id="theme">

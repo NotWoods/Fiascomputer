@@ -2,11 +2,6 @@ import * as dom from 'dom';
 import * as R from 'ramda';
 
 export default function(theme, signal) {
-    dom.activateMenu({
-        menu: dom.id('menu'),
-        button: dom.id('menu-button')
-    });
-
     dom.activateToggle({
         element: dom.id('player-list'),
         button: dom.id('player-list-button'),

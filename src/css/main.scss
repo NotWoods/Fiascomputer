@@ -53,7 +53,7 @@ header {
         position: relative;
         overflow: hidden;
         padding: 0.5rem;
-        
+
         &:after {
             display: block;
             content: "";
@@ -66,18 +66,18 @@ header {
             pointer-events: none;
         }
     }
-    
+
     #player-list-box {
         position: relative;
-        
+
         #player-list-button {
             @include menu-button(url("/images/google-drive.png"));
         }
-        
+
         #player-list-button.players-0 {
             display: none;
         }
-        
+
         #player-list {
             position: absolute;
             right: 0;
@@ -91,11 +91,11 @@ header {
             > * + * {
                 margin-top: 0.75rem;
             }
-            
+
             .player-image {
                 height: 1.25em;
             }
-            
+
             .player-image, .player-name {
                 vertical-align: middle;
             }
@@ -128,7 +128,7 @@ header {
             padding: 0.25rem;
         }
     }
-    
+
     button {
         @include plain-button;
     }
@@ -150,18 +150,6 @@ html:not(.player-list) #player-list {
     display: none;
 }
 
-[data-help=true] #help-button {
-    @include menu-button(url("/images/cross-white.svg"));
-}
-
-[data-menu=true] #menu-button {
-    @include menu-button(url("/images/cross-white.svg"));
-}
-
-[data-menu=false] #menu {
-    display: none;
-}
-
 .splash-page {
     @include flex(column);
     @include vertical-margin(auto);
@@ -176,7 +164,7 @@ html:not(.player-list) #player-list {
             margin-bottom: 1rem;
         }
     }
-    
+
     @media (max-width: 40em) {
         .splash-message {
             font-size: 0.75rem;
@@ -187,7 +175,7 @@ html:not(.player-list) #player-list {
 @mixin intro-page {
     @include flex(column);
     @include vertical-margin(auto);
-    
+
     .document {
         @include horizontal-margin(auto);
         flex: 1;
@@ -198,42 +186,42 @@ html:not(.player-list) #player-list {
         background-color: $yellow-card-background-color;
         @include shadow;
     }
-    
+
     .heading {
         font-family: $heading-font;
         color: $text-red;
     }
-    
+
     @media (max-width: 40em) {
         .heading {
             font-size: 1rem;
         }
     }
-    
+
     @media (min-width: 40em) {
         .heading {
             font-size: 3rem;
         }
     }
-    
+
     .introduction {
         max-width: 50rem;
         margin-top: 2rem;
         margin-bottom: 2rem;
         font-size: 1rem;
         line-height: 1.5;
-        
+
         p + p {
             margin-top: 1rem;
         }
-        
+
         a {
             display: inline;
             color: $blue;
             text-decoration: underline;
         }
     }
-    
+
     .credits {
         @include horizontal-margin(auto);
         margin-top: 1rem;
@@ -243,14 +231,14 @@ html:not(.player-list) #player-list {
         font-family: $heading-font;
         line-height: 1.5;
         font-size: 0.75rem;
-        
+
         a {
             display: inline;
             color: $white;
             border-bottom: 1px solid $white;
             padding-bottom: 2px;
         }
-        
+
         p + p {
             margin-top: 1rem;
         }
@@ -259,7 +247,7 @@ html:not(.player-list) #player-list {
 
 .intro-page {
     @include intro-page;
-    
+
     .welcome {
         display: block;
         margin-bottom: 0.5rem;
@@ -270,7 +258,7 @@ html:not(.player-list) #player-list {
             font-size: 0.75em;
         }
     }
-    
+
     @media (min-width: 40em) {
         .welcome {
             font-size: 0.5em;
@@ -283,7 +271,7 @@ html:not(.player-list) #player-list {
         @include button;
         padding: 1rem;
     }
-    
+
     .close-button {
         @include plain-button;
         @include close-button;
@@ -294,24 +282,24 @@ html:not(.player-list) #player-list {
     @include flex(column);
     @include vertical-margin(auto);
     @include horizontal-margin(auto);
-    
+
     &:not(.login) .login,
     &:not(.empty) .empty,
     &:not(.loading) .loading,
     &:not(.error) .error {
         display: none;
     }
-    
+
     .login {
         @include paper;
         @include document;
         text-align: center;
-        
+
         .title {
             @include heading;
             margin-bottom: 1rem;
         }
-        
+
         button {
             @include plain-button;
             @include button;
@@ -322,12 +310,12 @@ html:not(.player-list) #player-list {
     .empty {
         @include intro-page;
     }
-    
+
     .loading {
         @include flex(column);
         @include vertical-margin(auto);
         @include horizontal-margin(auto);
-        
+
         .loading-message {
             @include page-heading;
             &:before {
@@ -337,26 +325,26 @@ html:not(.player-list) #player-list {
                 margin-bottom: 1rem;
             }
         }
-        
+
         @media (max-width: 40em) {
             .loading-message {
                 font-size: 0.75rem;
             }
         }
     }
-    
+
     .error {
         @include paper;
         @include document;
-        
+
         .heading {
             @include heading;
         }
-        
+
         .error-details-heading {
             text-align: center;
         }
-        
+
         .error-details {
             font-family: monospace;
             font-size: 1rem;
@@ -370,12 +358,12 @@ html:not(.player-list) #player-list {
     align-self: center;
     text-align: center;
     padding: 1rem;
-    
+
     .heading {
         @include page-heading;
         margin-bottom: 2rem;
     }
-    
+
     .add-playset-method-list {
         text-align: center;
 
@@ -415,14 +403,14 @@ html:not(.player-list) #player-list {
             background-color: $black;
         }
     }
-    
+
     .tip {
         font-size: 0.75rem;
         margin-top: 2rem;
         font-family: $heading-font;
         color: $heading-color;
         line-height: 2;
-        
+
         a {
             display: inline-block;
             color: $white;
@@ -525,7 +513,7 @@ html:not(.player-list) #player-list {
 
 .players-page {
     @include vertical-margin(auto);
-    
+
     @include flex(column,
         $horizontal: center,
         $vertical-spacing: 1rem
@@ -557,11 +545,11 @@ html:not(.player-list) #player-list {
         font-size: 1.5rem;
         text-align: center;
     }
-    
+
     .players-link {
         margin: 1rem;
     }
-    
+
     @mixin google-drive-logo {
         background-image: url("/images/google-drive.png");
         background-repeat: no-repeat;
@@ -569,12 +557,12 @@ html:not(.player-list) #player-list {
         background-position: 1rem center;
         padding-left: 5rem;
     }
-    
+
     .collaboration {
         button {
             position: relative;
             @include google-drive-logo;
-            
+
             &:after {
                 @include button;
                 position: absolute;
@@ -586,7 +574,7 @@ html:not(.player-list) #player-list {
                 padding: 0.5rem;
                 background-color: $other-background-color;
             }
-            
+
             .backend {
                 display: block;
                 margin-top: 0.5rem;
@@ -594,31 +582,31 @@ html:not(.player-list) #player-list {
                 color: darken($white, 25%);
             }
         }
-        
+
         .loading {
             &:before {
                 @include loading-indicator;
                 display: block;
                 margin-bottom: 1rem;
             }
-            
+
             .message {
                 display: none;
             }
         }
-        
+
         .active {
             padding: 1rem;
             color: $white;
             background-color: $dark-background-color;
-            
+
             @include google-drive-logo;
-            
+
             .instructions {
                 font-family: $heading-font;
                 margin-bottom: 0.5rem;
             }
-            
+
             #join-link {
                 display: inline;
                 font-size: 1rem;
@@ -626,7 +614,7 @@ html:not(.player-list) #player-list {
                 text-decoration: underline;
             }
         }
-        
+
         &:not(.inactive) .inactive,
         &:not(.active) .active,
         &:not(.loading) .loading {
@@ -646,7 +634,7 @@ html:not(.player-list) #player-list {
             background-repeat: no-repeat;
             background-size: auto 3rem;
         }
-        
+
         #players-link-3:before {
             background-image:
             url("/images/player-white.svg"),
@@ -654,7 +642,7 @@ html:not(.player-list) #player-list {
             url("/images/player-white.svg");
             background-position: center top, right bottom, left bottom;
         }
-        
+
         #players-link-4:before {
             background-image:
             url("/images/player-white.svg"),
@@ -663,7 +651,7 @@ html:not(.player-list) #player-list {
             url("/images/player-white.svg");
             background-position: left top, right top, right bottom, left bottom;
         }
-        
+
         #players-link-5:before {
             width: 7rem;
             background-image:
@@ -690,7 +678,7 @@ html:not(.player-list) #player-list {
 
 @media (min-width: 40em) {
     $slot-width: 20rem;
-    
+
     .setup-page {
         flex: 1;
         @include flex(column, $vertical: center, $horizontal: stretch);
@@ -708,7 +696,7 @@ html:not(.player-list) #player-list {
             align-self: center;
             padding: 1rem;
         }
-        
+
         .player, .pair {
             min-width: $slot-width;
         }
@@ -718,7 +706,7 @@ html:not(.player-list) #player-list {
         .pairs {
             min-width: 3 * $slot-width;
         }
-        
+
         .player,
         .pair {
             width: 33.33%;
@@ -749,7 +737,7 @@ html:not(.player-list) #player-list {
         .pairs {
             min-width: 4 * $slot-width;
         }
-        
+
         .player,
         .pair {
             width: 25%;
@@ -783,7 +771,7 @@ html:not(.player-list) #player-list {
         .pairs {
             min-width: 5 * $slot-width;
         }
-        
+
         .player,
         .pair {
             width: 20%;
@@ -878,7 +866,7 @@ html:not(.player-list) #player-list {
         color: $heading-color;
 
         .playset-name-text {
-            @include editable(transparentize($heading-color, 0.75));
+            @include editable($heading-color);
             vertical-align: middle;
         }
 
@@ -891,11 +879,11 @@ html:not(.player-list) #player-list {
             vertical-align: middle;
         }
     }
-    
+
     #player-count-control-box {
         order: 3;
     }
-    
+
     #randomize-button-box {
         order: 1;
     }
@@ -905,43 +893,43 @@ html:not(.player-list) #player-list {
         @include button;
         padding: 1rem;
     }
-    
+
     #player-count-control {
         font-family: $heading-font;
         padding: 0.25rem;
     }
-    
+
     @media (max-width: 40em) {
         .playset {
             flex-wrap: wrap;
         }
-        
+
         #player-count-control-box {
             width: 100%;
             margin-bottom: 1rem;
         }
-        
+
         #randomize-button-box {
             z-index: 1;
             width: 100%;
             margin-top: 1rem;
         }
     }
-    
+
     @media (min-width: 40em) {
         .playset {
             flex-shrink: 0;
             padding: 1rem;
         }
-        
+
         .playset-name {
             flex: 1;
         }
-        
+
         #player-count-control-box {
             margin-left: 1rem;
         }
-        
+
         #randomize-button-box {
             margin-right: 1rem;
         }
@@ -1089,7 +1077,7 @@ html:not(.player-list) #player-list {
     .player-name {
         color: $heading-color;
         font-family: $heading-font;
-        @include editable(transparentize($heading-color, 0.75));
+        @include editable($heading-color);
     }
 
     .remove {
@@ -1111,7 +1099,7 @@ html:not(.player-list) #player-list {
         right: 0;
         top: 0;
     }
-    
+
     .detail-type:hover .remove,
     .detail-type:focus .remove,
     .removable.relationship-category:hover .remove,
@@ -1125,7 +1113,7 @@ html:not(.player-list) #player-list {
         visibility: visible;
     }
 
-    
+
     @media (max-width: 40em) {
         .detail-type .remove,
         .removable.relationship-category .remove,
@@ -1209,7 +1197,7 @@ html:not(.player-list) #player-list {
         font-size: 1.125rem;
         font-family: $heading-font;
         margin-bottom: 0.75rem;
-        
+
         .category-link {
             @include plain-button;
             display: inline;
@@ -1226,7 +1214,7 @@ html:not(.player-list) #player-list {
                 border-bottom-color: $black;
             }
         }
-        
+
         position: relative;
         .edit { @include edit-button(inside); }
         &:hover .edit { opacity: 1; }
@@ -1250,7 +1238,7 @@ html:not(.player-list) #player-list {
                 text-decoration: underline;
             }
         }
-        
+
         position: relative;
         .edit { @include edit-button(inside); }
         &:hover .edit { opacity: 1; }
@@ -1287,16 +1275,16 @@ html:not(.player-list) #player-list {
     flex: 1;
     align-self: stretch;
     overflow: auto;
-    
+
     .playset-name {
         @include page-heading;
         align-self: center;
 
         .playset-name-text {
-            @include editable(transparentize($heading-color, 0.75));
+            @include editable($heading-color);
             vertical-align: middle;
         }
-        
+
         position: relative;
         .edit {
             @include edit-button;
@@ -1335,7 +1323,7 @@ html:not(.player-list) #player-list {
 @media (max-width: 40em) {
     .playset-preview-page {
         padding-top: 1rem;
-        
+
         @include flex(column,
             $vertical-spacing: 1rem,
             $horizontal: stretch
@@ -1347,11 +1335,11 @@ html:not(.player-list) #player-list {
             height: auto;
             object-fit: contain;
         }
-        
+
         .pages-outer {
             order: 3;
         }
-        
+
         .links {
             order: 2;
         }
@@ -1360,7 +1348,7 @@ html:not(.player-list) #player-list {
         .delete-link {
             margin-top: 1rem;
         }
-        
+
         #playset-cover-page-link {
             display: none;
         }
@@ -1395,7 +1383,7 @@ html:not(.player-list) #player-list {
         .playset-page-link {
             display: inline;
             vertical-align: middle;
-            
+
             &[href] {
                 cursor: zoom-in;
             }
@@ -1407,7 +1395,7 @@ html:not(.player-list) #player-list {
             height: 100%;
             background-color: $white; // For PDFs with transparent backgrounds.
         }
-        
+
         .credits-link,
         .delete-link {
             // Fixed in order to prevent overflow when :active pseudoclass applies.
@@ -1429,23 +1417,23 @@ html:not(.player-list) #player-list {
 .help-page {
     @include flex(row, $horizontal: center);
     @include vertical-margin(auto);
-    
+
     .document {
         @include paper;
         @include document;
         flex: 1;
         position: relative;
         max-width: 60rem;
-        
+
         @media (min-width: 40em) {
             @include vertical-margin(2rem);
         }
     }
-    
+
     .title {
         @include heading;
     }
-    
+
     .close-button {
         @include plain-button;
         @include close-button;
@@ -1455,7 +1443,7 @@ html:not(.player-list) #player-list {
 .version-page {
     @include flex(row, $horizontal: center);
     @include vertical-margin(auto);
-    
+
     .document {
         @include paper;
         @include document;
@@ -1463,37 +1451,37 @@ html:not(.player-list) #player-list {
         position: relative;
         max-width: 60rem;
         text-align: center;
-        
+
         @media (min-width: 40em) {
             @include vertical-margin(2rem);
         }
     }
-    
+
     .title {
         @include heading;
         margin-bottom: 2rem;
     }
-    
+
     .close-button {
         @include plain-button;
         @include close-button;
     }
-    
+
     .start-button {
         @include plain-button;
         @include button;
         padding: 1rem;
     }
-    
+
     .version {
         margin-top: 2rem;
         margin-bottom: 2rem;
     }
-    
+
     .version:not(.current) {
         display: none;
     }
-    
+
     iframe {
         display: block;
         @include horizontal-margin(auto);
@@ -1518,11 +1506,11 @@ html:not(.player-list) #player-list {
     .back {
         display: none;
     }
-    
+
     .edit {
         opacity: 1 !important;
     }
-    
+
     .page:not(.table-page) .edit {
         position: static !important;
         display: inline !important;
