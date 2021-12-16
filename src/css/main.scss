@@ -30,6 +30,18 @@ html {
     font-family: $body-font;
 }
 
+.font-hitchcock {
+    font-family: Hitchcock, serif;
+    text-underline-offset: 30%;
+}
+.font-sans {
+    font-family: 'Akzidenz Grotesk', sans-serif;
+}
+
+.fill-current {
+    fill: currentColor;
+}
+
 @mixin menu-button($image) {
     @include plain-button;
     padding: 0.5rem;
@@ -1010,7 +1022,6 @@ html:not(.player-list) #player-list {
     .category,
     .element {
         @include flex(row, $vertical: center, $horizontal-spacing: 1rem);
-        justify-content: space-between;
     }
 
     .name {
@@ -1027,16 +1038,8 @@ html:not(.player-list) #player-list {
         font-family: $heading-font;
     }
 
-    .relationship-category-die,
-    .relationship-element-die,
-    .detail-category-die,
-    .detail-element-die {
+    .die {
         @include plain-button;
-        font-family: Dice, sans-serif;
-        font-size: 1.5rem;
-        line-height: 1;
-        border-radius: 0.5rem;
-        background-color: $white;
     }
 
     .relationship-element-name,
@@ -1082,7 +1085,6 @@ html:not(.player-list) #player-list {
 
     .remove {
         @include plain-button;
-        visibility: hidden;
 
         img {
             height: 1.25em;

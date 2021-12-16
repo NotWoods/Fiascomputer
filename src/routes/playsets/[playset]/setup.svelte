@@ -89,11 +89,11 @@
 	</div>
 	<div class="pairs-outer">
 		<div id="pairs" class="pairs">
-			<Pair pairNumber={1} />
-			<Pair pairNumber={2} />
-			<Pair pairNumber={3} />
-			<Pair pairNumber={4} />
-			<Pair pairNumber={5} />
+			<Pair {playset} pairNumber={1} />
+			<Pair {playset} pairNumber={2} />
+			<Pair {playset} pairNumber={3} />
+			<Pair {playset} pairNumber={4} />
+			<Pair {playset} pairNumber={5} />
 			<Player playerNumber={1} />
 			<Player playerNumber={2} />
 			<Player playerNumber={3} />

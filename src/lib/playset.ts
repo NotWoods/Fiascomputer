@@ -20,6 +20,13 @@ export function playsetLink(playset: Playset) {
 	return `/playsets/${encodeURIComponent(playset.id)}`;
 }
 
+export function playsetShortCode(playset: Playset) {
+	return playset.title
+		.split(/\s+/g)
+		.map((word) => word.charAt(0).toLocaleUpperCase())
+		.join('');
+}
+
 export const BUNDLED_PLAYSETS: readonly string[] = [
 	'ak02_heroes_of_pinnacle_city',
 	'br01_de_medici',
@@ -64,17 +71,13 @@ export async function loadBundledPlayset(id: string, fetch = globalThis.fetch): 
 		headers: {
 			'Content-Type': 'application/json'
 		}
-	})
-	const json = await res.json() as PlaysetData;
+	});
+	const json = (await res.json()) as PlaysetData;
 
 	return {
 		...json,
 		id,
 		cover: `/bundled/${id}-cover.small.jpg`,
-		pages: [
-			`/bundled/${id}-cover.jpg`,
-			`/bundled/${id}-credits.png`,
-			`/bundled/${id}-score.png`,
-		],
-	}
+		pages: [`/bundled/${id}-cover.jpg`, `/bundled/${id}-credits.png`, `/bundled/${id}-score.png`]
+	};
 }
