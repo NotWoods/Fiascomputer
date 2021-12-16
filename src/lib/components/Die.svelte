@@ -1,11 +1,8 @@
+<svelte:options immutable={true} />
+
 <script lang="ts">
 	export let className = '';
 	export let face: 0 | 1 | 2 | 3 | 4 | 5 | 6;
-	export let background: string = 'white';
-
-	function visibility(bool: boolean) {
-		return bool ? 'visible' : 'hidden';
-	}
 </script>
 
 <svg
@@ -23,17 +20,31 @@
 		height="36"
 		rx="5"
 		ry="5"
-		fill={background}
+		fill="white"
 		stroke="currentColor"
 		stroke-width="2"
 	/>
-	<circle cx="8.5" cy="8.5" r="3.5" visibility={visibility(face > 1)} />
-	<circle cx="29" cy="8.5" r="3.5" visibility={visibility(face >= 4)} />
-	<circle cx="8.5" cy="19" r="3.5" visibility={visibility(face >= 6)} />
-	<circle cx="19" cy="19" r="3.5" visibility={visibility(face === 1 || face === 3 || face === 5)} />
-	<circle cx="29" cy="19" r="3.5" visibility={visibility(face >= 6)} />
-	<circle cx="8.5" cy="29" r="3.5" visibility={visibility(face >= 4)} />
-	<circle cx="29" cy="29" r="3.5" visibility={visibility(face > 1)} />
+	{#if face > 1}
+		<circle cx="8.5" cy="8.5" r="3.5" />
+	{/if}
+	{#if face >= 4}
+		<circle cx="29" cy="8.5" r="3.5" />
+	{/if}
+	{#if face >= 6}
+		<circle cx="8.5" cy="19" r="3.5" />
+	{/if}
+	{#if face === 1 || face === 3 || face === 5}
+		<circle cx="19" cy="19" r="3.5" />
+	{/if}
+	{#if face >= 6}
+		<circle cx="29" cy="19" r="3.5" />
+	{/if}
+	{#if face >= 4}
+		<circle cx="8.5" cy="29" r="3.5" />
+	{/if}
+	{#if face > 1}
+		<circle cx="29" cy="29" r="3.5" />
+	{/if}
 </svg>
 
 <style>

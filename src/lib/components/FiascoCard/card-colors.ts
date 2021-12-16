@@ -1,17 +1,11 @@
+import type { CardType } from './card-type';
+export * from './card-type';
+
 export interface FiascoCardColors {
 	top: string;
 	left: string;
 	bottom: string;
 }
-
-export type DetailType = 'location' | 'need' | 'object';
-export type CardType = 'relationship' | DetailType;
-
-export function cardName(type: CardType) {
-	return type.charAt(0).toLocaleUpperCase() + type.slice(1);
-}
-
-export const detailTypes: readonly DetailType[] = ['need', 'location', 'object']
 
 export const icons = {
 	relationship:

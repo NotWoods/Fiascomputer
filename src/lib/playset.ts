@@ -1,4 +1,4 @@
-interface PlaysetTable {
+export interface PlaysetTable {
 	categories: { name: string; elements: string[] }[];
 	title?: string;
 }
@@ -25,6 +25,10 @@ export function playsetShortCode(playset: Playset) {
 		.split(/\s+/g)
 		.map((word) => word.charAt(0).toLocaleUpperCase())
 		.join('');
+}
+
+export function getTable(playset: PlaysetData, type: string) {
+	return playset.tables[type] || playset.tables[`${type}s`];
 }
 
 export const BUNDLED_PLAYSETS: readonly string[] = [

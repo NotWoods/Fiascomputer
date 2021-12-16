@@ -5,6 +5,8 @@
 
   export let playset: Playset;
 	export let type: CardType;
+  export let onRemove: (() => void) | undefined = undefined;
+
   let category: 1 | 2 | 3 | 4 | 5 | 6 | undefined = undefined;
   let element: 1 | 2 | 3 | 4 | 5 | 6 | undefined = undefined;
 
@@ -15,7 +17,7 @@
   <h3 aria-label={cardName(type)}>
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 786 190"
+      viewBox="0 0 786 187"
       class="card-graphic"
       aria-hidden="true"
     >
@@ -26,11 +28,19 @@
       </g>
     </svg>
   </h3>
+  {#if onRemove}
+  <button type="reset" class="remove detail-remove" on:click|preventDefault={onRemove}>
+    <img src="/images/cross-white.svg" alt="Remove">
+  </button>
+  {/if}
   <SelectCardRow descriptionType="category" {type} {category} />
   <SelectCardRow descriptionType="element" {type} {category} {element} />
 </div>
 
 <style>
+  .item {
+    position: relative;
+  }
   .card-graphic {
     margin: -1em;
     margin-bottom: 0;
@@ -39,5 +49,11 @@
     fill: white;
     transform: rotateZ(-4deg);
     font-size: 300%;
+  }
+  .detail-remove {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 1rem;
   }
 </style>

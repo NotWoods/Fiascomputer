@@ -15,7 +15,7 @@
 		<Die {face} />
 	</button>
 	<a
-		href="/{type}/{category || ''}"
+		href="./{type}/{category || ''}"
 		class="name {descriptionType}-name"
 		class:font-hitchcock={descriptionType === 'category'}
 		class:font-sans={descriptionType === 'element'}

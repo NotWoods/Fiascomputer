@@ -28,6 +28,18 @@
 			</div>
 		</div>
 	{:else}
-		<SelectCard {playset} type={detail} />
+		<SelectCard {playset} type={detail} onRemove={() => { detail = undefined }} />
 	{/if}
 </div>
+
+<style>
+	.need-control {
+		background-color: #F47541 !important;
+	}
+	.location-control {
+		background-color: #39AE68 !important;
+	}
+	.object-control {
+		background-color: #51908E !important;
+	}
+</style>

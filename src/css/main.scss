@@ -978,21 +978,6 @@ html:not(.player-list) #player-list {
             @include button;
             padding: 0.5rem;
         }
-
-        .need-control {
-            background-color: $dark-red-background-color;
-            border-color: $dark-red-background-color;
-        }
-
-        .location-control {
-            background-color: $dark-green-background-color;
-            border-color: $dark-green-background-color;
-        }
-
-        .object-control {
-            background-color: $dark-blue-background-color;
-            border-color: $dark-blue-background-color;
-        }
     }
 
     .detail:not(.need):not(.location):not(.object) {
@@ -1233,7 +1218,6 @@ html:not(.player-list) #player-list {
 
         .element-link {
             display: inline;
-            @include die-bullet(element);
 
             &[href]:hover,
             &[href]:focus {

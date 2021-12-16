@@ -24,6 +24,7 @@
 			case '4':
 			case '5':
 				return count;
+			default:
 				return '3';
 		}
 	}
