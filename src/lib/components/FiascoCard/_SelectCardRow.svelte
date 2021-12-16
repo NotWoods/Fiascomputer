@@ -22,7 +22,7 @@
 	>
 		{face === 0 ? `Select ${descriptionType}` : face}
 	</a>
-	<button class="remove">
+	<button class="remove close-button">
 		<img src="/images/cross-black.svg" alt="Remove" />
 	</button>
 </div>

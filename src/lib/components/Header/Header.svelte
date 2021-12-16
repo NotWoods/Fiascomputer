@@ -29,15 +29,6 @@
 
 <header data-menu={menuOpen.toString()}>
 	<h1 id="app-title"><a href="/">Fiascomputer</a></h1>
-	<div id="player-list-box">
-		<button type="button" id="player-list-button" />
-		<ul id="player-list">
-			<li>
-				<img src="" alt="" class="player-image" />
-				<span class="player-name" />
-			</li>
-		</ul>
-	</div>
 	{#if !removeHelp}
 		<a href="/help" id="help-button">Help</a>
 	{/if}

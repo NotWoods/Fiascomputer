@@ -29,7 +29,7 @@
     </svg>
   </h3>
   {#if onRemove}
-  <button type="reset" class="remove detail-remove" on:click|preventDefault={onRemove}>
+  <button type="reset" class="remove detail-remove close-button" on:click|preventDefault={onRemove}>
     <img src="/images/cross-white.svg" alt="Remove">
   </button>
   {/if}

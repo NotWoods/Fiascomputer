@@ -257,6 +257,19 @@ html:not(.player-list) #player-list {
     }
 }
 
+.close-button {
+    @include plain-button;
+    @include close-button;
+}
+.table-page .close-button,
+.help-page .close-button,
+.version-page .close-button,
+.intro-page .close-button {
+    position: absolute;
+    right: 2rem;
+    top: 2rem;
+}
+
 .intro-page {
     @include intro-page;
 
@@ -282,11 +295,6 @@ html:not(.player-list) #player-list {
         @include plain-button;
         @include button;
         padding: 1rem;
-    }
-
-    .close-button {
-        @include plain-button;
-        @include close-button;
     }
 }
 
@@ -1230,10 +1238,6 @@ html:not(.player-list) #player-list {
         &:hover .edit { opacity: 1; }
     }
 
-    .close-button {
-        @include close-button;
-    }
-
     .table-title,
     .table-subtitle,
     .category-link,
@@ -1419,11 +1423,6 @@ html:not(.player-list) #player-list {
     .title {
         @include heading;
     }
-
-    .close-button {
-        @include plain-button;
-        @include close-button;
-    }
 }
 
 .version-page {
@@ -1446,11 +1445,6 @@ html:not(.player-list) #player-list {
     .title {
         @include heading;
         margin-bottom: 2rem;
-    }
-
-    .close-button {
-        @include plain-button;
-        @include close-button;
     }
 
     .start-button {
