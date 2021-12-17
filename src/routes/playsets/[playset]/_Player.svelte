@@ -1,20 +1,21 @@
 <script lang="ts">
+import { renamePlayer } from '$lib/actions';
+
 	import Editable from '$lib/components/Editable.svelte';
+import { sessionStore } from '$lib/store';
 
-	export let playerNumber: number;
+	export let playerIndex: number;
 
-	let playerName = `Player ${playerNumber}`;
+	$: player = $sessionStore.players[playerIndex];
 </script>
 
-<div id={`player-${playerNumber}`} class="player">
+<div id={`player-${playerIndex + 1}`} class="player">
 	<img class="player-image" src="/images/player-black.svg" alt="" />
 	<div class="player-name-outer">
 		<Editable
 			class="player-name"
-			value={playerName}
-			onChange={(name) => {
-				playerName = name;
-			}}
+			value={player?.name ?? `Player ${playerIndex + 1}`}
+			onChange={(name) => sessionStore.dispatch(renamePlayer(playerIndex, name))}
 		/>
 	</div>
 </div>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { BUNDLED_PLAYSETS, loadBundledPlayset, Playset } from '$lib/playset';
+	import { BUNDLED_PLAYSETS, loadBundledPlayset } from '$lib/playset';
 	import { playsetLink } from '$lib/playset';
 
 	const playsetsReady = Promise.all(BUNDLED_PLAYSETS.map((id) => loadBundledPlayset(id))).then(
@@ -17,9 +17,9 @@
 	<ul class="playsets">
 		{#await playsetsReady then playsets}
 			{#each playsets as playset (playset.id)}
-				<li class="playset" class:deleted={playset.deleted}>
+				<li class="playset" class:deleted={playset.deleted} style="--playset-background: {playset.backgroundColor ?? ''}">
 					<a class="playset-link" href={playsetLink(playset)}>
-						<img src={playset.cover} alt="" class="playset-thumbnail" />
+						<img src={playset.cover} alt="" class="playset-thumbnail" width="128" height="192" />
 						<h3 class="playset-name">{playset.title}</h3>
 					</a>
 				</li>
@@ -32,3 +32,13 @@
 		</li>
 	</ul>
 </div>
+
+<style>
+	.playset-link {
+		background-color: var(--playset-background, var(--dark-background-color));
+	}
+	.playset-thumbnail {
+		object-fit: contain;
+		background-color: var(--playset-background);
+	}
+</style>

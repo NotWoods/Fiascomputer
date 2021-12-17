@@ -1,4 +1,10 @@
 <script lang="ts" context="module">
+	import { renameTitle } from '$lib/actions';
+	import Editable from '$lib/components/Editable.svelte';
+	import type { Playset } from '$lib/playset';
+	import { loadKnownPlayset } from '$lib/playset';
+	import { dbReady } from '$lib/storage/db';
+	import { bindDispatch, playsetStore } from '$lib/store';
 	import { hasTrailingSlash, redirectToAlwaysTrailingSlash } from '$lib/trailing-slash';
 
 	export const load: import('@sveltejs/kit').Load = async ({ page, fetch }) => {
@@ -6,18 +12,28 @@
 			return redirectToAlwaysTrailingSlash(page);
 		}
 
+		const playsetId = page.params.playset;
+		const [playset, alreadyStarted] = await Promise.all([
+			loadKnownPlayset(playsetId, fetch),
+			dbReady.then((db) => {
+				if (db) {
+					return db.getKey('sessions', playsetId).then(Boolean);
+				} else {
+					return false;
+				}
+			})
+		]);
+
 		return {
 			props: {
-				playset: await loadBundledPlayset(page.params.playset, fetch)
+				playset,
+				alreadyStarted
 			}
 		};
 	};
 </script>
 
 <script lang="ts">
-	import { loadBundledPlayset, Playset } from '$lib/playset';
-	import Editable from '$lib/components/Editable.svelte';
-
 	const BLANK_PAGE = '/images/blank-page.svg';
 
 	export let playset: Playset;
@@ -27,27 +43,41 @@
 	$: credits = playset.pages[1];
 	$: score = playset.pages[2];
 
-	function startSetup() {}
-	function resumeSetup() {}
-	function deletePlayset() {}
-	function changeTitle(title: string) {
-		playset.title = title;
+	async function resumeSetup() {
+		const db = await dbReady;
+		db?.delete('sessions', playset.id);
 	}
+	function deletePlayset() {}
 </script>
 
 <svelte:head>
 	<title>{playset.title} | Fiascomputer</title>
 </svelte:head>
 
-<div id="playset-preview" class="page playset-preview-page">
+<div
+	id="playset-preview"
+	class="page playset-preview-page"
+	style="--playset-background: {playset.backgroundColor ?? ''}"
+>
 	<h2 class="playset-name">
-		<Editable class="playset-name-text" value={playset.title} onChange={changeTitle} />
+		<Editable
+			class="playset-name-text"
+			value={playset.title}
+			onChange={bindDispatch(playsetStore, renameTitle)}
+		/>
 	</h2>
 	<!-- We use both `inner` and `outer` below to properly achieve 100% image height with proper aspect ratio. -->
 	<div class="pages-outer">
 		<div class="pages-inner">
 			<a href={cover} target="_blank" class="playset-page-link" id="playset-cover-page-link">
-				<img src={cover} class="playset-page" id="playset-cover-page" alt="" />
+				<img
+					src={cover}
+					class="playset-page"
+					id="playset-cover-page"
+					alt="{playset.title} Cover"
+					width="600"
+					height="900"
+				/>
 			</a>
 			<a
 				href={score ?? BLANK_PAGE}
@@ -60,19 +90,15 @@
 					class="playset-page"
 					id="playset-score-page"
 					alt=""
+					width="600"
+					height="900"
 					hidden={!score}
 				/>
 			</a>
 		</div>
 	</div>
 	<div class="links">
-		<a
-			href="./players"
-			class="play-link"
-			id="start-setup-control"
-			hidden={alreadyStarted}
-			on:click={startSetup}>Play!</a
-		>
+		<a href="./players" class="play-link" id="start-setup-control">Play!</a>
 		<a
 			href="./setup"
 			class="resume-link"
@@ -93,3 +119,18 @@
 	</div>
 	<a href="/playsets" class="back">Back</a>
 </div>
+
+<style>
+	.playset-page {
+		aspect-ratio: 600 / 900;
+		background-color: white;
+		object-fit: contain;
+	}
+	#playset-cover-page {
+		background-color: var(--playset-background, white);
+	}
+
+	.resume-link {
+		margin-top: 1rem;
+	}
+</style>

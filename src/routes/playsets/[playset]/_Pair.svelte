@@ -1,26 +1,30 @@
 <script lang="ts">
+	import { changeDetailType } from '$lib/actions';
+
 	import { cardName, DetailType, detailTypes } from '$lib/components/FiascoCard/card-colors';
-
 	import SelectCard from '$lib/components/FiascoCard/SelectCard.svelte';
-  import type { Playset } from '$lib/playset';
+	import type { PlaysetData } from '$lib/playset';
+	import { sessionStore } from '$lib/store';
 
-  export let playset: Playset;
-	export let pairNumber: number;
+	export let playset: PlaysetData;
+	export let pairIndex: number;
 
-	let detail: DetailType | undefined = undefined;
+	$: pair = $sessionStore.pairs[pairIndex];
+
+	function setDetail(type: DetailType) {
+		sessionStore.dispatch(changeDetailType(type, pairIndex));
+	}
 </script>
 
-<div id={`pair-${pairNumber}`} class="pair">
-	<SelectCard {playset} type="relationship" />
-	{#if detail === undefined}
+<div id={`pair-${pairIndex + 1}`} class="pair">
+	<SelectCard {playset} cardDetails={pair.relationship} {pairIndex} />
+	{#if pair.detail.table === undefined}
 		<div class="item detail" data-detail>
 			<div class="unspecified-detail">
 				{#each detailTypes as detailItem}
 					<button
 						class={`detail-control ${detailItem}-control`}
-						on:click={() => {
-							detail = detailItem;
-						}}
+						on:click={() => setDetail(detailItem)}
 					>
 						{cardName(detailItem)}
 					</button>
@@ -28,18 +32,23 @@
 			</div>
 		</div>
 	{:else}
-		<SelectCard {playset} type={detail} onRemove={() => { detail = undefined }} />
+		<SelectCard
+			{playset}
+			cardDetails={pair.detail}
+			{pairIndex}
+			onRemove={() => setDetail(undefined)}
+		/>
 	{/if}
 </div>
 
 <style>
 	.need-control {
-		background-color: #F47541 !important;
+		background-color: #f47541 !important;
 	}
 	.location-control {
-		background-color: #39AE68 !important;
+		background-color: #39ae68 !important;
 	}
 	.object-control {
-		background-color: #51908E !important;
+		background-color: #51908e !important;
 	}
 </style>
