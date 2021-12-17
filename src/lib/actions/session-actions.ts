@@ -1,4 +1,5 @@
 import type { CardType, DetailType } from '$lib/components/FiascoCard/card-type';
+import type { OutcomeType } from '$lib/outcome';
 import type { CardDetails, Pair, Session } from '$lib/storage/session';
 
 export function loadSession(session: Session) {
@@ -55,6 +56,14 @@ export function changeActivePlayers(count: number) {
 	return {
 		type: 'activePlayers',
 		count
+	} as const;
+}
+
+export function addOutcome(outcomeType: OutcomeType, playerIndex: number) {
+	return {
+		type: 'add-outcome',
+		outcomeType,
+		playerIndex
 	} as const;
 }
 

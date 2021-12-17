@@ -1,14 +1,4 @@
 @font-face {
-    font-family: Meridien;
-    src: url("/fonts/Meridien-Medium.ttf") format('truetype');
-}
-
-@font-face {
-    font-family: Dice;
-    src: url("/fonts/dice.ttf") format('truetype');
-}
-
-@font-face {
     font-family: Hitchcock;
     src: url("/fonts/Hitchcock.ttf") format('truetype');
 }
@@ -16,11 +6,6 @@
 @font-face {
     font-family: 'Akzidenz Grotesk';
     src: url("/fonts/Akzidenz-grotesk.ttf") format('truetype');
-}
-
-@font-face {
-    font-family: Vertigo;
-    src: url("/fonts/VERTRG_.ttf") format('truetype');
 }
 
 $background-color: var(--background-color);
@@ -282,6 +267,14 @@ $shadow-color: hsla(0, 0%, 0%, 0.25);
         color: $black;
         outline: 0.25rem solid $background-color;
         background-color: $background-color;
+    }
+}
+
+@mixin editable-parent {
+    &:hover {
+        .edit {
+            opacity: 1;
+        }
     }
 }
 

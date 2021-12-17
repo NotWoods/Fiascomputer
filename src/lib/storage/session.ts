@@ -1,5 +1,6 @@
 import type { DetailType } from '$lib/components/FiascoCard/card-type';
 import type { CardDetails } from '$lib/deck';
+import type { OutcomeDetails } from '$lib/outcome';
 
 export function range<T>(length: number, map: (index: number) => T): T[] {
 	return Array.from({ length }, (_, index) => map(index));
@@ -14,6 +15,7 @@ export interface Pair {
 
 export interface Player {
 	name: string;
+	outcomes: readonly OutcomeDetails[]
 }
 
 export interface Session {
@@ -27,7 +29,8 @@ const MAX_PLAYERS = 5;
 
 export function emptyPlayer(num: number): Player {
 	return {
-		name: `Player ${num}`
+		name: `Player ${num}`,
+		outcomes: [],
 	};
 }
 

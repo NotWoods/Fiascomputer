@@ -966,7 +966,7 @@ html:not(.player-list) #player-list {
 
     .item {
         padding: 1rem;
-        background-color: hsl(50, 60%, 60%);
+        background-color: $yellow-card-background-color;
         @include shadow;
     }
 
@@ -1040,18 +1040,6 @@ html:not(.player-list) #player-list {
         font-size: 1.25rem;
     }
 
-    .player {
-        @include flex(column, $horizontal: center, $vertical: center);
-        font-size: 1.5rem;
-        padding: 0.5rem;
-
-        &:hover {
-            .edit {
-                opacity: 1;
-            }
-        }
-    }
-
     .player-image {
         width: auto;
         height: 6rem;
@@ -1063,10 +1051,17 @@ html:not(.player-list) #player-list {
         background-color: $background-color;
         border: 1rem solid $background-color;
         border-top: 0;
+        font-size: 1.5rem;
 
         position: relative;
+
         .edit {
             @include edit-button;
+        }
+        &:hover {
+            .edit {
+                opacity: 1;
+            }
         }
     }
 
@@ -1497,4 +1492,16 @@ html:not(.player-list) #player-list {
         margin: 0 !important;
         vertical-align: middle;
     }
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
 }

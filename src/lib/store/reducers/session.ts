@@ -120,6 +120,20 @@ export function sessionReducer(state: Session, action: SessionAction): Session {
 				return state;
 			}
 		}
+		case 'add-outcome': {
+			const { playerIndex, outcomeType } = action;
+			return {
+				...state,
+				players: replace(state.players, playerIndex, (player) => {
+					const outcomes = player.outcomes.slice();
+					outcomes.push({ type: outcomeType });
+					return {
+						...player,
+						outcomes
+					};
+				})
+			};
+		}
 		default:
 			return state;
 	}

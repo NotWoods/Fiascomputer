@@ -44,11 +44,11 @@
 			<Pair {playset} pairIndex={2} />
 			<Pair {playset} pairIndex={3} />
 			<Pair {playset} pairIndex={4} />
-			<Player playerIndex={0} editable />
-			<Player playerIndex={1} editable />
-			<Player playerIndex={2} editable />
-			<Player playerIndex={3} editable />
-			<Player playerIndex={4} editable />
+			<Player playerIndex={0} editable outcomes />
+			<Player playerIndex={1} editable outcomes />
+			<Player playerIndex={2} editable outcomes />
+			<Player playerIndex={3} editable outcomes />
+			<Player playerIndex={4} editable outcomes />
 		</div>
 	</div>
 </div>
