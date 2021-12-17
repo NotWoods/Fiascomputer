@@ -1,0 +1,197 @@
+{
+  "$schema": "../deck-schema.json",
+  "title": "Trashfire 2020",
+  "backgroundColor": "#D03827",
+  "tables": {
+    "relationship": {
+      "categories": [
+        {
+          "name": "FAMILY",
+          "elements": [
+            "Spouses for now",
+            "Ex-partners stuck together for the duration",
+            "Family IT specialist and clueless relative",
+            "Teacher and student for the duration",
+            "The careful one and the other fucking one",
+            "Parent and child"
+          ]
+        },
+        {
+          "name": "NEIGHBORS",
+          "elements": [
+            "Used to be friends",
+            "…who don't agree about social distancing"
+          ]
+        },
+        {
+          "name": "CRIMINAL",
+          "elements": [
+            "“I got masks, you got weed”",
+            "Casual burglars",
+            "Action figure scalpers"
+          ]
+        },
+        {
+          "name": "FRIENDS",
+          "elements": [
+            "who wont judge each other for zooming in pajamas",
+            "…in Animal Crossing, anyway"
+          ]
+        },
+        {
+          "name": "WORK",
+          "elements": [
+            "Coworkers who share a secret",
+            "Bosses of each other",
+            "“Essential”"
+          ]
+        },
+        {
+          "name": "ROMANCE",
+          "elements": [
+            "Lovers of convenience",
+            "One date, back in March"
+          ]
+        }
+      ]
+    },
+    "need": {
+      "title": "NEEDS...",
+      "categories": [
+        {
+          "name": "TO GET RICH",
+          "elements": [
+            "…by offloading 17,000 rolls of toilet paper",
+            "By stealing something",
+            "By securing book and movie rights",
+            "By fabricating a story",
+            "By blackmailing the Big Anchorman",
+            "By scamming all my co-workers and then skipping town"
+          ]
+        },
+        {
+          "name": "TO GET OUT",
+          "elements": [
+            "…of the soul crushing tedium of working at home",
+            "…after curfew",
+            "…of your tiny apartment",
+            "…of your tiny apartment"
+          ]
+        },
+        {
+          "name": "TO GET LAID",
+          "elements": [
+            "Seriously, do we need to add a detail?"
+          ]
+        },
+        {
+          "name": "TO GET FREE",
+          "elements": [
+            "…of a weird obligation",
+            "Cowboy Man III action figures, mint in box"
+          ]
+        },
+        {
+          "name": "TO GET THROUGH",
+          "elements": [
+            "2020",
+            "Cowboy Man III, leaving Netflix tomorrow"
+          ]
+        },
+        {
+          "name": "TO GET MORE",
+          "elements": [
+            "streaming",
+            "human contact"
+          ]
+        },
+        {
+          "name": "TO SHARE",
+          "elements": [
+            "…your perfectly ordinary cold",
+            "…more characters in Animal Crossing"
+          ]
+        }
+      ]
+    },
+    "object": {
+      "title": "OBJECTS...",
+      "categories": [
+        {
+          "name": "WORK",
+          "elements": [
+            "Office plant, dead",
+            "713 unread emails"
+          ]
+        },
+        {
+          "name": "HOME",
+          "elements": [
+            "Sourdough starter, alive",
+            "Chicken Hut takeout order"
+          ]
+        },
+        {
+          "name": "HEALTH",
+          "elements": [
+            "5000 doses of Russian “vaccine”",
+            "A bucket of cat tranquilizers"
+          ]
+        },
+        {
+          "name": "WEALTH",
+          "elements": [
+            "A million dollars, if you get to it first"
+          ]
+        },
+        {
+          "name": "FRUSTRATING",
+          "elements": [
+            "Expensive new N95 mask that doesn't fit",
+            "That thing your neighbor put in his yard"
+          ]
+        }
+      ]
+    },
+    "location": {
+      "title": "LOCATIONS...",
+      "categories": [
+        {
+          "name": "WORK",
+          "elements": [
+            "Fifty person Zoom call you are leading",
+            "Red Apple grocery Store"
+          ]
+        },
+        {
+          "name": "OUTSIDE",
+          "elements": [
+            "Michelle's Tavern. Also inside, if you don't give a shit.",
+            "Aboard a private jet",
+            "Paper goods aisle of the grocery store",
+            "Scariest place in the world"
+          ]
+        },
+        {
+          "name": "INSIDE",
+          "elements": [
+            "…your own feverish imagination"
+          ]
+        },
+        {
+          "name": "HOME",
+          "elements": [
+            "…which is also work",
+            "Back of the pantry where no one would ever look"
+          ]
+        }
+      ]
+    }
+  },
+  "kickers": [
+    "Your character and someone else's are having a socially-distanced conversation outside. What's it about? What's at stake?",
+    "Your character and someone else's both see something they shouldn't at the Red Apple grocery store. What is it?",
+    "Your character and another who is in your bubble are sharing another tiresome meal together. Who has a plan for some excitement?",
+    "Your character and someone else's are playing with literal fire. What brought you to this moment, and what are you planning to burn, or keep from burning?"
+  ]
+}

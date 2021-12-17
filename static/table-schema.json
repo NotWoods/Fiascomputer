@@ -1,0 +1,169 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"$id": "https://notwoods.github.io/fiascomatic/table-schema.json",
+	"type": "object",
+	"title": "Fiascomatic deck table",
+	"description": "Subset of possible cards/table inside a Fiasco deck.",
+	"examples": [
+		{
+			"categories": [
+				{
+					"elements": [
+						"At the scene of a grisly murder/suicide",
+						"In the trailer park just after the tornado hit",
+						"At the crime scene the police don’t know about yet",
+						"In the big sinkhole behind Buddy’s garage",
+						"In the pointless live coverage of that severe weather event",
+						"At what will be the biggest drug bust of the decade"
+					],
+					"name": "HARD NEWS"
+				},
+				{
+					"elements": [
+						"At the home of Elmer Jenkins",
+						"At the high school football game",
+						"At the St. Agnes Rescue Mission",
+						"At the hospital for a live on-the-air colonoscopy",
+						"At the civil war reenactment",
+						"At Grandma Whittaker’s 102nd birthday party"
+					],
+					"name": "HUMAN INTEREST"
+				},
+				{
+					"elements": [
+						"On Six Today’s friendly morning show set",
+						"Under the news desk",
+						"In the control room",
+						"On Six Investigates’ angry exposé set",
+						"Behind the set, during the broadcast",
+						"In the kitchen set for Chef Ron’s cooking segment"
+					],
+					"name": "ON THE AIR"
+				},
+				{
+					"elements": [
+						"In the janitor’s closet",
+						"On the roof, right behind the big satellite dish",
+						"In the Big Anchorman’s dressing room",
+						"In the “executive washroom”",
+						"In the transmitter tower equipment shack",
+						"At the donut table"
+					],
+					"name": "OFF THE AIR"
+				},
+				{
+					"elements": [
+						"Peabody Award for Excellence in Local News banquet",
+						"Groundbreaking ceremony for the local community college",
+						"Book signing for your recently-published memoir/cookbook",
+						"Benefit concert to pay for Little Billy’s medical expenses",
+						"Breast cancer awareness screening",
+						"Drinking it up at a local bar"
+					],
+					"name": "FACE TIME"
+				},
+				{
+					"elements": [
+						"Sleazy hotel room with a hidden camera",
+						"Action News Eleven studio/editing room",
+						"In the evidence room at the police station",
+						"Official Peabody Award for Excellence in Local News ballot box",
+						"Local underground, high-stakes poker game",
+						"The Governor’s bedroom"
+					],
+					"name": "OFF LIMITS"
+				}
+			],
+			"title": "LOCATIONS..."
+		}
+	],
+	"required": ["categories"],
+	"properties": {
+    "title": {
+			"$id": "#/properties/title",
+			"type": "string",
+			"title": "Table title",
+			"description": "Title of this particular table. Defaults to table key.",
+			"examples": ["RELATIONSHIPS...", "LOCATIONS..."]
+		},
+		"categories": {
+			"$id": "#/properties/categories",
+			"type": "array",
+			"title": "Table categories",
+			"examples": [
+				[
+					{
+						"elements": [
+							"At the scene of a grisly murder/suicide",
+							"In the trailer park just after the tornado hit",
+							"At the crime scene the police don’t know about yet",
+							"In the big sinkhole behind Buddy’s garage",
+							"In the pointless live coverage of that severe weather event",
+							"At what will be the biggest drug bust of the decade"
+						],
+						"name": "HARD NEWS"
+					},
+					{
+						"elements": [
+							"At the home of Elmer Jenkins",
+							"At the high school football game",
+							"At the St. Agnes Rescue Mission",
+							"At the hospital for a live on-the-air colonoscopy",
+							"At the civil war reenactment",
+							"At Grandma Whittaker’s 102nd birthday party"
+						],
+						"name": "HUMAN INTEREST"
+					}
+				]
+			],
+			"items": {
+				"$id": "#/properties/categories/items",
+        "type": "object",
+        "title": "Table category",
+        "examples": [
+          {
+            "elements": [
+              "At the scene of a grisly murder/suicide",
+              "In the trailer park just after the tornado hit",
+              "At the crime scene the police don’t know about yet",
+              "In the big sinkhole behind Buddy’s garage",
+              "In the pointless live coverage of that severe weather event",
+              "At what will be the biggest drug bust of the decade"
+            ],
+            "name": "HARD NEWS"
+          }
+        ],
+        "required": ["elements", "name"],
+        "properties": {
+          "name": {
+            "$id": "#/properties/categories/items/name",
+            "type": "string",
+            "title": "Category name",
+            "examples": ["TO GET FAMOUS", "HARD NEWS"]
+          },
+          "elements": {
+            "$id": "#/properties/categories/items/elements",
+            "type": "array",
+            "title": "Category elements",
+            "examples": [
+              [
+                "At the scene of a grisly murder/suicide",
+                "In the trailer park just after the tornado hit"
+              ]
+            ],
+            "items": {
+              "$id": "#/properties/categories/items/elements/items",
+              "type": "string",
+              "title": "Category element",
+              "description": "Represents single card in the deck.",
+              "examples": [
+                "At the scene of a grisly murder/suicide",
+                "In the trailer park just after the tornado hit"
+              ]
+            }
+          }
+        }
+			}
+		}
+	}
+}

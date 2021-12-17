@@ -32,7 +32,7 @@
 </svelte:head>
 
 <div id="table" class="page table-page">
-	<Table subtitle={playset.subtitle} {table}>
+	<Table subtitle={playset.subtitle} {table} cardType={tableType}>
 		<Categories {tableType} {table} {pairIndex} />
 	</Table>
 </div>

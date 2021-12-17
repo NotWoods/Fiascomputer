@@ -63,7 +63,8 @@ export const BUNDLED_PLAYSETS: readonly string[] = [
 	'trb02_touring_rock_band_2',
 	'wh01_london_1593',
 	'wh02_the_zoo',
-	'wh03_flight_1180'
+	'wh03_flight_1180',
+	'trashfire_2020'
 ];
 
 export async function loadBundledPlayset(id: string, fetch = globalThis.fetch): Promise<Playset> {

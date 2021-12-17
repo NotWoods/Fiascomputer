@@ -1,8 +1,8 @@
-import type { FiascoAction } from '$lib/actions';
+import type { SessionAction } from '$lib/actions';
 import { emptyPlayer, type Session } from '$lib/storage/session';
 import { replace } from '../helpers';
 
-export function sessionReducer(state: Session, action: FiascoAction): Session {
+export function sessionReducer(state: Session, action: SessionAction): Session {
 	switch (action.type) {
 		case 'session':
 			return action.session;

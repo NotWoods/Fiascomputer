@@ -13,6 +13,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "array-shuffle": "^3.0.0",
     "idb": "^7.0.0",
     "pdfjs-dist": "1.2.109",
     "ramda": "^0.27.1"

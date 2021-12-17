@@ -1,8 +1,8 @@
-import type { FiascoAction } from '$lib/actions';
+import type { PlaysetAction } from '$lib/actions';
 import type { PlaysetDataWithId } from '$lib/playset';
 import { replace } from '../helpers';
 
-export function playsetReducer(state: PlaysetDataWithId | undefined, action: FiascoAction): PlaysetDataWithId | undefined {
+export function playsetReducer(state: PlaysetDataWithId | undefined, action: PlaysetAction): PlaysetDataWithId | undefined {
 	switch (action.type) {
 		case 'playset':
 			if (!state || action.playset.id !== state.id) {

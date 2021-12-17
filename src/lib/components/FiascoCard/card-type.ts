@@ -1,8 +1,14 @@
+import type { PlaysetTable } from '$lib/playset';
+
 export type DetailType = 'location' | 'need' | 'object';
 export type CardType = 'relationship' | DetailType;
 
 export function cardName(type: CardType) {
 	return type.charAt(0).toLocaleUpperCase() + type.slice(1);
+}
+
+export function tableName(table: PlaysetTable, cardType: CardType) {
+	return table.title ?? `${cardName(cardType)}s...`;
 }
 
 export const detailTypes: readonly DetailType[] = ['need', 'location', 'object'];

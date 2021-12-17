@@ -3,15 +3,17 @@
 	import type { PlaysetTable } from '$lib/playset';
 	import { bindDispatch, playsetStore } from '$lib/store/index';
 	import { renameSubtitle } from '$lib/actions';
+	import { CardType, tableName } from '../FiascoCard/card-type';
 
 	export let subtitle: string;
+	export let cardType: CardType;
 	export let table: PlaysetTable;
 
 	export let onClose: (event: MouseEvent) => void = () => {};
 </script>
 
 <div class="table">
-	<h2 class="table-title">{table.title}</h2>
+	<h2 class="table-title">{tableName(table, cardType)}</h2>
 	<p class="table-subtitle">
 		<Editable
 			class="table-subtitle-text"

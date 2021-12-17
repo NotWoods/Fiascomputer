@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let value: string;
+	export let value: string = '';
 	export let tag: 'span' | 'a' = 'span';
 	export let onChange: (value: string) => void;
 	export let onClick: ((event: MouseEvent) => void) | undefined = undefined;
@@ -8,7 +8,7 @@
 
 	let editableNode: HTMLElement;
 
-	$: text = value.trim() === '' ? '&nbsp;' : value;
+	$: text = value.trim() === '' ? '\u00a0' : value;
 
 	function onTrigger() {
 		editing = true;

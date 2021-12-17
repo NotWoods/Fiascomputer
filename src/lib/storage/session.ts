@@ -26,6 +26,7 @@ export interface Session {
 	pairs: readonly Pair[];
 }
 
+const MIN_PLAYERS = 5;
 const MAX_PLAYERS = 5;
 
 export function emptyPlayer(num: number): Player {
@@ -37,7 +38,7 @@ export function emptyPlayer(num: number): Player {
 export function emptySession(playset?: string): Session {
 	return {
 		playset,
-		players: range(MAX_PLAYERS, (i) => emptyPlayer(i + 1)),
+		players: range(MIN_PLAYERS, (i) => emptyPlayer(i + 1)),
 		pairs: range(MAX_PLAYERS, () => {
 			return {
 				relationship: {
