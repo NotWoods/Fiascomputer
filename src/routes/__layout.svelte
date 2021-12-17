@@ -5,6 +5,7 @@
 </script>
 
 <Header menuItems={new Set([
+  'select-playset',
   'enter-fullscreen',
   'leave-fullscreen',
   'theme'

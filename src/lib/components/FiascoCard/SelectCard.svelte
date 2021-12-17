@@ -8,6 +8,7 @@
 	export let playset: PlaysetData;
 	export let cardDetails: CardDetails;
 	export let pairIndex: number;
+	export let editable = false;
 	export let onRemove: (() => void) | undefined = undefined;
 
 	$: type = cardDetails.table;
@@ -39,13 +40,23 @@
 			<img src="/images/cross-white.svg" alt="Remove" />
 		</button>
 	{/if}
-	<SelectCardRow descriptionType="category" {cardDetails} {pairIndex}>
-		{cardDetails.category === undefined ? 'Select category' : categories[cardDetails.category].name}
+	<SelectCardRow descriptionType="category" {cardDetails} {pairIndex} {editable}>
+		{#if cardDetails.category !== undefined}
+			{categories[cardDetails.category].name}
+		{:else if editable}
+			Select category
+		{:else}
+			&nbsp;
+		{/if}
 	</SelectCardRow>
-	<SelectCardRow descriptionType="element" {cardDetails} {pairIndex}>
-		{cardDetails.category === undefined || cardDetails.element === undefined
-			? 'Select element'
-			: categories[cardDetails.category].elements[cardDetails.element]}
+	<SelectCardRow descriptionType="element" {cardDetails} {pairIndex} {editable}>
+		{#if cardDetails.category !== undefined && cardDetails.element !== undefined}
+			{categories[cardDetails.category].elements[cardDetails.element]}
+		{:else if editable}
+			Select element
+		{:else}
+			&nbsp;
+		{/if}
 	</SelectCardRow>
 </div>
 

@@ -1,10 +1,10 @@
 <script lang="ts">
-import { renamePlayer } from '$lib/actions';
-
+	import { renamePlayer } from '$lib/actions';
 	import Editable from '$lib/components/Editable.svelte';
-import { sessionStore } from '$lib/store';
+	import { sessionStore } from '$lib/store';
 
 	export let playerIndex: number;
+	export let editable = false;
 
 	$: player = $sessionStore.players[playerIndex];
 </script>
@@ -14,6 +14,7 @@ import { sessionStore } from '$lib/store';
 	<div class="player-name-outer">
 		<Editable
 			class="player-name"
+			{editable}
 			value={player?.name ?? `Player ${playerIndex + 1}`}
 			onChange={(name) => sessionStore.dispatch(renamePlayer(playerIndex, name))}
 		/>

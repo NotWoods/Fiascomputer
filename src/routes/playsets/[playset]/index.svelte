@@ -1,10 +1,7 @@
 <script lang="ts" context="module">
-	import { renameTitle } from '$lib/actions';
-	import Editable from '$lib/components/Editable.svelte';
 	import type { Playset } from '$lib/playset';
 	import { loadKnownPlayset } from '$lib/playset';
 	import { dbReady } from '$lib/storage/db';
-	import { bindDispatch, playsetStore } from '$lib/store';
 	import { hasTrailingSlash, redirectToAlwaysTrailingSlash } from '$lib/trailing-slash';
 
 	export const load: import('@sveltejs/kit').Load = async ({ page, fetch }) => {
@@ -34,6 +31,8 @@
 </script>
 
 <script lang="ts">
+	import PlaysetName from '$lib/components/PlaysetToolbar/PlaysetName.svelte';
+
 	const BLANK_PAGE = '/images/blank-page.svg';
 
 	export let playset: Playset;
@@ -43,7 +42,7 @@
 	$: credits = playset.pages[1];
 	$: score = playset.pages[2];
 
-	async function resumeSetup() {
+	async function newGame() {
 		const db = await dbReady;
 		db?.delete('sessions', playset.id);
 	}
@@ -59,13 +58,7 @@
 	class="page playset-preview-page"
 	style="--playset-background: {playset.backgroundColor ?? ''}"
 >
-	<h2 class="playset-name">
-		<Editable
-			class="playset-name-text"
-			value={playset.title}
-			onChange={bindDispatch(playsetStore, renameTitle)}
-		/>
-	</h2>
+	<PlaysetName />
 	<!-- We use both `inner` and `outer` below to properly achieve 100% image height with proper aspect ratio. -->
 	<div class="pages-outer">
 		<div class="pages-inner">
@@ -98,13 +91,12 @@
 		</div>
 	</div>
 	<div class="links">
-		<a href="./players" class="play-link" id="start-setup-control">Play!</a>
+		<a href="./setup" class="play-link" id="start-setup-control" on:click={newGame}>Play!</a>
 		<a
 			href="./setup"
 			class="resume-link"
 			id="resume-setup-control"
-			hidden={!alreadyStarted}
-			on:click={resumeSetup}>Resume</a
+			hidden={!alreadyStarted}>Resume</a
 		>
 		<a
 			href={credits ?? BLANK_PAGE}

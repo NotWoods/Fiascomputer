@@ -1,31 +1,30 @@
 <script lang="ts">
-	import Die from '$lib/components/Die.svelte';
-	import type { TableIndex } from '$lib/storage/playset';
 	import type { CardDetails } from '$lib/storage/session';
 
 	export let descriptionType: 'category' | 'element';
-	export let cardDetails: CardDetails
+	export let cardDetails: CardDetails;
 	export let pairIndex: number;
+	export let editable: boolean;
 
-	$: face0Index = cardDetails[descriptionType];
-	$: face1Index = (face0Index === undefined ? 0 : face0Index + 1) as TableIndex | 6;
+	$: category = descriptionType === 'category' ? undefined : cardDetails.category
+	$: baseLink = `./${cardDetails.table}/${category || ''}`;
+	$: linkHref = editable ? `${baseLink}?pair=${pairIndex}` : baseLink;
 </script>
 
 <div class="card-description-line {descriptionType}" aria-label={descriptionType}>
-	<button class="die" title="Random!" aria-label="Random {descriptionType}">
-		<Die face={face1Index} />
-	</button>
 	<a
-		href="./{cardDetails.table}/{cardDetails.category || ''}?pair={pairIndex}"
+		href={linkHref}
 		class="name {descriptionType}-name"
 		class:font-hitchcock={descriptionType === 'category'}
 		class:font-sans={descriptionType === 'element'}
 	>
 		<slot />
 	</a>
-	<button class="remove close-button">
-		<img src="/images/cross-black.svg" alt="Remove" />
-	</button>
+	{#if editable}
+		<button class="remove close-button">
+			<img src="/images/cross-black.svg" alt="Remove" />
+		</button>
+	{/if}
 </div>
 
 <style>

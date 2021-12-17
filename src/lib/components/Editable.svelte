@@ -1,5 +1,6 @@
 <script lang="ts">
 	export let value: string = '';
+	export let editable = true;
 	export let tag: 'span' | 'a' = 'span';
 	export let onChange: (value: string) => void;
 	export let onClick: ((event: MouseEvent) => void) | undefined = undefined;
@@ -11,13 +12,15 @@
 	$: text = value.trim() === '' ? '\u00a0' : value;
 
 	function onTrigger() {
-		editing = true;
-		editableNode.focus();
+		if (!editing) {
+			editableNode.focus();
 
-		const range = document.createRange();
-		range.selectNode(editableNode);
-		window.getSelection().removeAllRanges();
-		window.getSelection().addRange(range);
+			const range = document.createRange();
+			range.selectNode(editableNode);
+			window.getSelection().removeAllRanges();
+			window.getSelection().addRange(range);
+		}
+		editing = !editing;
 	}
 
 	function onPaste(event: ClipboardEvent) {
@@ -41,38 +44,48 @@
 	}
 </script>
 
-{#if tag === 'a'}
-	<a
-		href="/"
-		{...$$restProps}
-		contentEditable={editing}
-		on:change={() => onChange(editableNode.textContent)}
-		on:paste={onPaste}
-		on:keydown={onKeyDown}
-		on:blur={() => {
-			editing = false;
-		}}
-		on:click={handleClick}
-		bind:this={editableNode}
-	>
+{#if editable}
+	{#if tag === 'a'}
+		<a
+			href="/"
+			{...$$restProps}
+			contentEditable={editing}
+			on:change={() => onChange(editableNode.textContent)}
+			on:paste={onPaste}
+			on:keydown={onKeyDown}
+			on:blur={() => {
+				editing = false;
+			}}
+			on:click={handleClick}
+			bind:this={editableNode}
+		>
+			{text}
+		</a>
+	{:else}
+		<span
+			{...$$restProps}
+			contentEditable={editing}
+			on:change={() => onChange(editableNode.textContent)}
+			on:paste={onPaste}
+			on:keydown={onKeyDown}
+			on:blur={() => {
+				editing = false;
+			}}
+			on:click={onClick}
+			bind:this={editableNode}
+		>
+			{text}
+		</span>
+	{/if}
+	<button type="button" class="edit" on:click={onTrigger}>
+		<img src="/images/pencil-white.svg" alt="Edit" />
+	</button>
+{:else if tag === 'a'}
+	<a href="/" {...$$restProps} on:click={onClick}>
 		{text}
 	</a>
 {:else}
-	<span
-		{...$$restProps}
-		contentEditable={editing}
-		on:change={() => onChange(editableNode.textContent)}
-		on:paste={onPaste}
-		on:keydown={onKeyDown}
-		on:blur={() => {
-			editing = false;
-		}}
-		on:click={onClick}
-		bind:this={editableNode}
-	>
+	<span {...$$restProps} on:click={onClick}>
 		{text}
 	</span>
 {/if}
-<button type="button" class="edit" on:click={onTrigger}>
-	<img src="/images/pencil-white.svg" alt="Edit" />
-</button>

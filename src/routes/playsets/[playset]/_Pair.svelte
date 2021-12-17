@@ -8,6 +8,7 @@
 
 	export let playset: PlaysetData;
 	export let pairIndex: number;
+	export let editable = false;
 
 	$: pair = $sessionStore.pairs[pairIndex];
 
@@ -21,26 +22,29 @@
 </script>
 
 <div id={`pair-${pairIndex + 1}`} class="pair">
-	<SelectCard {playset} cardDetails={pair.relationship} {pairIndex} />
+	<SelectCard {playset} cardDetails={pair.relationship} {pairIndex} {editable} />
 	{#if pair.detail.table === undefined}
 		<div class="item detail" data-detail>
-			<div class="unspecified-detail">
-				{#each detailTypes as detailItem}
-					<button
-						class={`detail-control ${detailItem}-control`}
-						on:click={() => setDetail(detailItem)}
-					>
-						{cardName(detailItem)}
-					</button>
-				{/each}
-			</div>
+			{#if editable}
+				<div class="unspecified-detail">
+					{#each detailTypes as detailItem}
+						<button
+							class={`detail-control ${detailItem}-control`}
+							on:click={() => setDetail(detailItem)}
+						>
+							{cardName(detailItem)}
+						</button>
+					{/each}
+				</div>
+			{/if}
 		</div>
 	{:else}
 		<SelectCard
 			{playset}
 			cardDetails={pair.detail}
 			{pairIndex}
-			onRemove={removeDetail}
+			{editable}
+			onRemove={editable ? removeDetail : undefined}
 		/>
 	{/if}
 </div>
