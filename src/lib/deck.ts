@@ -1,26 +1,39 @@
 import arrayShuffle from 'array-shuffle';
-import { cardTypes, type CardType } from '$lib/components/FiascoCard/card-type';
-import type { PlaysetData, TableIndex } from '$lib/storage/playset';
+import { detailTypes, type CardType } from '$lib/components/FiascoCard/card-type';
+import type { PlaysetData, PlaysetTable, TableIndex } from '$lib/storage/playset';
 import { getTable } from './playset';
 
-export interface CardDetails {
-	table: CardType | undefined;
+export interface CardDetails<Type extends CardType | undefined = CardType> {
+	table: Type;
 	category: TableIndex | undefined;
 	element: TableIndex | undefined;
 }
 
-export function deck(playset: PlaysetData) {
-	const allCards: CardDetails[] = Array.from(cardTypes).flatMap((cardType) => {
+export function playsetToCards(playset: PlaysetData) {
+	const table = getTable(playset, 'relationship');
+	const relationshipCards = tableToCards(table, 'relationship');
+	const detailCards = detailTypes.flatMap((cardType) => {
 		const table = getTable(playset, cardType);
-		return table.categories.flatMap((categoryData, category) =>
-			categoryData.elements.map((_, element) => ({
-				table: cardType,
-				category: category as TableIndex,
-				element: element as TableIndex
-			}))
-		);
+		return tableToCards(table, cardType);
 	});
 
+	return { relationshipCards, detailCards };
+}
+
+export function tableToCards<Type extends CardType>(
+	table: PlaysetTable,
+	cardType: Type
+): CardDetails<Type>[] {
+	return table.categories.flatMap((categoryData, category) =>
+		categoryData.elements.map((_, element) => ({
+			table: cardType,
+			category: category as TableIndex,
+			element: element as TableIndex
+		}))
+	);
+}
+
+export function buildDeck<Card>(allCards: readonly Card[]) {
 	let cards = arrayShuffle(allCards);
 
 	return {
@@ -28,10 +41,13 @@ export function deck(playset: PlaysetData) {
 			return cards.pop();
 		},
 		reset() {
-			cards = allCards;
+			cards = allCards.slice();
 		},
 		shuffle() {
 			cards = arrayShuffle(cards);
+		},
+		cards() {
+			return cards;
 		}
 	};
 }

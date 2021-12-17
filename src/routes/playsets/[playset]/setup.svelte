@@ -18,7 +18,8 @@
 	import Pair from './_Pair.svelte';
 	import Player from './_Player.svelte';
 	import { bindDispatch, playsetStore, sessionStore } from '$lib/store';
-	import { changeActivePlayers, renameTitle } from '$lib/actions';
+	import { changeActivePlayers, randomSetup, renameTitle } from '$lib/actions';
+	import { playsetToCards } from '$lib/deck';
 
 	$: activePlayers = $sessionStore.players.length;
 	$: playset = $playsetStore;
@@ -35,6 +36,11 @@
 		} else {
 			sessionStore.dispatch(changeActivePlayers(Number(select.value)));
 		}
+	}
+
+	function randomize() {
+		const { relationshipCards, detailCards } = playsetToCards(playset);
+		sessionStore.dispatch(randomSetup(relationshipCards, detailCards));
 	}
 </script>
 
@@ -56,7 +62,7 @@
 			</select>
 		</div>
 		<div id="randomize-button-box">
-			<button id="randomize-button">Random!</button>
+			<button id="randomize-button" on:click={randomize}>Random!</button>
 		</div>
 	</div>
 	<div class="pairs-outer">

@@ -1,19 +1,15 @@
-import type { CardType } from '$lib/components/FiascoCard/card-type';
-import type { TableIndex } from './playset';
+import type { DetailType } from '$lib/components/FiascoCard/card-type';
+import type { CardDetails } from '$lib/deck';
 
 export function range<T>(length: number, map: (index: number) => T): T[] {
 	return Array.from({ length }, (_, index) => map(index));
 }
 
-export interface CardDetails {
-	table: CardType | undefined;
-	category: TableIndex | undefined;
-	element: TableIndex | undefined;
-}
+export type { CardDetails };
 
 export interface Pair {
-	relationship: CardDetails & { table: 'relationship' };
-	detail: CardDetails;
+	relationship: CardDetails<'relationship' | undefined>;
+	detail: CardDetails<DetailType | undefined>;
 }
 
 export interface Player {

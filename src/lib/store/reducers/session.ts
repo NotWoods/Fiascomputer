@@ -1,11 +1,36 @@
 import type { SessionAction } from '$lib/actions';
+import { buildDeck, type CardDetails } from '$lib/deck';
 import { emptyPlayer, type Session } from '$lib/storage/session';
 import { replace } from '../helpers';
+
+function replaceCardDetails<Details extends CardDetails<any>>(
+	state: Details,
+	deck: { draw(): Details }
+) {
+	if (state.category == undefined || state.element == undefined) {
+		return deck.draw();
+	} else {
+		return state;
+	}
+}
 
 export function sessionReducer(state: Session, action: SessionAction): Session {
 	switch (action.type) {
 		case 'session':
 			return action.session;
+		case 'random': {
+			const relationshipDeck = buildDeck(action.relationshipCards);
+			const detailDeck = buildDeck(action.detailCards);
+			return {
+				...state,
+				pairs: state.pairs.map((pair) => {
+					return {
+						relationship: replaceCardDetails(pair.relationship, relationshipDeck),
+						detail: replaceCardDetails(pair.detail, detailDeck)
+					};
+				})
+			};
+		}
 		case 'pair': {
 			const { index, pair } = action;
 			return {
@@ -22,11 +47,27 @@ export function sessionReducer(state: Session, action: SessionAction): Session {
 						...pair,
 						detail: {
 							...pair.detail,
-							table,
+							table
 						}
 					};
 				})
-			}
+			};
+		}
+		case 'clear-detail-type': {
+			const { pairIndex } = action;
+			return {
+				...state,
+				pairs: replace(state.pairs, pairIndex, (pair) => {
+					return {
+						...pair,
+						detail: {
+							table: undefined,
+							category: undefined,
+							element: undefined
+						}
+					};
+				})
+			};
 		}
 		case 'relationship':
 		case 'need':
@@ -41,7 +82,7 @@ export function sessionReducer(state: Session, action: SessionAction): Session {
 						...pair,
 						[pairKey]: {
 							table: type,
-							...cardDetails,
+							...cardDetails
 						}
 					};
 				})

@@ -16,10 +16,17 @@ export function changePair(index: number, pair: Pair) {
 	} as const;
 }
 
-export function changeDetailType(table: DetailType | undefined, pairIndex: number) {
+export function changeDetailType(table: DetailType, pairIndex: number) {
 	return {
 		type: 'detail-type',
 		table,
+		pairIndex
+	} as const;
+}
+
+export function clearDetailType(pairIndex: number) {
+	return {
+		type: 'clear-detail-type',
 		pairIndex
 	} as const;
 }
@@ -51,6 +58,6 @@ export function changeActivePlayers(count: number) {
 	} as const;
 }
 
-export function randomSetup() {
-	return { type: 'random' } as const;
+export function randomSetup(relationshipCards: readonly CardDetails<'relationship'>[], detailCards: readonly CardDetails<DetailType>[]) {
+	return { type: 'random', relationshipCards, detailCards } as const;
 }

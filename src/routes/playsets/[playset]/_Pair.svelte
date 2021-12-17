@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { changeDetailType } from '$lib/actions';
+	import { changeDetailType, clearDetailType } from '$lib/actions';
 
 	import { cardName, DetailType, detailTypes } from '$lib/components/FiascoCard/card-colors';
 	import SelectCard from '$lib/components/FiascoCard/SelectCard.svelte';
@@ -13,6 +13,10 @@
 
 	function setDetail(type: DetailType) {
 		sessionStore.dispatch(changeDetailType(type, pairIndex));
+	}
+
+	function removeDetail() {
+		sessionStore.dispatch(clearDetailType(pairIndex));
 	}
 </script>
 
@@ -36,7 +40,7 @@
 			{playset}
 			cardDetails={pair.detail}
 			{pairIndex}
-			onRemove={() => setDetail(undefined)}
+			onRemove={removeDetail}
 		/>
 	{/if}
 </div>
