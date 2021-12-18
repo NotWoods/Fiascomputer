@@ -10,7 +10,7 @@
 	$: colors = cardColors[outcomeType];
 </script>
 
-<div class="item outcome-{outcomeType}">
+<div class="item tilt-{outcomeType}">
 	<h3 aria-label="Tilt">
 		<svg
 			xmlns="http://www.w3.org/2000/svg"

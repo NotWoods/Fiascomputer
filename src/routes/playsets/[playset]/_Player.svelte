@@ -24,7 +24,7 @@
 	</div>
 	{#if outcomes}
 	<ol class="player-outcomes">
-		{#each player.outcomes as outcome, outcomeIndex}
+		{#each player?.outcomes ?? [] as outcome, outcomeIndex}
 			<Outcome {outcome} {outcomeIndex} {playerIndex} />
 		{/each}
 		<Outcome
@@ -64,5 +64,15 @@
 		gap: 1rem;
 		flex-wrap: wrap;
 		justify-content: center;
+	}
+
+	@media (max-width: 40em) {
+		.player {
+			grid-template:
+				'icon' 6rem
+				'name' min-content
+				'outcomes' auto
+				/ 1fr;
+		}
 	}
 </style>

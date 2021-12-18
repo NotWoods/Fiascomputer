@@ -21,6 +21,10 @@
 	import { playsetToCards } from '$lib/deck';
 	import Pair from './_Pair.svelte';
 	import Player from './_Player.svelte';
+	import TiltCard from '$lib/components/FiascoCard/TiltCard.svelte';
+	import { OutcomeType } from '$lib/outcome';
+
+	let tilt = true;
 
 	$: activePlayers = $sessionStore.players.length;
 	$: playset = $playsetStore;
@@ -45,7 +49,7 @@
 
 <Title text="Setup" playsetTitle={title} />
 
-<div id="setup" class={`page setup-page players-${activePlayers}`}>
+<div id="setup" class="page setup-page players-{activePlayers}">
 	<div class="playset">
 		<PlaysetName />
 		<div id="player-count-control-box">
@@ -58,21 +62,210 @@
 		</div>
 		<div id="randomize-button-box">
 			<button type="button" id="randomize-button" on:click={randomize}>Random!</button>
+			<button type="button" aria-pressed={tilt} on:click={() => { tilt = !tilt }}>Tilt</button>
 			<a href="./play" hidden>Play!</a>
 		</div>
 	</div>
 	<div class="pairs-outer">
-		<div id="pairs" class="pairs">
-			<Pair {playset} pairIndex={0} editable />
-			<Pair {playset} pairIndex={1} editable />
-			<Pair {playset} pairIndex={2} editable />
-			<Pair {playset} pairIndex={3} editable />
-			<Pair {playset} pairIndex={4} editable />
+		<div id="pairs" class="pairs" class:pairs-with-tilt={tilt}>
+			{#if tilt}
+				<div class="pair tilts">
+					<TiltCard outcomeType={OutcomeType.POSITIVE} editable />
+					<TiltCard outcomeType={OutcomeType.NEGATIVE} editable />
+				</div>
+			{/if}
 			<Player playerIndex={0} editable outcomes />
+			<Pair {playset} pairIndex={0} editable />
 			<Player playerIndex={1} editable outcomes />
+			<Pair {playset} pairIndex={1} editable />
 			<Player playerIndex={2} editable outcomes />
+			<Pair {playset} pairIndex={2} editable />
 			<Player playerIndex={3} editable outcomes />
+			<Pair {playset} pairIndex={3} editable />
 			<Player playerIndex={4} editable outcomes />
+			<Pair {playset} pairIndex={4} editable />
+			{#if tilt}
+				<div class="blank" />
+			{/if}
 		</div>
 	</div>
 </div>
+
+<style lang="scss">
+	@use '../../../css/defs';
+
+	@mixin connector($top: false, $right: false, $bottom: false, $left: false) {
+		@include defs.line-through(
+			$top: $top,
+			$right: $right,
+			$bottom: $bottom,
+			$left: $left,
+			$color: defs.$shadow-color,
+			$width: 1rem
+		);
+	}
+
+	@media (min-width: 40rem) {
+		.pairs {
+			--tilt-column: 0;
+			display: grid;
+			align-items: stretch;
+			grid-template-columns: repeat(calc(var(--columns) + var(--tilt-column)), minmax(20rem, 1fr));
+		}
+		.pairs-with-tilt {
+			--tilt-column: 1;
+		}
+
+		.tilts {
+			order: 0;
+		}
+		.blank {
+			order: var(--columns);
+		}
+		.tilts, .blank {
+			border-right: 1px solid defs.$shadow-color;
+		}
+
+		.players-3.setup-page {
+			--columns: 3;
+
+			:global(#pair-1) {
+				order: 1;
+			}
+			:global(#pair-2) {
+				order: 3;
+			}
+			:global(#pair-3) {
+				order: 5;
+			}
+
+			:global(#player-1) {
+				order: 4;
+				@include connector($right: true, $top: true);
+			}
+			:global(#player-2) {
+				order: 2;
+				@include connector($left: true, $right: true);
+			}
+			:global(#player-3) {
+				order: 6;
+				@include connector($left: true, $top: true);
+			}
+		}
+
+		.players-4.setup-page {
+			--columns: 4;
+
+			:global(#pair-1) {
+				order: 1;
+			}
+			:global(#pair-2) {
+				order: 3;
+			}
+			:global(#pair-3) {
+				order: 8;
+			}
+			:global(#pair-4) {
+				order: 6;
+			}
+
+			:global(#player-1) {
+				order: 5;
+				@include connector($right: true, $top: true);
+			}
+			:global(#player-2) {
+				order: 2;
+			}
+			:global(#player-3) {
+				order: 4;
+				@include connector($left: true, $bottom: true);
+			}
+			:global(#player-4) {
+				order: 7;
+			}
+			:global(#player-2),
+			:global(#player-4) {
+				@include connector($left: true, $right: true);
+			}
+		}
+
+		.players-5.setup-page {
+			--columns: 5;
+
+
+			:global(#pair-1) {
+				order: 1;
+			}
+			:global(#pair-2) {
+				order: 3;
+			}
+			:global(#pair-3) {
+				order: 5;
+			}
+			:global(#pair-4) {
+				order: 9;
+			}
+			:global(#pair-5) {
+				order: 7;
+			}
+
+			:global(#player-1) {
+				order: 6;
+				@include connector($right: true, $top: true);
+			}
+			:global(#player-2) {
+				order: 2;
+			}
+			:global(#player-3) {
+				order: 4;
+			}
+			:global(#player-4) {
+				order: 10;
+				@include connector($left: true, $top: true);
+			}
+			:global(#player-5) {
+				order: 8;
+			}
+
+			:global(#player-2),
+			:global(#player-3),
+			:global(#player-5) {
+				@include connector($left: true, $right: true);
+			}
+		}
+	}
+
+	@media (max-width: 40em) {
+		.setup-page {
+			padding: 0.5rem;
+
+			.pairs {
+				@include defs.flex(column, $horizontal: stretch);
+			}
+		}
+	}
+
+	.players-3.setup-page {
+		:global(#pair-4) {
+			display: none;
+		}
+		:global(#pair-5) {
+			display: none;
+		}
+		:global(#player-4) {
+			display: none;
+		}
+		:global(#player-5) {
+			display: none;
+		}
+	}
+
+	.players-4.setup-page {
+		:global(#pair-5) {
+			display: none;
+		}
+		:global(#player-5) {
+			display: none;
+		}
+	}
+</style>

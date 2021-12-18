@@ -20,9 +20,17 @@ export function getTable(playset: PlaysetData, type: string) {
 
 export * from './storage/playset';
 
+let lastLoadedId: string | undefined;
+let lastLoadedSet: Playset | undefined;
 export async function loadKnownPlayset(id: string, fetch = globalThis.fetch): Promise<Playset> {
+	if (id === lastLoadedId) {
+		return lastLoadedSet!;
+	}
+
 	const result = await loadBundledPlayset(id, fetch);
 	const { cover, pages, ...playset } = result;
 	playsetStore.dispatch(loadPlayset(playset));
+	lastLoadedId = id;
+	lastLoadedSet = result;
 	return result;
 }

@@ -1,12 +1,13 @@
 @use './defs';
-@import 'defaults';
+@use './defaults';
 
-html, body, #svelte {
+html, body {
     width: 100%;
     height: 100%;
 }
 
 #svelte {
+    min-height: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -686,20 +687,7 @@ html:not(.player-list) #player-list {
     }
 }
 
-@mixin connector($top: false, $right: false, $bottom: false, $left: false) {
-    @include defs.line-through(
-        $top: $top,
-        $right: $right,
-        $bottom: $bottom,
-        $left: $left,
-        $color: defs.$shadow-color,
-        $width: 1rem
-    );
-}
-
 @media (min-width: 40em) {
-    $slot-width: 20rem;
-
     .setup-page {
         flex: 1;
         @include defs.flex(column, $vertical: center, $horizontal: stretch);
@@ -709,138 +697,11 @@ html:not(.player-list) #player-list {
             overflow: auto;
         }
 
-        .pairs {
-            display: grid;
-            align-items: stretch;
-            grid-template-columns: repeat(var(--columns), minmax($slot-width, 1fr));
-        }
-
         .pair {
-            align-self: center;
+            align-self: stretch;
             padding: 1rem;
         }
     }
-
-    .players-3.setup-page {
-        --columns: 3;
-
-        #pair-1 { order: 1; }
-        #pair-2 { order: 3; }
-        #pair-3 { order: 5; }
-
-        #player-1 { order: 4; }
-        #player-2 { order: 2; }
-        #player-3 { order: 6; }
-
-        #player-1 {
-            @include connector($right: true, $top: true);
-        }
-
-        #player-2 {
-            @include connector($left: true, $right: true);
-        }
-
-        #player-3 {
-            @include connector($left: true, $top: true);
-        }
-    }
-
-    .players-4.setup-page {
-        --columns: 4;
-
-        #pair-1 { order: 1; }
-        #pair-2 { order: 3; }
-        #pair-3 { order: 8; }
-        #pair-4 { order: 6; }
-
-        #player-1 { order: 5; }
-        #player-2 { order: 2; }
-        #player-3 { order: 4; }
-        #player-4 { order: 7; }
-
-        #player-1 {
-            @include connector($right: true, $top: true);
-        }
-
-        #player-3 {
-            @include connector($left: true, $bottom: true);
-        }
-
-        #player-2,
-        #player-4 {
-            @include connector($left: true, $right: true);
-        }
-    }
-
-    .players-5.setup-page {
-        --columns: 5;
-
-        #pair-1 { order: 1; }
-        #pair-2 { order: 3; }
-        #pair-3 { order: 5; }
-        #pair-4 { order: 9; }
-        #pair-5 { order: 7; }
-
-        #player-1 { order: 6; }
-        #player-2 { order: 2; }
-        #player-3 { order: 4; }
-        #player-4 { order: 10; }
-        #player-5 { order: 8; }
-
-        #player-1 {
-            @include connector($right: true, $top: true);
-        }
-
-        #player-4 {
-            @include connector($left: true, $top: true);
-        }
-
-        #player-2,
-        #player-3,
-        #player-5 {
-            @include connector($left: true, $right: true);
-        }
-    }
-}
-
-@media (max-width: 40em) {
-    .setup-page {
-        padding: 0.5rem;
-
-        .pairs {
-            @include defs.flex(column, $horizontal: stretch);
-        }
-
-        #player-1 { order: 1; }
-        #pair-1 { order: 2; }
-        #player-2 { order: 3; }
-        #pair-2 { order: 4; }
-        #player-3 { order: 5; }
-        #pair-3 { order: 6; }
-        #player-4 { order: 7; }
-        #pair-4 { order: 8; }
-        #player-5 { order: 9; }
-        #pair-5 { order: 10; }
-
-        #player-1 {
-            padding-top: 0;
-            &:before {
-                margin-top: 0;
-            }
-        }
-    }
-}
-
-.players-3.setup-page {
-    #pair-4 { display: none; }
-    #pair-5 { display: none; }
-    #player-4 { display: none; }
-    #player-5 { display: none; }
-}
-
-.players-4.setup-page {
-    #pair-5 { display: none; }
-    #player-5 { display: none; }
 }
 
 .setup-page {
@@ -934,13 +795,11 @@ html:not(.player-list) #player-list {
         }
     }
 
-    .relationship {
+    .item {
         margin-bottom: 1rem;
     }
-
-    .relationship, .specified-detail {
-        @include defs.flex(column, $horizontal: stretch, $vertical-spacing: 1rem);
-        position: relative;
+    .item:last-child {
+        margin-bottom: 0;
     }
 
     .item {
