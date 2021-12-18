@@ -1,3 +1,4 @@
+import type { OutcomeType } from '$lib/outcome';
 import type { CardType } from './card-type';
 export * from './card-type';
 
@@ -17,7 +18,7 @@ export const icons = {
 		'm103 77 2 12-23 15-4-14 9 7 6-3-10-13 17-10 3 6Zm54-31 12-5-9-19-11 4-5-4-7 3 1 6-80 33-3-5-8 5 2 4-8 4 3 23-4 5 14 5-3 46 40-15-7-26 29-16-6-22 52-20-2-6Z'
 };
 
-export const cardColors: Record<CardType, FiascoCardColors> = {
+export const cardColors: Record<CardType | OutcomeType, FiascoCardColors> = {
 	relationship: {
 		top: '#E92F26',
 		left: '#AA2F54',
@@ -37,5 +38,15 @@ export const cardColors: Record<CardType, FiascoCardColors> = {
 		top: '#51908E',
 		left: '#2A4D60',
 		bottom: '#88A59B'
-	}
+	},
+	positive: {
+		top: '#2c4e5f',
+		left: '#fff',
+		bottom: '#fff'
+	},
+	negative: {
+		top: '#b72026',
+		left: '#fff',
+		bottom: '#fff'
+	},
 };

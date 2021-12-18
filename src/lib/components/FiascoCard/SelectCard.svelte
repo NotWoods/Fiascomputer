@@ -3,7 +3,7 @@
 	import type { PlaysetData } from '$lib/storage/playset';
 	import type { CardDetails } from '$lib/storage/session';
 	import { cardColors, cardName, icons } from './card-colors';
-	import SelectCardRow from './_SelectCardRow.svelte';
+	import CardRow, { DescriptionType, fallback } from './_CardRow.svelte';
 
 	export let playset: PlaysetData;
 	export let cardDetails: CardDetails;
@@ -14,6 +14,15 @@
 	$: type = cardDetails.table;
 	$: colors = cardColors[type];
 	$: categories = getTable(playset, type).categories;
+
+	function cardRowLink(descriptionType: DescriptionType, cardDetails: CardDetails, pairIndex: number) {
+		const category = descriptionType === 'category' ? undefined : cardDetails.category
+		let link = `./${cardDetails.table}/${category || ''}`;
+		if (editable) {
+			link = `${link}?pair=${pairIndex}`
+		}
+		return link;
+	}
 </script>
 
 <div class="item {type}">
@@ -38,24 +47,20 @@
 			<img src="/images/cross-white.svg" alt="Remove" />
 		</button>
 	{/if}
-	<SelectCardRow descriptionType="category" {cardDetails} {pairIndex} {editable}>
+	<CardRow descriptionType="category" {editable} href={cardRowLink("category", cardDetails, pairIndex)}>
 		{#if cardDetails.category !== undefined}
 			{categories[cardDetails.category].name}
-		{:else if editable}
-			Select category
 		{:else}
-			&nbsp;
+			{fallback('category', editable)}
 		{/if}
-	</SelectCardRow>
-	<SelectCardRow descriptionType="element" {cardDetails} {pairIndex} {editable}>
+	</CardRow>
+	<CardRow descriptionType="element" {editable} href={cardRowLink("element", cardDetails, pairIndex)}>
 		{#if cardDetails.category !== undefined && cardDetails.element !== undefined}
 			{categories[cardDetails.category].elements[cardDetails.element]}
-		{:else if editable}
-			Select element
 		{:else}
-			&nbsp;
+			{fallback('element', editable)}
 		{/if}
-	</SelectCardRow>
+	</CardRow>
 </div>
 
 <style>

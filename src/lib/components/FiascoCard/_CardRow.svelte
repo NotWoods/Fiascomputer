@@ -1,24 +1,31 @@
+<svelte:options immutable={true} />
+
+<script lang="ts" context="module">
+	export type DescriptionType = 'category' | 'element';
+
+	export function fallback(descriptionType: DescriptionType, editable: boolean = false) {
+		if (editable) {
+			return `Select ${descriptionType}`
+		} else {
+			return '\u00a0'
+		}
+	}
+</script>
+
 <script lang="ts">
-	import type { CardDetails } from '$lib/storage/session';
-
-	export let descriptionType: 'category' | 'element';
-	export let cardDetails: CardDetails;
-	export let pairIndex: number;
+  export let descriptionType: 'category' | 'element';
+  export let href: string;
 	export let editable: boolean;
-
-	$: category = descriptionType === 'category' ? undefined : cardDetails.category
-	$: baseLink = `./${cardDetails.table}/${category || ''}`;
-	$: linkHref = editable ? `${baseLink}?pair=${pairIndex}` : baseLink;
 </script>
 
 <div class="card-description-line {descriptionType}" aria-label={descriptionType}>
 	<a
-		href={linkHref}
+		{href}
 		class="name {descriptionType}-name"
 		class:font-hitchcock={descriptionType === 'category'}
 		class:font-sans={descriptionType === 'element'}
 	>
-		<slot />
+		<slot>{fallback(descriptionType, editable)}</slot>
 	</a>
 	{#if editable}
 		<button class="remove close-button">
@@ -28,15 +35,13 @@
 </div>
 
 <style>
-	.name {
-		text-align: left;
-	}
 	.element-name {
 		font-size: 1.1rem;
 	}
 
 	.card-description-line {
 		margin-top: 1rem;
+    text-align: left;
 	}
 
 	.remove {

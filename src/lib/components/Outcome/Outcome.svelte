@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { addOutcome, changeOutcomeValue, removeOutcome } from '$lib/actions';
-	import { OutcomeDetails, OutcomeType } from '$lib/outcome';
+	import { OutcomeDetails, outcomeName, OutcomeType } from '$lib/outcome';
 	import { sessionStore } from '$lib/store';
 
 	export let outcome: OutcomeDetails | undefined;
@@ -10,7 +10,7 @@
 	$: value = outcome?.value;
 
 	function onClick(newType: OutcomeType) {
-		sessionStore.dispatch(addOutcome(newType, playerIndex))
+		sessionStore.dispatch(addOutcome(newType, playerIndex));
 	}
 
 	function onChange(event: Event & { currentTarget: HTMLInputElement }) {
@@ -21,12 +21,12 @@
 			newValue = 0;
 		}
 
-		sessionStore.dispatch(changeOutcomeValue(playerIndex, outcomeIndex, newValue))
+		sessionStore.dispatch(changeOutcomeValue(playerIndex, outcomeIndex, newValue));
 	}
 
 	function onRemove() {
 		if (outcomeIndex == undefined) return;
-		sessionStore.dispatch(removeOutcome(playerIndex, outcomeIndex))
+		sessionStore.dispatch(removeOutcome(playerIndex, outcomeIndex));
 	}
 </script>
 
@@ -35,7 +35,12 @@
 	title={outcome ? `${outcome.type} outcome` : undefined}
 >
 	{#if outcome !== undefined}
-		<img src="/images/outcome-{outcome.type}.svg" alt="{outcome.type} outcome" width="30" height="30" />
+		<img
+			src="/images/outcome-{outcome.type}.svg"
+			alt="{outcomeName(outcome.type)} outcome"
+			width="30"
+			height="30"
+		/>
 		<input
 			type="number"
 			class="outcome-value"
