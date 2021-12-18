@@ -2,7 +2,7 @@ import type { PlaysetDataWithId } from '$lib/playset';
 import { dbReady } from '$lib/storage/db';
 import { debounce } from './helpers';
 import { createReducerStore } from './reducers/create-store';
-import { playsetReducer } from './reducers/playset';
+import { playsetReducer } from './reducers/playset-reducer';
 
 /**
  * Current open playset

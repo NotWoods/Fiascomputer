@@ -67,6 +67,23 @@ export function addOutcome(outcomeType: OutcomeType, playerIndex: number) {
 	} as const;
 }
 
+export function removeOutcome(playerIndex: number, outcomeIndex: number) {
+	return {
+		type: 'remove-outcome',
+		playerIndex,
+		outcomeIndex,
+	} as const;
+}
+
+export function changeOutcomeValue(playerIndex: number, outcomeIndex: number, value: number) {
+	return {
+		type: 'change-outcome-value',
+		playerIndex,
+		outcomeIndex,
+		value
+	} as const;
+}
+
 export function randomSetup(relationshipCards: readonly CardDetails<'relationship'>[], detailCards: readonly CardDetails<DetailType>[]) {
 	return { type: 'random', relationshipCards, detailCards } as const;
 }

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { addOutcome, renamePlayer } from '$lib/actions';
+	import { renamePlayer } from '$lib/actions';
 	import Editable from '$lib/components/Editable.svelte';
 	import Outcome from '$lib/components/Outcome/Outcome.svelte';
 	import { sessionStore } from '$lib/store';
@@ -24,12 +24,12 @@
 	</div>
 	{#if outcomes}
 	<ol class="player-outcomes">
-		{#each player.outcomes as outcome}
-			<Outcome type={outcome.type} value={outcome.value} />
+		{#each player.outcomes as outcome, outcomeIndex}
+			<Outcome {outcome} {outcomeIndex} {playerIndex} />
 		{/each}
 		<Outcome
-			type={undefined}
-			onClick={(type) => sessionStore.dispatch(addOutcome(type, playerIndex))}
+			outcome={undefined}
+			{playerIndex}
 		/>
 	</ol>
 	{/if}

@@ -10,6 +10,12 @@ export function replace<T>(array: readonly T[], index: number, replacer: (item: 
 	return newArray;
 }
 
+export function remove<T>(array: readonly T[], index: number): T[] {
+	const newArray = array.slice();
+	newArray.splice(index, 1);
+	return newArray;
+}
+
 /**
  * Returns a function, that, as long as it continues to be invoked, will not
  * be triggered. The function will be called after it stops being called for
@@ -17,7 +23,7 @@ export function replace<T>(array: readonly T[], index: number, replacer: (item: 
  * @param immediate If `immediate` is passed, trigger the function on the
  * leading edge, instead of the trailing.
  */
- export function debounce<Func extends (...args: any) => void>(
+export function debounce<Func extends (...args: any) => void>(
 	func: Func,
 	wait: number,
 	immediate = false

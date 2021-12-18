@@ -1,7 +1,7 @@
 import type { SessionAction } from '$lib/actions';
 import { buildDeck, type CardDetails } from '$lib/deck';
 import { emptyPlayer, type Session } from '$lib/storage/session';
-import { replace } from '../helpers';
+import { remove, replace } from '../helpers';
 
 function replaceCardDetails<Details extends CardDetails<any>>(
 	state: Details,
@@ -130,6 +130,35 @@ export function sessionReducer(state: Session, action: SessionAction): Session {
 					return {
 						...player,
 						outcomes
+					};
+				})
+			};
+		}
+		case 'remove-outcome': {
+			const { playerIndex, outcomeIndex } = action;
+			return {
+				...state,
+				players: replace(state.players, playerIndex, (player) => {
+					return {
+						...player,
+						outcomes: remove(player.outcomes, outcomeIndex)
+					};
+				})
+			};
+		}
+		case 'change-outcome-value': {
+			const { playerIndex, outcomeIndex, value } = action;
+			return {
+				...state,
+				players: replace(state.players, playerIndex, (player) => {
+					return {
+						...player,
+						outcomes: replace(player.outcomes, outcomeIndex, (outcome) => {
+							return {
+								...outcome,
+								value
+							};
+						})
 					};
 				})
 			};

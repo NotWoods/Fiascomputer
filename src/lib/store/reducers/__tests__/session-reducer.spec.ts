@@ -1,7 +1,7 @@
 import { changeActivePlayers } from '$lib/actions';
 import { emptySession } from '$lib/storage/session';
 import { describe, expect, test } from '@jest/globals';
-import { sessionReducer } from '../session';
+import { sessionReducer } from '../session-reducer';
 
 describe('sessionReducer', () => {
 	test('change activePlayers', () => {

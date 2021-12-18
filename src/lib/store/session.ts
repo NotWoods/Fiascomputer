@@ -2,7 +2,7 @@ import { dbReady } from '$lib/storage/db';
 import { emptySession, type Session } from '$lib/storage/session';
 import { debounce } from './helpers';
 import { createReducerStore } from './reducers/create-store';
-import { sessionReducer } from './reducers/session';
+import { sessionReducer } from './reducers/session-reducer';
 
 /**
  * Current active session

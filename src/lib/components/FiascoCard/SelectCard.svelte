@@ -26,9 +26,7 @@
 		>
 			<path fill={colors.top} d="M0 0v186l788-71V0H0Z" />
 			<path fill="#fff" d={icons[type]} />
-			<g rotate="4">
-				<text class="card-heading font-hitchcock" x="190" y="120">{cardName(type)}</text>
-			</g>
+			<text class="card-heading font-hitchcock" x="190" y="120">{cardName(type)}</text>
 		</svg>
 	</h3>
 	{#if onRemove}
@@ -74,9 +72,6 @@
 		font-size: 300%;
 	}
 	.detail-remove {
-		position: absolute;
-		top: 0;
-		right: 0;
 		margin: 1rem;
 	}
 </style>

@@ -264,10 +264,12 @@ html:not(.player-list) #player-list {
 .table-page .close-button,
 .help-page .close-button,
 .version-page .close-button,
-.intro-page .close-button {
+.intro-page .close-button,
+.detail-remove.close-button {
     position: absolute;
-    right: 2rem;
-    top: 2rem;
+    right: 0;
+    top: 0;
+    margin: 2rem;
 }
 
 .intro-page {
@@ -1049,8 +1051,6 @@ html:not(.player-list) #player-list {
     }
 
     .remove {
-        @include defs.plain-button;
-
         img {
             height: 1.25em;
             vertical-align: middle;

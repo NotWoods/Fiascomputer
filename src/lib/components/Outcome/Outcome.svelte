@@ -1,23 +1,41 @@
 <script lang="ts">
-	import { OutcomeType } from '$lib/outcome';
+	import { addOutcome, changeOutcomeValue, removeOutcome } from '$lib/actions';
+	import { OutcomeDetails, OutcomeType } from '$lib/outcome';
+	import { sessionStore } from '$lib/store';
 
-	export let type: OutcomeType | undefined;
-	export let value: number | undefined = undefined;
-	export let onClick: (type: OutcomeType) => void = () => {};
+	export let outcome: OutcomeDetails | undefined;
+	export let playerIndex: number;
+	export let outcomeIndex: number | undefined = undefined;
+
+	$: value = outcome?.value;
+
+	function onClick(newType: OutcomeType) {
+		sessionStore.dispatch(addOutcome(newType, playerIndex))
+	}
 
 	function onChange(event: Event & { currentTarget: HTMLInputElement }) {
-		const newValue = Number(event.currentTarget.value);
+		if (outcomeIndex == undefined) return;
+
+		let newValue = Number(event.currentTarget.value);
 		if (Number.isNaN(newValue) || newValue <= 0 || newValue > 5) {
-			value = 0;
-		} else {
-			value = newValue;
+			newValue = 0;
 		}
+
+		sessionStore.dispatch(changeOutcomeValue(playerIndex, outcomeIndex, newValue))
+	}
+
+	function onRemove() {
+		if (outcomeIndex == undefined) return;
+		sessionStore.dispatch(removeOutcome(playerIndex, outcomeIndex))
 	}
 </script>
 
-<li class="font-hitchcock outcome outcome-{type ?? 'new'}" title="{type} outcome">
-	{#if type !== undefined}
-		<img src="/images/outcome-{type}.svg" alt="{type} outcome" width="30" height="30" />
+<li
+	class="font-hitchcock outcome outcome-{outcome?.type ?? 'new'}"
+	title={outcome ? `${outcome.type} outcome` : undefined}
+>
+	{#if outcome !== undefined}
+		<img src="/images/outcome-{outcome.type}.svg" alt="{outcome.type} outcome" width="30" height="30" />
 		<input
 			type="number"
 			class="outcome-value"
@@ -26,6 +44,9 @@
 			min="0"
 			max="5"
 		/>
+		<button class="remove close-button" on:click={onRemove}>
+			<img src="/images/cross-white.svg" alt="Remove outcome" />
+		</button>
 	{:else}
 		{#each Object.values(OutcomeType) as newType}
 			<button
@@ -62,6 +83,7 @@
 		border: 1px solid currentColor;
 		height: 4rem;
 		width: 2.75rem;
+		position: relative;
 		@include defs.shadow;
 	}
 
@@ -99,5 +121,15 @@
 	.outcome-new {
 		border: 1px dashed defs.$yellow-card-background-color;
 		background-color: var(--dark-background-color);
+	}
+
+	.close-button {
+		position: absolute;
+		top: 100%;
+		padding: 0.75rem;
+		visibility: hidden;
+	}
+	.outcome:hover .close-button {
+		visibility: visible;
 	}
 </style>

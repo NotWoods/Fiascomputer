@@ -15,7 +15,7 @@ export interface Pair {
 
 export interface Player {
 	name: string;
-	outcomes: readonly OutcomeDetails[]
+	outcomes: readonly OutcomeDetails[];
 }
 
 export interface Session {
@@ -30,7 +30,7 @@ const MAX_PLAYERS = 5;
 export function emptyPlayer(num: number): Player {
 	return {
 		name: `Player ${num}`,
-		outcomes: [],
+		outcomes: []
 	};
 }
 
