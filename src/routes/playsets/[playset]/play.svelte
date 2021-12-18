@@ -16,6 +16,7 @@
 <script lang="ts">
 	import { bindDispatch, playsetStore, sessionStore } from '$lib/store';
 	import { changeActivePlayers, randomSetup, renameTitle } from '$lib/actions';
+	import Title from '$lib/components/Title.svelte';
 	import PlaysetName from '$lib/components/PlaysetToolbar/PlaysetName.svelte';
 	import { playsetToCards } from '$lib/deck';
 	import Pair from './_Pair.svelte';
@@ -26,9 +27,7 @@
 	$: title = playset.title ?? 'Playset';
 </script>
 
-<svelte:head>
-	<title>Play | {title} | Fiascomputer</title>
-</svelte:head>
+<Title text="Play" playsetTitle={title} />
 
 <div id="setup" class="page setup-page players-{activePlayers}">
 	<div class="playset">

@@ -1,10 +1,10 @@
 <script context="module">
+	import Title from "$lib/components/Title.svelte";
+
 	export const prerender = true;
 </script>
 
-<svelte:head>
-	<title>Help | Fiascomputer</title>
-</svelte:head>
+<Title text="Help" />
 
 <div id="help" class="page help-page" data-title="Help">
 	<div class="document">

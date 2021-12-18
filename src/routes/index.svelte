@@ -1,4 +1,6 @@
 <script lang="ts" context="module">
+  import Title from '$lib/components/Title.svelte'
+
 	export const load: import('@sveltejs/kit').Load = () => {
     return {
       status: 301,
@@ -7,6 +9,4 @@
   }
 </script>
 
-<svelte:head>
-	<title>Fiascomputer | Create and visualize Fiasco setups</title>
-</svelte:head>
+<Title homePage text="" />

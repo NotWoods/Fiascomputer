@@ -32,6 +32,7 @@
 
 <script lang="ts">
 	import PlaysetName from '$lib/components/PlaysetToolbar/PlaysetName.svelte';
+	import Title from '$lib/components/Title.svelte';
 
 	const BLANK_PAGE = '/images/blank-page.svg';
 
@@ -49,9 +50,7 @@
 	function deletePlayset() {}
 </script>
 
-<svelte:head>
-	<title>{playset.title} | Fiascomputer</title>
-</svelte:head>
+<Title text={playset.title} />
 
 <div
 	id="playset-preview"

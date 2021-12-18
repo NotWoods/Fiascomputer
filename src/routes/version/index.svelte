@@ -9,14 +9,13 @@
 </script>
 
 <script lang="ts">
+	import Title from '$lib/components/Title.svelte';
 	import Version from './_Version.svelte';
 
 	export let currentVersion: string;
 </script>
 
-<svelte:head>
-	<title>Version {currentVersion} | Fiascomputer</title>
-</svelte:head>
+<Title text="Version {currentVersion}" />
 
 <div id="version" class="page version-page">
 	<div class="document">

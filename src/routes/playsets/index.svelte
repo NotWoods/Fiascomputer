@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Title from '$lib/components/Title.svelte';
 	import { BUNDLED_PLAYSETS, loadBundledPlayset } from '$lib/playset';
 	import { playsetLink } from '$lib/playset';
 
@@ -8,9 +9,7 @@
 	let loading = 0;
 </script>
 
-<svelte:head>
-	<title>Playsets | Fiascomputer</title>
-</svelte:head>
+<Title text="Playsets" />
 
 <div id="playsets" class="page playsets-page" class:loading={loading > 0}>
 	<h2>Select Playset</h2>

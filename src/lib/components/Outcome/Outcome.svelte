@@ -4,13 +4,28 @@
 	export let type: OutcomeType | undefined;
 	export let value: number | undefined = undefined;
 	export let onClick: (type: OutcomeType) => void = () => {};
+
+	function onChange(event: Event & { currentTarget: HTMLInputElement }) {
+		const newValue = Number(event.currentTarget.value);
+		if (Number.isNaN(newValue) || newValue <= 0 || newValue > 5) {
+			value = 0;
+		} else {
+			value = newValue;
+		}
+	}
 </script>
 
 <li class="font-hitchcock outcome outcome-{type ?? 'new'}" title="{type} outcome">
-	{#if value !== undefined}
-		{type === OutcomeType.POSITIVE ? '+' : '–'}{value}
-	{:else if type !== undefined}
+	{#if type !== undefined}
 		<img src="/images/outcome-{type}.svg" alt="{type} outcome" width="30" height="30" />
+		<input
+			type="number"
+			class="outcome-value"
+			value={value || ''}
+			on:change={onChange}
+			min="0"
+			max="5"
+		/>
 	{:else}
 		{#each Object.values(OutcomeType) as newType}
 			<button
@@ -49,6 +64,22 @@
 		width: 2.75rem;
 		@include defs.shadow;
 	}
+
+	.outcome-value {
+		@include defs.plain-button;
+		width: 100%;
+		margin-top: 0.25rem;
+		font: inherit;
+		text-align: center;
+		-moz-appearance: textfield;
+
+		&::-webkit-outer-spin-button,
+		&::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
+	}
+
 	.outcome-new-button {
 		@include defs.plain-button;
 		width: 100%;

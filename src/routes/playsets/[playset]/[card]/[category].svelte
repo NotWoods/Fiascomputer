@@ -27,6 +27,7 @@
 	import type { CardType } from '$lib/components/FiascoCard/card-type';
 	import Category from '$lib/components/Table/Category.svelte';
 	import Table from '$lib/components/Table/Table.svelte';
+	import Title from '$lib/components/Title.svelte';
 
 	export let tableType: CardType;
 	export let category: TableIndex;
@@ -38,12 +39,10 @@
 	$: table = getTable(playset, tableType);
 </script>
 
-<svelte:head>
-	<title>{cardName(tableType)} | {playset.title} | Fiascomputer</title>
-</svelte:head>
+<Title text={cardName(tableType)} playsetTitle={playset.title} />
 
 <div id="table" class="page table-page">
-	<Table subtitle={playset.subtitle} {table}>
+	<Table subtitle={playset.subtitle} {table} cardType={tableType}>
 		<Category {tableType} {table} {category} {pairIndex} />
 	</Table>
 </div>

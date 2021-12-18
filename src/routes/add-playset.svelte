@@ -1,6 +1,8 @@
-<svelte:head>
-	<title>Add Playset | Fiascomputer</title>
-</svelte:head>
+<script lang="ts">
+    import Title from "$lib/components/Title.svelte";
+</script>
+
+<Title text="Add Playset" />
 
 <div id="add-playset" class="page add-playset-page" data-title="Add Playset">
   <h2 class="heading">Add playset</h2>

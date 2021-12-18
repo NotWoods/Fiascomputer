@@ -92,8 +92,8 @@ $dark-blue-background-color: hsl(210, 100%, 15%);
     @if $horizontal-spacing {
         @if $multiline {
             & > * {
-                margin-left: $horizontal-spacing / 2;
-                margin-right: $horizontal-spacing / 2;
+                margin-left: calc($horizontal-spacing / 2);
+                margin-right: calc($horizontal-spacing / 2);
             }
         }
         @else {
@@ -106,8 +106,8 @@ $dark-blue-background-color: hsl(210, 100%, 15%);
     @if $vertical-spacing {
         @if $multiline {
             & > * {
-                margin-top: $vertical-spacing / 2;
-                margin-bottom: $vertical-spacing / 2;
+                margin-top: calc($vertical-spacing / 2);
+                margin-bottom: calc($vertical-spacing / 2);
             }
         }
         @else {

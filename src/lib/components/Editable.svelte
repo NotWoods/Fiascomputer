@@ -15,10 +15,13 @@
 		if (!editing) {
 			editableNode.focus();
 
-			const range = document.createRange();
-			range.selectNode(editableNode);
-			window.getSelection().removeAllRanges();
-			window.getSelection().addRange(range);
+			requestAnimationFrame(() => {
+				const selection = window.getSelection();
+				const range = document.createRange();
+				range.selectNodeContents(editableNode);
+				selection.removeAllRanges();
+				selection.addRange(range);
+			});
 		}
 		editing = !editing;
 	}

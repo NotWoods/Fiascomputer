@@ -1,5 +1,5 @@
+@use './defs';
 @import 'defaults';
-@import 'defs';
 
 html, body, #svelte {
     width: 100%;
@@ -13,9 +13,9 @@ html, body, #svelte {
 
 main {
     flex: 1;
-    @include flex(column, $horizontal: stretch);
+    @include defs.flex(column, $horizontal: stretch);
     overflow: auto;
-    background-color: $background-color;
+    background-color: defs.$background-color;
 }
 
 main > .page {
@@ -27,7 +27,7 @@ main > .page {
 }
 
 html {
-    font-family: $body-font;
+    font-family: defs.$body-font;
 }
 
 .font-hitchcock {
@@ -43,7 +43,7 @@ html {
 }
 
 @mixin menu-button($image) {
-    @include plain-button;
+    @include defs.plain-button;
     padding: 0.5rem;
     padding-left: 2rem;
     background-image: $image;
@@ -55,10 +55,10 @@ html {
 header {
     position: relative;
     z-index: 2;
-    color: $white;
-    background-color: $black;
-    font-family: $heading-font;
-    @include flex(row, $vertical: center);
+    color: defs.$white;
+    background-color: defs.$black;
+    font-family: defs.$heading-font;
+    @include defs.flex(row, $vertical: center);
 
     #app-title {
         flex: 1;
@@ -95,9 +95,9 @@ header {
             right: 0;
             top: 100%;
             padding: 0.75rem;
-            color: $white;
-            background-color: $black;
-            @include shadow;
+            color: defs.$white;
+            background-color: defs.$black;
+            @include defs.shadow;
             white-space: nowrap;
 
             > * + * {
@@ -128,9 +128,9 @@ header {
         right: 0;
         top: 100%;
         padding: 0.75rem;
-        color: $white;
-        background-color: $black;
-        @include shadow;
+        color: defs.$white;
+        background-color: defs.$black;
+        @include defs.shadow;
 
         .menu-item + .menu-item {
             margin-top: 0.75rem;
@@ -142,7 +142,7 @@ header {
     }
 
     button {
-        @include plain-button;
+        @include defs.plain-button;
     }
 }
 
@@ -163,14 +163,14 @@ html:not(.player-list) #player-list {
 }
 
 .splash-page {
-    @include flex(column);
-    @include vertical-margin(auto);
-    @include horizontal-margin(auto);
+    @include defs.flex(column);
+    @include defs.vertical-margin(auto);
+    @include defs.horizontal-margin(auto);
 
     .splash-message {
-        @include page-heading;
+        @include defs.page-heading;
         &:before {
-            @include loading-indicator;
+            @include defs.loading-indicator;
             display: inline-block;
             margin-right: 1rem;
             margin-bottom: 1rem;
@@ -185,23 +185,23 @@ html:not(.player-list) #player-list {
 }
 
 @mixin intro-page {
-    @include flex(column);
-    @include vertical-margin(auto);
+    @include defs.flex(column);
+    @include defs.vertical-margin(auto);
 
     .document {
-        @include horizontal-margin(auto);
+        @include defs.horizontal-margin(auto);
         flex: 1;
         position: relative;
         max-width: 40rem;
         padding: 2rem;
         text-align: center;
-        background-color: $yellow-card-background-color;
-        @include shadow;
+        background-color: defs.$yellow-card-background-color;
+        @include defs.shadow;
     }
 
     .heading {
-        font-family: $heading-font;
-        color: $text-red;
+        font-family: defs.$heading-font;
+        color: defs.$text-red;
     }
 
     @media (max-width: 40em) {
@@ -229,25 +229,25 @@ html:not(.player-list) #player-list {
 
         a {
             display: inline;
-            color: $blue;
+            color: defs.$blue;
             text-decoration: underline;
         }
     }
 
     .credits {
-        @include horizontal-margin(auto);
+        @include defs.horizontal-margin(auto);
         margin-top: 1rem;
         padding: 1rem;
         text-align: center;
-        color: $heading-color;
-        font-family: $heading-font;
+        color: defs.$heading-color;
+        font-family: defs.$heading-font;
         line-height: 1.5;
         font-size: 0.75rem;
 
         a {
             display: inline;
-            color: $white;
-            border-bottom: 1px solid $white;
+            color: defs.$white;
+            border-bottom: 1px solid defs.$white;
             padding-bottom: 2px;
         }
 
@@ -258,8 +258,8 @@ html:not(.player-list) #player-list {
 }
 
 .close-button {
-    @include plain-button;
-    @include close-button;
+    @include defs.plain-button;
+    @include defs.close-button;
 }
 .table-page .close-button,
 .help-page .close-button,
@@ -292,16 +292,16 @@ html:not(.player-list) #player-list {
 
     .start {
         display: inline-block;
-        @include plain-button;
-        @include button;
+        @include defs.plain-button;
+        @include defs.button;
         padding: 1rem;
     }
 }
 
 .join-page {
-    @include flex(column);
-    @include vertical-margin(auto);
-    @include horizontal-margin(auto);
+    @include defs.flex(column);
+    @include defs.vertical-margin(auto);
+    @include defs.horizontal-margin(auto);
 
     &:not(.login) .login,
     &:not(.empty) .empty,
@@ -311,18 +311,18 @@ html:not(.player-list) #player-list {
     }
 
     .login {
-        @include paper;
-        @include document;
+        @include defs.paper;
+        @include defs.document;
         text-align: center;
 
         .title {
-            @include heading;
+            @include defs.heading;
             margin-bottom: 1rem;
         }
 
         button {
-            @include plain-button;
-            @include button;
+            @include defs.plain-button;
+            @include defs.button;
             padding: 1rem;
         }
     }
@@ -332,14 +332,14 @@ html:not(.player-list) #player-list {
     }
 
     .loading {
-        @include flex(column);
-        @include vertical-margin(auto);
-        @include horizontal-margin(auto);
+        @include defs.flex(column);
+        @include defs.vertical-margin(auto);
+        @include defs.horizontal-margin(auto);
 
         .loading-message {
-            @include page-heading;
+            @include defs.page-heading;
             &:before {
-                @include loading-indicator;
+                @include defs.loading-indicator;
                 display: inline-block;
                 margin-right: 1rem;
                 margin-bottom: 1rem;
@@ -354,11 +354,11 @@ html:not(.player-list) #player-list {
     }
 
     .error {
-        @include paper;
-        @include document;
+        @include defs.paper;
+        @include defs.document;
 
         .heading {
-            @include heading;
+            @include defs.heading;
         }
 
         .error-details-heading {
@@ -373,14 +373,14 @@ html:not(.player-list) #player-list {
 }
 
 .add-playset-page {
-    @include vertical-margin(auto);
+    @include defs.vertical-margin(auto);
     max-width: 40rem;
     align-self: center;
     text-align: center;
     padding: 1rem;
 
     .heading {
-        @include page-heading;
+        @include defs.page-heading;
         margin-bottom: 2rem;
     }
 
@@ -399,41 +399,41 @@ html:not(.player-list) #player-list {
             display: block;
             content: "or";
             margin-bottom: 1.5rem;
-            font-family: $heading-font;
-            color: $heading-color;
+            font-family: defs.$heading-font;
+            color: defs.$heading-color;
         }
     }
 
     .add-playset-file-button {
-        @include plain-button;
-        @include button;
+        @include defs.plain-button;
+        @include defs.button;
         padding: 1rem;
     }
 
     .add-playset-drag-drop-field {
         display: block;
         padding: 2rem;
-        border: 3px dashed $heading-color;
-        font-family: $heading-font;
-        background-color: $dark-background-color;
+        border: 3px dashed defs.$heading-color;
+        font-family: defs.$heading-font;
+        background-color: defs.$dark-background-color;
     }
 
     &.drag {
         .add-playset-drag-drop-field {
-            background-color: $black;
+            background-color: defs.$black;
         }
     }
 
     .tip {
         font-size: 0.75rem;
         margin-top: 2rem;
-        font-family: $heading-font;
-        color: $heading-color;
+        font-family: defs.$heading-font;
+        color: defs.$heading-color;
         line-height: 2;
 
         a {
             display: inline-block;
-            color: $white;
+            color: defs.$white;
             text-decoration: underline;
         }
     }
@@ -441,17 +441,17 @@ html:not(.player-list) #player-list {
 
 .playsets-page {
     flex: 1;
-    @include flex(column, $horizontal: center);
+    @include defs.flex(column, $horizontal: center);
     overflow: auto;
 
     h2 {
-        @include page-heading;
+        @include defs.page-heading;
         margin-top: 2rem;
         margin-bottom: 1.25rem;
     }
 
     .playsets {
-        @include flex(row,
+        @include defs.flex(row,
             $horizontal: center,
             $vertical: stretch,
             $horizontal-spacing: 1.5rem,
@@ -462,7 +462,7 @@ html:not(.player-list) #player-list {
 
     .playset,
     .add-playset {
-        @include flex(row, $vertical: stretch);
+        @include defs.flex(row, $vertical: stretch);
         overflow: visible;
         position: relative;
     }
@@ -478,17 +478,17 @@ html:not(.player-list) #player-list {
         top: 0;
         width: 100%;
         height: 100%;
-        @include flex(column, $horizontal: center, $vertical: center);
-        font-family: $heading-font;
-        color: $white;
+        @include defs.flex(column, $horizontal: center, $vertical: center);
+        font-family: defs.$heading-font;
+        color: defs.$white;
         pointer-events: none;
     }
 
     .playset-link,
     .add-playset-link {
         flex: 1;
-        @include flex(column, $horizontal: center);
-        @include button($border: true);
+        @include defs.flex(column, $horizontal: center);
+        @include defs.button($border: true);
         text-align: center;
     }
 
@@ -512,18 +512,18 @@ html:not(.player-list) #player-list {
     .playset-name,
     .add-playset-label {
         flex: 1;
-        @include flex(column, $horizontal: center, $vertical: center);
+        @include defs.flex(column, $horizontal: center, $vertical: center);
         width: 8rem;
         padding: 0.5rem;
         font-size: 0.75rem;
-        font-family: $heading-font;
+        font-family: defs.$heading-font;
         line-height: 1.5;
     }
 }
 
 .playsets-page.loading {
     .add-playset:before {
-        @include loading-indicator;
+        @include defs.loading-indicator;
         display: block;
         align-self: center;
         margin-right: 1.5rem;
@@ -531,9 +531,9 @@ html:not(.player-list) #player-list {
 }
 
 .players-page {
-    @include vertical-margin(auto);
+    @include defs.vertical-margin(auto);
 
-    @include flex(column,
+    @include defs.flex(column,
         $horizontal: center,
         $vertical-spacing: 1rem
     );
@@ -547,20 +547,20 @@ html:not(.player-list) #player-list {
     }
 
     h2 {
-        @include page-heading;
+        @include defs.page-heading;
     }
 
     .links {
-        @include flex(row, $vertical: center, $horizontal: center);
+        @include defs.flex(row, $vertical: center, $horizontal: center);
         flex-wrap: wrap;
     }
 
     .collaboration button,
     .players-link {
-        @include plain-button;
-        @include button;
+        @include defs.plain-button;
+        @include defs.button;
         padding: 1rem;
-        font-family: $heading-font;
+        font-family: defs.$heading-font;
         font-size: 1.5rem;
         text-align: center;
     }
@@ -583,7 +583,7 @@ html:not(.player-list) #player-list {
             @include google-drive-logo;
 
             &:after {
-                @include button;
+                @include defs.button;
                 position: absolute;
                 left: 90%;
                 bottom: 85%;
@@ -591,20 +591,20 @@ html:not(.player-list) #player-list {
                 content: "New!";
                 font-size: 0.75rem;
                 padding: 0.5rem;
-                background-color: $other-background-color;
+                background-color: defs.$other-background-color;
             }
 
             .backend {
                 display: block;
                 margin-top: 0.5rem;
                 font-size: 1rem;
-                color: darken($white, 25%);
+                color: darken(defs.$white, 25%);
             }
         }
 
         .loading {
             &:before {
-                @include loading-indicator;
+                @include defs.loading-indicator;
                 display: block;
                 margin-bottom: 1rem;
             }
@@ -616,13 +616,13 @@ html:not(.player-list) #player-list {
 
         .active {
             padding: 1rem;
-            color: $white;
-            background-color: $dark-background-color;
+            color: defs.$white;
+            background-color: defs.$dark-background-color;
 
             @include google-drive-logo;
 
             .instructions {
-                font-family: $heading-font;
+                font-family: defs.$heading-font;
                 margin-bottom: 0.5rem;
             }
 
@@ -685,12 +685,12 @@ html:not(.player-list) #player-list {
 }
 
 @mixin connector($top: false, $right: false, $bottom: false, $left: false) {
-    @include line-through(
+    @include defs.line-through(
         $top: $top,
         $right: $right,
         $bottom: $bottom,
         $left: $left,
-        $color: $shadow-color,
+        $color: defs.$shadow-color,
         $width: 1rem
     );
 }
@@ -700,7 +700,7 @@ html:not(.player-list) #player-list {
 
     .setup-page {
         flex: 1;
-        @include flex(column, $vertical: center, $horizontal: stretch);
+        @include defs.flex(column, $vertical: center, $horizontal: stretch);
 
         .pairs-outer {
             flex: 1;
@@ -708,28 +708,19 @@ html:not(.player-list) #player-list {
         }
 
         .pairs {
-            @include flex(row, $multiline: true, $vertical: stretch);
+            display: grid;
+            align-items: stretch;
+            grid-template-columns: repeat(var(--columns), minmax($slot-width, 1fr));
         }
 
         .pair {
             align-self: center;
             padding: 1rem;
         }
-
-        .player, .pair {
-            min-width: $slot-width;
-        }
     }
 
     .players-3.setup-page {
-        .pairs {
-            min-width: 3 * $slot-width;
-        }
-
-        .player,
-        .pair {
-            width: 33.33%;
-        }
+        --columns: 3;
 
         #pair-1 { order: 1; }
         #pair-2 { order: 3; }
@@ -753,14 +744,7 @@ html:not(.player-list) #player-list {
     }
 
     .players-4.setup-page {
-        .pairs {
-            min-width: 4 * $slot-width;
-        }
-
-        .player,
-        .pair {
-            width: 25%;
-        }
+        --columns: 4;
 
         #pair-1 { order: 1; }
         #pair-2 { order: 3; }
@@ -787,14 +771,7 @@ html:not(.player-list) #player-list {
     }
 
     .players-5.setup-page {
-        .pairs {
-            min-width: 5 * $slot-width;
-        }
-
-        .player,
-        .pair {
-            width: 20%;
-        }
+        --columns: 5;
 
         #pair-1 { order: 1; }
         #pair-2 { order: 3; }
@@ -829,7 +806,7 @@ html:not(.player-list) #player-list {
         padding: 0.5rem;
 
         .pairs {
-            @include flex(column, $horizontal: stretch);
+            @include defs.flex(column, $horizontal: stretch);
         }
 
         #player-1 { order: 1; }
@@ -869,7 +846,7 @@ html:not(.player-list) #player-list {
     text-align: center;
 
     .playset {
-        @include flex(row, $horizontal: center, $vertical: center);
+        @include defs.flex(row, $horizontal: center, $vertical: center);
 
         &:hover {
             .edit {
@@ -881,17 +858,17 @@ html:not(.player-list) #player-list {
     .playset-name {
         order: 2;
         font-size: 2rem;
-        font-family: $heading-font;
-        color: $heading-color;
+        font-family: defs.$heading-font;
+        color: defs.$heading-color;
 
         .playset-name-text {
-            @include editable($heading-color);
+            @include defs.editable(defs.$heading-color);
             vertical-align: middle;
         }
 
         position: relative;
         .edit {
-            @include edit-button;
+            @include defs.edit-button;
             display: inline;
             margin-left: 0;
             position: static;
@@ -907,15 +884,15 @@ html:not(.player-list) #player-list {
         order: 1;
 
         a, button {
-            @include plain-button;
-            @include button;
+            @include defs.plain-button;
+            @include defs.button;
             padding: 1rem;
             display: inline-block;
         }
     }
 
     #player-count-control {
-        font-family: $heading-font;
+        font-family: defs.$heading-font;
         padding: 0.25rem;
     }
 
@@ -960,30 +937,30 @@ html:not(.player-list) #player-list {
     }
 
     .relationship, .specified-detail {
-        @include flex(column, $horizontal: stretch, $vertical-spacing: 1rem);
+        @include defs.flex(column, $horizontal: stretch, $vertical-spacing: 1rem);
         position: relative;
     }
 
     .item {
         padding: 1rem;
-        background-color: $yellow-card-background-color;
-        @include shadow;
+        background-color: defs.$yellow-card-background-color;
+        @include defs.shadow;
     }
 
     .relationship-heading,
     .detail-heading {
-        font-family: $heading-font;
+        font-family: defs.$heading-font;
         font-size: 0.75rem;
         color: hsl(0, 100%, 35%);
     }
 
     .unspecified-detail {
-        @include flex(column, $horizontal: stretch, $vertical-spacing: 1rem);
+        @include defs.flex(column, $horizontal: stretch, $vertical-spacing: 1rem);
 
         .detail-control {
             flex: 1;
-            @include plain-button;
-            @include button;
+            @include defs.plain-button;
+            @include defs.button;
             padding: 0.5rem;
         }
     }
@@ -1001,24 +978,24 @@ html:not(.player-list) #player-list {
     }
 
     .detail.need {
-        background-color: $red-card-background-color;
+        background-color: defs.$red-card-background-color;
     }
 
     .detail.location {
-        background-color: $green-card-background-color;
+        background-color: defs.$green-card-background-color;
     }
 
     .detail.object {
-        background-color: $blue-card-background-color;
+        background-color: defs.$blue-card-background-color;
     }
 
     .category,
     .element {
-        @include flex(row, $vertical: center, $horizontal-spacing: 1rem);
+        @include defs.flex(row, $vertical: center, $horizontal-spacing: 1rem);
     }
 
     .name {
-        @include editable(transparentize($white, 0.5));
+        @include defs.editable(transparentize(defs.$white, 0.5));
 
         &:hover,
         &:focus {
@@ -1028,11 +1005,11 @@ html:not(.player-list) #player-list {
 
     .relationship-category,
     .detail-category {
-        font-family: $heading-font;
+        font-family: defs.$heading-font;
     }
 
     .die {
-        @include plain-button;
+        @include defs.plain-button;
     }
 
     .relationship-element-name,
@@ -1043,20 +1020,20 @@ html:not(.player-list) #player-list {
     .player-image {
         width: auto;
         height: 6rem;
-        border: 1rem solid $background-color;
-        background-color: $background-color;
+        border: 1rem solid defs.$background-color;
+        background-color: defs.$background-color;
     }
 
     .player-name-outer {
-        background-color: $background-color;
-        border: 1rem solid $background-color;
+        background-color: defs.$background-color;
+        border: 1rem solid defs.$background-color;
         border-top: 0;
         font-size: 1.5rem;
 
         position: relative;
 
         .edit {
-            @include edit-button;
+            @include defs.edit-button;
         }
         &:hover {
             .edit {
@@ -1066,13 +1043,13 @@ html:not(.player-list) #player-list {
     }
 
     .player-name {
-        color: $heading-color;
-        font-family: $heading-font;
-        @include editable($heading-color);
+        color: defs.$heading-color;
+        font-family: defs.$heading-font;
+        @include defs.editable(defs.$heading-color);
     }
 
     .remove {
-        @include plain-button;
+        @include defs.plain-button;
 
         img {
             height: 1.25em;
@@ -1117,7 +1094,7 @@ html:not(.player-list) #player-list {
 
 .table-page {
     flex: 1 0;
-    @include flex(row, $horizontal: center, $vertical: center);
+    @include defs.flex(row, $horizontal: center, $vertical: center);
 
     .table {
         flex: 1;
@@ -1128,8 +1105,8 @@ html:not(.player-list) #player-list {
         align-items: stretch;
         max-width: 80rem;
         padding: 2rem;
-        background-color: $yellow-card-background-color;
-        @include shadow;
+        background-color: defs.$yellow-card-background-color;
+        @include defs.shadow;
     }
 
     .table-subtitle {
@@ -1141,8 +1118,8 @@ html:not(.player-list) #player-list {
         align-self: center;
         text-align: center;
         font-size: 1.5rem;
-        font-family: $heading-font;
-        color: $text-red;
+        font-family: defs.$heading-font;
+        color: defs.$text-red;
     }
 
     .table-title {
@@ -1152,16 +1129,16 @@ html:not(.player-list) #player-list {
     .table-subtitle {
         margin-top: 0.75rem;
         .table-subtitle-text {
-            @include editable(transparentize($white, 0.5));
+            @include defs.editable(transparentize(defs.$white, 0.5));
         }
         position: relative;
-        .edit { @include edit-button; }
+        .edit { @include defs.edit-button; }
         &:hover .edit { opacity: 1; }
     }
 
     @media (min-width: 50em) {
         .categories {
-            @include columns(2, 1rem);
+            @include defs.columns(2, 1rem);
             counter-reset: category;
         }
 
@@ -1185,11 +1162,11 @@ html:not(.player-list) #player-list {
 
     .category-name {
         font-size: 1.125rem;
-        font-family: $heading-font;
+        font-family: defs.$heading-font;
         margin-bottom: 0.75rem;
 
         .category-link {
-            @include plain-button;
+            @include defs.plain-button;
             display: inline;
 
             text-align: left;
@@ -1201,12 +1178,12 @@ html:not(.player-list) #player-list {
 
             &[href]:hover,
             &[href]:focus {
-                border-bottom-color: $black;
+                border-bottom-color: defs.$black;
             }
         }
 
         position: relative;
-        .edit { @include edit-button(inside); }
+        .edit { @include defs.edit-button(inside); }
         &:hover .edit { opacity: 1; }
     }
 
@@ -1217,7 +1194,7 @@ html:not(.player-list) #player-list {
 
     .element-name {
         counter-increment: element;
-        @include die-item;
+        @include defs.die-item;
 
         .element-link {
             display: inline;
@@ -1229,7 +1206,7 @@ html:not(.player-list) #player-list {
         }
 
         position: relative;
-        .edit { @include edit-button(inside); }
+        .edit { @include defs.edit-button(inside); }
         &:hover .edit { opacity: 1; }
     }
 
@@ -1237,13 +1214,13 @@ html:not(.player-list) #player-list {
     .table-subtitle,
     .category-link,
     .element-link {
-        @include editable(transparentize($white, 0.5));
+        @include defs.editable(transparentize(defs.$white, 0.5));
     }
 }
 
 .table-page.single-category {
     .categories {
-        @include columns(1);
+        @include defs.columns(1);
     }
 
     .category-name {
@@ -1262,17 +1239,17 @@ html:not(.player-list) #player-list {
     overflow: auto;
 
     .playset-name {
-        @include page-heading;
+        @include defs.page-heading;
         align-self: center;
 
         .playset-name-text {
-            @include editable($heading-color);
+            @include defs.editable(defs.$heading-color);
             vertical-align: middle;
         }
 
         position: relative;
         .edit {
-            @include edit-button;
+            @include defs.edit-button;
             display: inline;
             margin-left: 0;
             position: static;
@@ -1287,14 +1264,14 @@ html:not(.player-list) #player-list {
     }
 
     .links {
-        @include flex(column, $horizontal: center);
+        @include defs.flex(column, $horizontal: center);
     }
 
     .play-link,
     .resume-link,
     .credits-link,
     .delete-link {
-        @include button;
+        @include defs.button;
         display: inline-block;
         padding: 1rem;
     }
@@ -1309,7 +1286,7 @@ html:not(.player-list) #player-list {
     .playset-preview-page {
         padding-top: 1rem;
 
-        @include flex(column,
+        @include defs.flex(column,
             $vertical-spacing: 1rem,
             $horizontal: stretch
         );
@@ -1344,7 +1321,7 @@ html:not(.player-list) #player-list {
     .playset-preview-page {
         padding: 2rem;
 
-        @include flex(column,
+        @include defs.flex(column,
             $horizontal: stretch,
             $vertical-spacing: 1rem
         );
@@ -1378,7 +1355,7 @@ html:not(.player-list) #player-list {
             display: inline-block;
             width: auto;
             height: 100%;
-            background-color: $white; // For PDFs with transparent backgrounds.
+            background-color: defs.$white; // For PDFs with transparent backgrounds.
         }
 
         .credits-link,
@@ -1400,51 +1377,51 @@ html:not(.player-list) #player-list {
 }
 
 .help-page {
-    @include flex(row, $horizontal: center);
-    @include vertical-margin(auto);
+    @include defs.flex(row, $horizontal: center);
+    @include defs.vertical-margin(auto);
 
     .document {
-        @include paper;
-        @include document;
+        @include defs.paper;
+        @include defs.document;
         flex: 1;
         position: relative;
         max-width: 60rem;
 
         @media (min-width: 40em) {
-            @include vertical-margin(2rem);
+            @include defs.vertical-margin(2rem);
         }
     }
 
     .title {
-        @include heading;
+        @include defs.heading;
     }
 }
 
 .version-page {
-    @include flex(row, $horizontal: center);
-    @include vertical-margin(auto);
+    @include defs.flex(row, $horizontal: center);
+    @include defs.vertical-margin(auto);
 
     .document {
-        @include paper;
-        @include document;
+        @include defs.paper;
+        @include defs.document;
         flex: 1;
         position: relative;
         max-width: 60rem;
         text-align: center;
 
         @media (min-width: 40em) {
-            @include vertical-margin(2rem);
+            @include defs.vertical-margin(2rem);
         }
     }
 
     .title {
-        @include heading;
+        @include defs.heading;
         margin-bottom: 2rem;
     }
 
     .start-button {
-        @include plain-button;
-        @include button;
+        @include defs.plain-button;
+        @include defs.button;
         padding: 1rem;
     }
 
@@ -1459,7 +1436,7 @@ html:not(.player-list) #player-list {
 
     iframe {
         display: block;
-        @include horizontal-margin(auto);
+        @include defs.horizontal-margin(auto);
         width: 100%;
         max-width: 560px;
         height: 315px;
@@ -1471,8 +1448,8 @@ html:not(.player-list) #player-list {
     position: absolute;
     left: 0;
     top: 0;
-    @include plain-button;
-    @include button;
+    @include defs.plain-button;
+    @include defs.button;
     padding: 1rem;
     margin: 1rem; // Beware that flex mixin margins may apply here.
 }

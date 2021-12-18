@@ -19,6 +19,7 @@
 <script lang="ts">
 	import Categories from '$lib/components/Table/Categories.svelte';
 	import Table from '$lib/components/Table/Table.svelte';
+	import Title from '$lib/components/Title.svelte';
 
 	export let tableType: CardType;
 	export let playset: PlaysetData;
@@ -27,9 +28,7 @@
 	$: table = getTable(playset, tableType);
 </script>
 
-<svelte:head>
-	<title>{cardName(tableType)} | {playset.title} | Fiascomputer</title>
-</svelte:head>
+<Title text={cardName(tableType)} playsetTitle={playset.title} />
 
 <div id="table" class="page table-page">
 	<Table subtitle={playset.subtitle} {table} cardType={tableType}>

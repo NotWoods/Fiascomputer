@@ -1,6 +1,8 @@
-<svelte:head>
-	<title>Fiascomputer | Create and visualize Fiasco setups</title>
-</svelte:head>
+<script lang="ts">
+    import Title from "$lib/components/Title.svelte";
+</script>
+
+<Title homePage text="" />
 
 <div id="intro" class="page intro-page">
   <div class="document">
