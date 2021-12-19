@@ -2,13 +2,36 @@ import R from 'ramda';
 import { default as loadPdf, loadPlaysets } from '../../source/pdf.js';
 import { default as validatePlayset, logPlayset } from '../../source/validate-playset.js';
 
+function logPlayset(playset) {
+	Object.keys(playset.tables).forEach((key) => {
+		const t = playset.tables[key];
+		console.group(key);
+		console.log(
+			t.categories
+				.map((c, ci) => {
+					return (
+						ci +
+						1 +
+						'. ' +
+						c.name +
+						'\n' +
+						'-----\n' +
+						c.elements.map((e, ei) => ei + 1 + '. ' + e).join('\n')
+					);
+				})
+				.join('\n\n')
+		);
+		console.groupEnd();
+	});
+}
+
 export default function() {
     const assert = chai.assert;
     const assertEqual = chai.assert.deepEqual;
     const assertError = chai.assert.throws;
     const assertAbove = chai.assert.isAbove;
     const assertNotEqual = chai.assert.notEqual;
-    
+
     [
         'fiasco',
         'fiasco_companion',
@@ -63,7 +86,7 @@ export default function() {
                 return loadPlaysets(pdf)
                 .then(playsets => {
                     pdf.destroy();
-                    
+
                     playsets.forEach(playset => {
                         console.group(name);
                         logPlayset(playset);

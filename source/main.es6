@@ -11,7 +11,7 @@ import renderPlaysets from './views/playsets.js';
 import renderPlayers from './views/players.js';
 import renderPlaysetPreview from './views/playset-preview.js';
 import renderHelp from './views/help.js';
-import { parseInteger, capitalize, startsWith, withParams } from 'utils';
+import { capitalize, startsWith, withParams } from 'utils';
 import createQueue from './queue.js';
 import * as storage from './storage.js';
 import * as State from './state.js';
@@ -487,7 +487,7 @@ dom.on(document, 'DOMContentLoaded', () => {
             .catch(error => pages.playsets.playsetLoadFailed(file.name));
         };
 
-        const loadPlaysetPagesFromPdf = (pdf, filename) => {
+        const loadPlaysetPagesFromPdf = (pdf: PDFDocumentProxy, filename) => {
             return loadPlaysets(pdf)
             .then(playsets => {
                 // We put this early because we cannot run the validation after the
@@ -514,7 +514,7 @@ dom.on(document, 'DOMContentLoaded', () => {
                         playset.subtitle = '...somewhere';
                     }
 
-                    const numbers = pageNumbers(pdf)[index];
+                    const numbers: Pages<number> = pageNumbers(pdf)[index];
                     const queuePage = createQueue(1);
                     return queuePage(() => loadPage(pdf, numbers.cover, 0.5, 'image/jpeg'))
                     .then(thumbnail => {

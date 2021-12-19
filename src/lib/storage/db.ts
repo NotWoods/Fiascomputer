@@ -1,16 +1,16 @@
 import { openDB, type DBSchema, type IDBPDatabase } from 'idb';
-import type { Pages } from './pages';
+import type { PageImages } from './pages';
 import type { PlaysetDataWithId } from './playset';
 import type { Session } from './session';
 
-interface FiascoDB extends DBSchema {
+export interface FiascoDB extends DBSchema {
 	playsets: {
 		key: string;
 		value: PlaysetDataWithId;
 	};
 	pages: {
 		key: string;
-		value: Pages;
+		value: PageImages;
 	};
 	sessions: {
 		key: string;
