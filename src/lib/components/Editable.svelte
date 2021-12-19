@@ -17,10 +17,12 @@
 
 			requestAnimationFrame(() => {
 				const selection = window.getSelection();
-				const range = document.createRange();
-				range.selectNodeContents(editableNode);
-				selection.removeAllRanges();
-				selection.addRange(range);
+				if (selection) {
+					const range = document.createRange();
+					range.selectNodeContents(editableNode);
+					selection.removeAllRanges();
+					selection.addRange(range);
+				}
 			});
 		}
 		editing = !editing;
@@ -28,7 +30,7 @@
 
 	function onPaste(event: ClipboardEvent) {
 		event.preventDefault();
-		onChange(event.clipboardData.getData('text/plain'));
+		onChange(event.clipboardData!.getData('text/plain'));
 	}
 
 	function onKeyDown(event: KeyboardEvent) {
@@ -45,6 +47,10 @@
 			onClick?.(event);
 		}
 	}
+
+	function handleChange() {
+		onChange(editableNode?.textContent ?? '');
+	}
 </script>
 
 {#if editable}
@@ -53,7 +59,7 @@
 			href="/"
 			{...$$restProps}
 			contentEditable={editing}
-			on:change={() => onChange(editableNode.textContent)}
+			on:change={handleChange}
 			on:paste={onPaste}
 			on:keydown={onKeyDown}
 			on:blur={() => {
@@ -68,7 +74,7 @@
 		<span
 			{...$$restProps}
 			contentEditable={editing}
-			on:change={() => onChange(editableNode.textContent)}
+			on:change={handleChange}
 			on:paste={onPaste}
 			on:keydown={onKeyDown}
 			on:blur={() => {

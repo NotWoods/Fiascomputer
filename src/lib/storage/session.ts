@@ -1,4 +1,4 @@
-import type { DetailType } from '$lib/components/FiascoCard/card-type';
+import type { CardType, DetailType } from '$lib/components/FiascoCard/card-type';
 import type { CardDetails } from '$lib/deck';
 import type { OutcomeDetails } from '$lib/outcome';
 
@@ -9,7 +9,7 @@ export function range<T>(length: number, map: (index: number) => T): T[] {
 export type { CardDetails };
 
 export interface Pair {
-	relationship: CardDetails<'relationship' | undefined>;
+	relationship: CardDetails<'relationship'>;
 	detail: CardDetails<DetailType | undefined>;
 }
 
@@ -34,22 +34,24 @@ export function emptyPlayer(num: number): Player {
 	};
 }
 
+export function emptyCardDetails<Type extends CardType | undefined>(
+	table: Type
+): CardDetails<Type> {
+	return {
+		table,
+		category: undefined,
+		element: undefined
+	};
+}
+
 export function emptySession(playset?: string): Session {
 	return {
 		playset,
 		players: range(MIN_PLAYERS, (i) => emptyPlayer(i + 1)),
 		pairs: range(MAX_PLAYERS, () => {
 			return {
-				relationship: {
-					table: 'relationship',
-					category: undefined,
-					element: undefined
-				},
-				detail: {
-					table: undefined,
-					category: undefined,
-					element: undefined
-				}
+				relationship: emptyCardDetails('relationship'),
+				detail: emptyCardDetails(undefined)
 			};
 		})
 	};

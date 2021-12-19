@@ -1,14 +1,14 @@
 import type { SessionAction } from '$lib/actions';
 import { buildDeck, type CardDetails } from '$lib/deck';
-import { emptyPlayer, type Session } from '$lib/storage/session';
+import { emptyCardDetails, emptyPlayer, type Session } from '$lib/storage/session';
 import { remove, replace } from '../helpers';
 
 function replaceCardDetails<Details extends CardDetails<any>>(
 	state: Details,
-	deck: { draw(): Details }
+	deck: { draw(): Details | undefined }
 ) {
 	if (state.category == undefined || state.element == undefined) {
-		return deck.draw();
+		return deck.draw() ?? emptyCardDetails(state.table);
 	} else {
 		return state;
 	}

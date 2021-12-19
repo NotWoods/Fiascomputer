@@ -9,6 +9,12 @@ export interface CardDetails<Type extends CardType | undefined = CardType> {
 	element: TableIndex | undefined;
 }
 
+export function cardDetailsTableDefined<T extends CardType>(
+	cardDetails: CardDetails<T | undefined>
+): cardDetails is CardDetails<T> {
+	return cardDetails.table !== undefined;
+}
+
 export function playsetToCards(playset: PlaysetData) {
 	const table = getTable(playset, 'relationship');
 	const relationshipCards = tableToCards(table, 'relationship');

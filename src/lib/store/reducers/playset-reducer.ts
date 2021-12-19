@@ -8,12 +8,14 @@ export function playsetReducer(
 ): PlaysetDataWithId | undefined {
 	switch (action.type) {
 		case 'playset':
-			if (!state || action.playset.id !== state.id) {
+			if (!state || action.playset?.id !== state.id) {
 				return action.playset;
 			} else {
 				return state;
 			}
 		case 'category': {
+			if (!state) return undefined;
+
 			const { table, category, text } = action;
 			const tableData = state.tables[table];
 			return {
@@ -33,6 +35,8 @@ export function playsetReducer(
 			};
 		}
 		case 'element': {
+			if (!state) return undefined;
+
 			const { table, category, element, text } = action;
 			const tableData = state.tables[table];
 			return {
@@ -52,11 +56,15 @@ export function playsetReducer(
 			};
 		}
 		case 'title':
+			if (!state) return undefined;
+
 			return {
 				...state,
 				title: action.title
 			};
 		case 'subtitle':
+			if (!state) return undefined;
+
 			return {
 				...state,
 				subtitle: action.subtitle

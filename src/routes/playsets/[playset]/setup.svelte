@@ -28,7 +28,7 @@
 
 	$: activePlayers = $sessionStore.players.length;
 	$: playset = $playsetStore;
-	$: title = playset.title ?? 'Playset';
+	$: title = playset?.title ?? 'Playset';
 
 	function handleInvite(event: Event) {
 		const select = event.currentTarget as HTMLSelectElement;
@@ -42,6 +42,7 @@
 	}
 
 	function randomize() {
+		if (!playset) return;
 		const { relationshipCards, detailCards } = playsetToCards(playset);
 		sessionStore.dispatch(randomSetup(relationshipCards, detailCards));
 	}

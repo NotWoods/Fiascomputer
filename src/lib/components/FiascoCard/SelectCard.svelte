@@ -5,7 +5,7 @@
 	import { cardColors, cardName, icons } from './card-colors';
 	import CardRow, { DescriptionType, fallback } from './_CardRow.svelte';
 
-	export let playset: PlaysetData;
+	export let playset: PlaysetData | undefined;
 	export let cardDetails: CardDetails;
 	export let pairIndex: number;
 	export let editable = false;
@@ -13,7 +13,7 @@
 
 	$: type = cardDetails.table;
 	$: colors = cardColors[type];
-	$: categories = getTable(playset, type).categories;
+	$: categories = playset ? getTable(playset, type).categories : undefined;
 
 	function cardRowLink(
 		descriptionType: DescriptionType,
@@ -56,7 +56,7 @@
 		{editable}
 		href={cardRowLink('category', cardDetails, pairIndex)}
 	>
-		{#if cardDetails.category !== undefined}
+		{#if categories && cardDetails.category !== undefined}
 			{categories[cardDetails.category].name}
 		{:else}
 			{fallback('category', editable)}
@@ -67,7 +67,7 @@
 		{editable}
 		href={cardRowLink('element', cardDetails, pairIndex)}
 	>
-		{#if cardDetails.category !== undefined && cardDetails.element !== undefined}
+		{#if categories && cardDetails.category !== undefined && cardDetails.element !== undefined}
 			{categories[cardDetails.category].elements[cardDetails.element]}
 		{:else}
 			{fallback('element', editable)}

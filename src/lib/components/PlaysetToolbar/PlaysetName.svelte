@@ -3,7 +3,7 @@
 	import Editable from '$lib/components/Editable.svelte';
 	import { bindDispatch, playsetStore } from '$lib/store';
 
-	$: title = $playsetStore.title ?? 'Playset';
+	$: title = $playsetStore?.title ?? 'Playset';
 
 	const changeTitle = bindDispatch(playsetStore, renameTitle);
 </script>
