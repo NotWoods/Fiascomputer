@@ -11,7 +11,7 @@
 
 		const playsetId = page.params.playset;
 		const [playset, alreadyStarted] = await Promise.all([
-			loadKnownPlayset(playsetId, fetch),
+			loadKnownPlayset(playsetId, { fetch, loadPages: true }),
 			dbReady.then((db) => {
 				if (db) {
 					return db.getKey('sessions', playsetId).then(Boolean);
@@ -31,6 +31,7 @@
 </script>
 
 <script lang="ts">
+	import BlobbyImage from '$lib/components/BlobbyImage.svelte';
 	import PlaysetName from '$lib/components/PlaysetToolbar/PlaysetName.svelte';
 	import Title from '$lib/components/Title.svelte';
 
@@ -39,9 +40,9 @@
 	export let playset: Playset;
 	export let alreadyStarted = false;
 
-	$: cover = playset.pages[0] ?? BLANK_PAGE;
-	$: credits = playset.pages[1];
-	$: score = playset.pages[2];
+	$: cover = playset.pages.cover ?? playset.thumbnail;
+	$: credits = playset.pages.credits;
+	$: score = playset.pages.score;
 
 	async function newGame() {
 		const db = await dbReady;
@@ -61,32 +62,26 @@
 	<!-- We use both `inner` and `outer` below to properly achieve 100% image height with proper aspect ratio. -->
 	<div class="pages-outer">
 		<div class="pages-inner">
-			<a href={cover} target="_blank" class="playset-page-link" id="playset-cover-page-link">
-				<img
-					src={cover}
-					class="playset-page"
-					id="playset-cover-page"
-					alt="{playset.title} Cover"
-					width="600"
-					height="900"
-				/>
-			</a>
-			<a
-				href={score ?? BLANK_PAGE}
+			<BlobbyImage
+				aClass="playset-page-link playset-cover-page-link"
+				imgClass="playset-page playset-cover-page"
 				target="_blank"
-				class="playset-page-link"
-				id="playset-score-page-link"
-			>
-				<img
-					src={score ?? BLANK_PAGE}
-					class="playset-page"
-					id="playset-score-page"
-					alt=""
-					width="600"
-					height="900"
-					hidden={!score}
+				src={cover ?? BLANK_PAGE}
+				alt="{playset.title} Cover"
+				width={600}
+				height={900}
+			/>
+			{#if score}
+				<BlobbyImage
+					aClass="playset-page-link "
+					imgClass="playset-page"
+					target="_blank"
+					src={score}
+					alt="{playset.title} Score"
+					width={600}
+					height={900}
 				/>
-			</a>
+			{/if}
 		</div>
 	</div>
 	<div class="links">
@@ -94,13 +89,11 @@
 		<a href="./setup" class="resume-link" id="resume-setup-control" hidden={!alreadyStarted}
 			>Resume</a
 		>
-		<a
-			href={credits ?? BLANK_PAGE}
-			target="_blank"
-			class="credits-link"
-			id="playset-credits-page-link"
-			hidden={!credits}>Credits</a
-		>
+		{#if typeof credits === 'string'}
+			<a href={credits} target="_blank" class="credits-link" id="playset-credits-page-link"
+				>Credits</a
+			>
+		{/if}
 		<a href="/playsets" class="delete-link" id="delete-playset-control" on:click={deletePlayset}
 			>Delete playset</a
 		>
@@ -109,12 +102,12 @@
 </div>
 
 <style>
-	.playset-page {
+	:global(.playset-page) {
 		aspect-ratio: 600 / 900;
 		background-color: white;
 		object-fit: contain;
 	}
-	#playset-cover-page {
+	:global(.playset-cover-page) {
 		background-color: var(--playset-background, white);
 	}
 

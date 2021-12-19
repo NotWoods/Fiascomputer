@@ -1,3 +1,5 @@
+import { dbReady } from './db';
+
 export type TableIndex = 0 | 1 | 2 | 3 | 4 | 5;
 
 export interface Category {
@@ -19,12 +21,19 @@ export interface PlaysetData {
 
 export interface PlaysetDataWithId extends PlaysetData {
 	id: string;
+	deleted?: boolean;
 }
 
-export interface Playset extends PlaysetDataWithId {
-	cover: string;
-	deleted?: boolean;
-	pages: readonly string[];
+export interface PlaysetDataWithThumbnail extends PlaysetDataWithId {
+	thumbnail: string | Blob | undefined;
+}
+
+export interface Playset extends PlaysetDataWithThumbnail {
+	pages: {
+		cover?: string | Blob;
+		score?: string | Blob;
+		credits?: string | Blob;
+	};
 }
 
 export const BUNDLED_PLAYSETS: readonly string[] = [
@@ -67,6 +76,49 @@ export const BUNDLED_PLAYSETS: readonly string[] = [
 	'trashfire_2020'
 ];
 
+function arrayBufferToBlob(buffer: ArrayBuffer | undefined, type = 'image/png') {
+	if (buffer) {
+		return new Blob([buffer], { type });
+	} else {
+		return undefined;
+	}
+}
+
+export async function loadStoredPlayset(id: string, loadPages = false) {
+	const db = await dbReady;
+	if (db) {
+		let playsetData: PlaysetDataWithId | undefined;
+		const pages: Playset['pages'] = {};
+		if (loadPages) {
+			const tx = db.transaction(['playsets', 'pages']);
+			const playsetReady = tx.objectStore('playsets').get(id);
+			const pageImagesReady = tx.objectStore('pages').get(id);
+
+			playsetData = await playsetReady;
+			try {
+				const images = await pageImagesReady;
+				if (playsetData && images) {
+					pages.cover = arrayBufferToBlob(images.cover, images.coverMime);
+					pages.score = arrayBufferToBlob(images.score);
+					pages.credits = arrayBufferToBlob(images.credits);
+				}
+			} catch (err) {
+				// it's OK if pages fail to load
+			}
+		} else {
+			playsetData = await db.get('playsets', id);
+		}
+
+		if (playsetData) {
+			const playset = playsetData as Playset;
+			playset.thumbnail = pages.cover;
+			playset.pages = pages;
+			return playset;
+		}
+	}
+	return undefined;
+}
+
 export async function loadBundledPlayset(id: string, fetch = globalThis.fetch): Promise<Playset> {
 	const res = await fetch(`/bundled/${id}.json`, {
 		headers: {
@@ -74,20 +126,28 @@ export async function loadBundledPlayset(id: string, fetch = globalThis.fetch): 
 		}
 	});
 	const json = (await res.json()) as PlaysetData;
+	const withId = json as PlaysetDataWithId;
+	withId.id = id;
 
-	if (json.backgroundColor) {
-		return {
-			...json,
-			id,
-			cover: `/bundled/${id}-cover.png`,
-			pages: [`/bundled/${id}-cover.png`, `/bundled/${id}-credits.png`, `/bundled/${id}-score.png`]
-		};
-	} else {
-		return {
-			...json,
-			id,
-			cover: `/bundled/${id}-cover.small.jpg`,
-			pages: [`/bundled/${id}-cover.jpg`, `/bundled/${id}-credits.png`, `/bundled/${id}-score.png`]
-		};
-	}
+	const playset = json.backgroundColor
+		? {
+				...withId,
+				thumbnail: `/bundled/${id}-cover.png`,
+				pages: {
+					cover: `/bundled/${id}-cover.png`,
+					credits: `/bundled/${id}-credits.png`,
+					score: `/bundled/${id}-score.png`
+				}
+		  }
+		: {
+				...withId,
+				thumbnail: `/bundled/${id}-cover.small.jpg`,
+				pages: {
+					cover: `/bundled/${id}-cover.jpg`,
+					credits: `/bundled/${id}-credits.png`,
+					score: `/bundled/${id}-score.png`
+				}
+		  };
+
+	return playset;
 }

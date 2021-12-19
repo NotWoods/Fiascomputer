@@ -1,4 +1,5 @@
 <script lang="ts">
+	import BlobbyImage from '$lib/components/BlobbyImage.svelte';
 	import Title from '$lib/components/Title.svelte';
 	import { BUNDLED_PLAYSETS, loadBundledPlayset } from '$lib/playset';
 	import { playsetLink } from '$lib/playset';
@@ -21,10 +22,21 @@
 					class:deleted={playset.deleted}
 					style="--playset-background: {playset.backgroundColor ?? ''}"
 				>
-					<a class="playset-link" href={playsetLink(playset)}>
-						<img src={playset.cover} alt="" class="playset-thumbnail" width="128" height="192" />
+					{#if playset.thumbnail != undefined}
+						<BlobbyImage
+							aClass="playset-link"
+							imgClass="playset-thumbnail"
+							href={playsetLink(playset)}
+							src={playset.thumbnail}
+							alt=""
+							width={128}
+							height={192}
+						>
+							<h3 class="playset-name">{playset.title}</h3>
+						</BlobbyImage>
+					{:else}
 						<h3 class="playset-name">{playset.title}</h3>
-					</a>
+					{/if}
 				</li>
 			{/each}
 		{/await}
@@ -37,10 +49,10 @@
 </div>
 
 <style>
-	.playset-link {
+	:global(.playset-link) {
 		background-color: var(--playset-background, var(--dark-background-color));
 	}
-	.playset-thumbnail {
+	:global(.playset-thumbnail) {
 		object-fit: contain;
 		background-color: var(--playset-background);
 	}

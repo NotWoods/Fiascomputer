@@ -4,7 +4,6 @@
 	import ThemeDropdown from './ThemeDropdown.svelte';
 
 	export let menuItems: Set<string>;
-	export let removeHelp = false;
 
 	let menuOpen = false;
 
@@ -27,18 +26,18 @@
 <svelte:body on:click={handleDocumentClick} />
 
 <header data-menu={menuOpen.toString()}>
-	<h1 id="app-title"><a href="/">Fiascomputer</a></h1>
-	{#if !removeHelp}
-		<a href="/help" id="help-button">Help</a>
-	{/if}
+	<h1 id="app-title" class="font-hitchcock"><a href="/">Fiascomputer</a></h1>
+	<a class="header-button header-button-help" href="/help" id="help-button">Help</a>
 	<button
+		class="header-button header-button-menu"
+		class:header-close-button={menuOpen}
 		id="menu-button"
 		bind:this={button}
 		on:click={() => {
 			menuOpen = !menuOpen;
 		}}>Menu</button
 	>
-	<ul id="menu" bind:this={menu}>
+	<ul id="menu" bind:this={menu} hidden={!menuOpen}>
 		<MenuItem {menuItems} id="invite-players">
 			<a href="/players">Invite players</a>
 		</MenuItem>
@@ -58,13 +57,26 @@
 	</ul>
 </header>
 
-<style>
-	:global([data-help='true']) #help-button,
-	:global([data-menu='true']) #menu-button {
-		background-image: url('/images/cross-white.svg');
+<style lang="scss">
+	@use '../../../css/_defs';
+
+	.header-button {
+		@include defs.plain-button;
+		padding: 0.5rem;
+		background-repeat: no-repeat;
+		background-position: 0.5rem center;
+		background-size: auto 1rem;
+	}
+	.header-button-help {
+		background-image: url('/images/help.svg');
+		padding-left: 1.5rem;
+	}
+	.header-button-menu {
+		background-image: url('/images/menu.svg');
+		padding-left: 2rem;
 	}
 
-	:global([data-menu='false']) #menu {
-		display: none;
+	.header-close-button {
+		background-image: url('/images/cross-white.svg');
 	}
 </style>

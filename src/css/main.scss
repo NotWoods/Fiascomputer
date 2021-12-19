@@ -82,50 +82,6 @@ header {
         }
     }
 
-    #player-list-box {
-        position: relative;
-
-        #player-list-button {
-            @include menu-button(url("/images/google-drive.png"));
-        }
-
-        #player-list-button.players-0 {
-            display: none;
-        }
-
-        #player-list {
-            position: absolute;
-            right: 0;
-            top: 100%;
-            padding: 0.75rem;
-            color: defs.$white;
-            background-color: defs.$black;
-            @include defs.shadow;
-            white-space: nowrap;
-
-            > * + * {
-                margin-top: 0.75rem;
-            }
-
-            .player-image {
-                height: 1.25em;
-            }
-
-            .player-image, .player-name {
-                vertical-align: middle;
-            }
-        }
-    }
-
-    #help-button {
-        @include menu-button(url("/images/help.svg"));
-        padding-left: 1.5rem;
-    }
-
-    #menu-button {
-        @include menu-button(url("/images/menu.svg"));
-    }
-
     #menu {
         position: absolute;
         right: 0;
@@ -1172,7 +1128,7 @@ html:not(.player-list) #player-list {
             margin-top: 1rem;
         }
 
-        #playset-cover-page-link {
+        .playset-cover-page-link {
             display: none;
         }
     }
@@ -1216,7 +1172,6 @@ html:not(.player-list) #player-list {
             display: inline-block;
             width: auto;
             height: 100%;
-            background-color: defs.$white; // For PDFs with transparent backgrounds.
         }
 
         .credits-link,
