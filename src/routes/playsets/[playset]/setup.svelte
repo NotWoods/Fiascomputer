@@ -24,7 +24,7 @@
 	import TiltCard from '$lib/components/FiascoCard/TiltCard.svelte';
 	import { OutcomeType } from '$lib/outcome';
 
-	let tilt = true;
+	let tilt = false;
 
 	$: activePlayers = $sessionStore.players.length;
 	$: playset = $playsetStore;

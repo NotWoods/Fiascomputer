@@ -20,6 +20,10 @@
 	export let joinLink: string = '';
 
 	let state: 'inactive' | 'loading' | 'active' | undefined = undefined;
+
+	function handleClick(players: number) {
+		sessionStore.dispatch(changeActivePlayers(players));
+	}
 </script>
 
 <div id="players" class="page players-page">
@@ -41,12 +45,15 @@
 	</div>
 	<div class="links">
 		{#each playerOptions as players}
-			<a
+			<button
+				type="button"
 				href="./setup"
 				class="players-link"
 				id="players-link-{players}"
-				on:click={() => sessionStore.dispatch(changeActivePlayers(players))}>{players} players</a
+				on:click={() => handleClick(players)}
 			>
+				{players} players
+			</button>
 		{/each}
 	</div>
 </div>

@@ -1,7 +1,10 @@
 <script lang="ts">
+	import { changeCard } from '$lib/actions';
+
 	import { getTable } from '$lib/playset';
 	import type { PlaysetData } from '$lib/storage/playset';
 	import type { CardDetails } from '$lib/storage/session';
+	import { sessionStore } from '$lib/store/session';
 	import { cardColors, cardName, icons } from './card-colors';
 	import CardRow, { DescriptionType, fallback } from './_CardRow.svelte';
 
@@ -26,6 +29,15 @@
 			link = `${link}?pair=${pairIndex}`;
 		}
 		return link;
+	}
+
+	function resetCardDetails(descriptionType: DescriptionType) {
+		sessionStore.dispatch(
+			changeCard(cardDetails.table, pairIndex, {
+				category: descriptionType === 'category' ? undefined : cardDetails.category,
+				element: undefined
+			})
+		);
 	}
 </script>
 
@@ -55,6 +67,7 @@
 		descriptionType="category"
 		{editable}
 		href={cardRowLink('category', cardDetails, pairIndex)}
+		onRemove={resetCardDetails}
 	>
 		{#if categories && cardDetails.category !== undefined}
 			{categories[cardDetails.category].name}
@@ -66,6 +79,7 @@
 		descriptionType="element"
 		{editable}
 		href={cardRowLink('element', cardDetails, pairIndex)}
+		onRemove={resetCardDetails}
 	>
 		{#if categories && cardDetails.category !== undefined && cardDetails.element !== undefined}
 			{categories[cardDetails.category].elements[cardDetails.element]}

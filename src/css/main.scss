@@ -6,6 +6,10 @@ html, body {
     height: 100%;
 }
 
+body {
+    background-color: defs.$background-color;
+}
+
 #svelte {
     min-height: 100%;
     display: flex;
@@ -15,8 +19,6 @@ html, body {
 main {
     flex: 1;
     @include defs.flex(column, $horizontal: stretch);
-    overflow: auto;
-    background-color: defs.$background-color;
 }
 
 main > .page {

@@ -13,9 +13,10 @@
 </script>
 
 <script lang="ts">
-	export let descriptionType: 'category' | 'element';
+	export let descriptionType: DescriptionType;
 	export let href: string;
 	export let editable: boolean;
+	export let onRemove: (descriptionType: DescriptionType) => void = () => {};
 </script>
 
 <div class="card-description-line {descriptionType}" aria-label={descriptionType}>
@@ -28,7 +29,7 @@
 		<slot>{fallback(descriptionType, editable)}</slot>
 	</a>
 	{#if editable}
-		<button class="remove close-button">
+		<button type="button" class="remove close-button" on:click={() => onRemove(descriptionType)}>
 			<img src="/images/cross-black.svg" alt="Remove" />
 		</button>
 	{/if}
