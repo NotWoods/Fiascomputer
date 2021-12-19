@@ -1,5 +1,5 @@
 <script context="module">
-	import Title from "$lib/components/Title.svelte";
+	import Title from '$lib/components/Title.svelte';
 
 	export const prerender = true;
 </script>

@@ -13,7 +13,7 @@ export function createReducerStore<State, Action>(
 		subscribe: store.subscribe,
 		dispatch(action) {
 			store.update((state) => reducer(state, action));
-			console.info(action)
+			console.info(action);
 		}
 	};
 }

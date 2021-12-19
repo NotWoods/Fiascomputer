@@ -16,8 +16,7 @@
 		if (event.target !== button) {
 			const elementOutsideMenuWasClicked = !menu.contains(target);
 			const controlInsideMenuWasClicked =
-				!elementOutsideMenuWasClicked &&
-				(target.tagName === 'A' || target.tagName === 'BUTTON');
+				!elementOutsideMenuWasClicked && (target.tagName === 'A' || target.tagName === 'BUTTON');
 			if (elementOutsideMenuWasClicked || controlInsideMenuWasClicked) {
 				menuOpen = false;
 			}
@@ -32,7 +31,13 @@
 	{#if !removeHelp}
 		<a href="/help" id="help-button">Help</a>
 	{/if}
-	<button id="menu-button" bind:this={button} on:click={() => { menuOpen = !menuOpen }}>Menu</button>
+	<button
+		id="menu-button"
+		bind:this={button}
+		on:click={() => {
+			menuOpen = !menuOpen;
+		}}>Menu</button
+	>
 	<ul id="menu" bind:this={menu}>
 		<MenuItem {menuItems} id="invite-players">
 			<a href="/players">Invite players</a>
@@ -54,12 +59,12 @@
 </header>
 
 <style>
-	:global([data-help=true]) #help-button,
-	:global([data-menu=true]) #menu-button {
-		background-image: url("/images/cross-white.svg");
+	:global([data-help='true']) #help-button,
+	:global([data-menu='true']) #menu-button {
+		background-image: url('/images/cross-white.svg');
 	}
 
-	:global([data-menu=false]) #menu {
-    display: none;
+	:global([data-menu='false']) #menu {
+		display: none;
 	}
 </style>

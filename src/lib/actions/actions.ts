@@ -28,11 +28,15 @@ export function changeDetailType(table: DetailType | undefined, pairIndex: numbe
 	return {
 		type: 'detail-type',
 		table,
-		pairIndex,
-	}
+		pairIndex
+	};
 }
 
-export function changeCard(table: CardType, pairIndex: number, cardDetails: Omit<CardDetails, 'table'>) {
+export function changeCard(
+	table: CardType,
+	pairIndex: number,
+	cardDetails: Omit<CardDetails, 'table'>
+) {
 	return {
 		type: table,
 		pairIndex,

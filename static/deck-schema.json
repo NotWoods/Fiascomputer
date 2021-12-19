@@ -347,7 +347,7 @@
 			"type": "array",
 			"title": "Kickers",
 			"description": "Feel free to steal one of these options for a Scene to Establish. Think about what you want for your character!",
-      "default": [],
+			"default": [],
 			"items": {
 				"type": "string"
 			}

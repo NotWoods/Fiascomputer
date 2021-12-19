@@ -41,7 +41,12 @@
 	</div>
 	<div class="links">
 		{#each playerOptions as players}
-		<a href="./setup" class="players-link" id="players-link-{players}" on:click={() => sessionStore.dispatch(changeActivePlayers(players))}>{players} players</a>
+			<a
+				href="./setup"
+				class="players-link"
+				id="players-link-{players}"
+				on:click={() => sessionStore.dispatch(changeActivePlayers(players))}>{players} players</a
+			>
 		{/each}
 	</div>
 </div>

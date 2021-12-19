@@ -10,7 +10,7 @@ type ActionsFromModule<StarModule extends Record<string, (...args: any) => any>>
 
 export type PlaysetAction = ActionsFromModule<typeof playsetActions>;
 export type SessionAction = ActionsFromModule<typeof sessionActions>;
-export type FiascoAction = PlaysetAction | SessionAction
+export type FiascoAction = PlaysetAction | SessionAction;
 
 export * from './playset-actions';
 export * from './session-actions';

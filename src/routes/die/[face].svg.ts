@@ -1,24 +1,24 @@
-import type { RequestHandler } from "@sveltejs/kit";
+import type { RequestHandler } from '@sveltejs/kit';
 
 type Face = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 
 function stringToFace(param: string): Face {
-  const num = Number(param);
-  if (0 <= num && num <= 9) {
-    return num as Face;
-  } else {
-    throw new Error(`Invalid face ${param}`);
-  }
+	const num = Number(param);
+	if (0 <= num && num <= 9) {
+		return num as Face;
+	} else {
+		throw new Error(`Invalid face ${param}`);
+	}
 }
 
 export const get: RequestHandler = async ({ params }) => {
-  const face = stringToFace(params.face);
+	const face = stringToFace(params.face);
 
-  return {
-    headers: {
-      'Content-Type': 'image/svg+xml'
-    },
-    body: `<svg
+	return {
+		headers: {
+			'Content-Type': 'image/svg+xml'
+		},
+		body: `<svg
   xmlns="http://www.w3.org/2000/svg"
   width="24"
   height="24"
@@ -45,5 +45,5 @@ export const get: RequestHandler = async ({ params }) => {
   ${face >= 8 ? '<circle cx="19" cy="29" r="3.5" />' : ''}
   ${face > 1 ? '<circle cx="29" cy="29" r="3.5" />' : ''}
 </svg>`
-  }
-}
+	};
+};

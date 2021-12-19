@@ -16,7 +16,11 @@
 	<ul class="playsets">
 		{#await playsetsReady then playsets}
 			{#each playsets as playset (playset.id)}
-				<li class="playset" class:deleted={playset.deleted} style="--playset-background: {playset.backgroundColor ?? ''}">
+				<li
+					class="playset"
+					class:deleted={playset.deleted}
+					style="--playset-background: {playset.backgroundColor ?? ''}"
+				>
 					<a class="playset-link" href={playsetLink(playset)}>
 						<img src={playset.cover} alt="" class="playset-thumbnail" width="128" height="192" />
 						<h3 class="playset-name">{playset.title}</h3>

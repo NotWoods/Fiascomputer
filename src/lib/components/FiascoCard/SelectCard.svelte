@@ -15,11 +15,15 @@
 	$: colors = cardColors[type];
 	$: categories = getTable(playset, type).categories;
 
-	function cardRowLink(descriptionType: DescriptionType, cardDetails: CardDetails, pairIndex: number) {
-		const category = descriptionType === 'category' ? undefined : cardDetails.category
+	function cardRowLink(
+		descriptionType: DescriptionType,
+		cardDetails: CardDetails,
+		pairIndex: number
+	) {
+		const category = descriptionType === 'category' ? undefined : cardDetails.category;
 		let link = `./${cardDetails.table}/${category || ''}`;
 		if (editable) {
-			link = `${link}?pair=${pairIndex}`
+			link = `${link}?pair=${pairIndex}`;
 		}
 		return link;
 	}
@@ -47,14 +51,22 @@
 			<img src="/images/cross-white.svg" alt="Remove" />
 		</button>
 	{/if}
-	<CardRow descriptionType="category" {editable} href={cardRowLink("category", cardDetails, pairIndex)}>
+	<CardRow
+		descriptionType="category"
+		{editable}
+		href={cardRowLink('category', cardDetails, pairIndex)}
+	>
 		{#if cardDetails.category !== undefined}
 			{categories[cardDetails.category].name}
 		{:else}
 			{fallback('category', editable)}
 		{/if}
 	</CardRow>
-	<CardRow descriptionType="element" {editable} href={cardRowLink("element", cardDetails, pairIndex)}>
+	<CardRow
+		descriptionType="element"
+		{editable}
+		href={cardRowLink('element', cardDetails, pairIndex)}
+	>
 		{#if cardDetails.category !== undefined && cardDetails.element !== undefined}
 			{categories[cardDetails.category].elements[cardDetails.element]}
 		{:else}

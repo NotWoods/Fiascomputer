@@ -62,7 +62,13 @@
 		</div>
 		<div id="randomize-button-box">
 			<button type="button" id="randomize-button" on:click={randomize}>Random!</button>
-			<button type="button" aria-pressed={tilt} on:click={() => { tilt = !tilt }}>Tilt</button>
+			<button
+				type="button"
+				aria-pressed={tilt}
+				on:click={() => {
+					tilt = !tilt;
+				}}>Tilt</button
+			>
 			<a href="./play" hidden>Play!</a>
 		</div>
 	</div>
@@ -122,7 +128,8 @@
 		.blank {
 			order: var(--columns);
 		}
-		.tilts, .blank {
+		.tilts,
+		.blank {
 			border-right: 1px solid defs.$shadow-color;
 		}
 
@@ -191,7 +198,6 @@
 
 		.players-5.setup-page {
 			--columns: 5;
-
 
 			:global(#pair-1) {
 				order: 1;

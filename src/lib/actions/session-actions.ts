@@ -71,7 +71,7 @@ export function removeOutcome(playerIndex: number, outcomeIndex: number) {
 	return {
 		type: 'remove-outcome',
 		playerIndex,
-		outcomeIndex,
+		outcomeIndex
 	} as const;
 }
 
@@ -84,6 +84,9 @@ export function changeOutcomeValue(playerIndex: number, outcomeIndex: number, va
 	} as const;
 }
 
-export function randomSetup(relationshipCards: readonly CardDetails<'relationship'>[], detailCards: readonly CardDetails<DetailType>[]) {
+export function randomSetup(
+	relationshipCards: readonly CardDetails<'relationship'>[],
+	detailCards: readonly CardDetails<DetailType>[]
+) {
 	return { type: 'random', relationshipCards, detailCards } as const;
 }

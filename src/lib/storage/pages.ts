@@ -1,5 +1,5 @@
 export interface Pages {
-  cover: ArrayBuffer
-  score: ArrayBuffer
-  credits: ArrayBuffer
+	cover: ArrayBuffer;
+	score: ArrayBuffer;
+	credits: ArrayBuffer;
 }

@@ -5,16 +5,16 @@
 
 	export function fallback(descriptionType: DescriptionType, editable: boolean = false) {
 		if (editable) {
-			return `Select ${descriptionType}`
+			return `Select ${descriptionType}`;
 		} else {
-			return '\u00a0'
+			return '\u00a0';
 		}
 	}
 </script>
 
 <script lang="ts">
-  export let descriptionType: 'category' | 'element';
-  export let href: string;
+	export let descriptionType: 'category' | 'element';
+	export let href: string;
 	export let editable: boolean;
 </script>
 
@@ -41,7 +41,7 @@
 
 	.card-description-line {
 		margin-top: 1rem;
-    text-align: left;
+		text-align: left;
 	}
 
 	.remove {

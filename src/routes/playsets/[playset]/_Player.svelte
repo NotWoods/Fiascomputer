@@ -23,15 +23,12 @@
 		/>
 	</div>
 	{#if outcomes}
-	<ol class="player-outcomes">
-		{#each player?.outcomes ?? [] as outcome, outcomeIndex}
-			<Outcome {outcome} {outcomeIndex} {playerIndex} />
-		{/each}
-		<Outcome
-			outcome={undefined}
-			{playerIndex}
-		/>
-	</ol>
+		<ol class="player-outcomes">
+			{#each player?.outcomes ?? [] as outcome, outcomeIndex}
+				<Outcome {outcome} {outcomeIndex} {playerIndex} />
+			{/each}
+			<Outcome outcome={undefined} {playerIndex} />
+		</ol>
 	{/if}
 </div>
 

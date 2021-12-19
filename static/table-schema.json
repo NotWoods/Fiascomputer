@@ -79,7 +79,7 @@
 	],
 	"required": ["categories"],
 	"properties": {
-    "title": {
+		"title": {
 			"$id": "#/properties/title",
 			"type": "string",
 			"title": "Table title",
@@ -118,51 +118,51 @@
 			],
 			"items": {
 				"$id": "#/properties/categories/items",
-        "type": "object",
-        "title": "Table category",
-        "examples": [
-          {
-            "elements": [
-              "At the scene of a grisly murder/suicide",
-              "In the trailer park just after the tornado hit",
-              "At the crime scene the police don’t know about yet",
-              "In the big sinkhole behind Buddy’s garage",
-              "In the pointless live coverage of that severe weather event",
-              "At what will be the biggest drug bust of the decade"
-            ],
-            "name": "HARD NEWS"
-          }
-        ],
-        "required": ["elements", "name"],
-        "properties": {
-          "name": {
-            "$id": "#/properties/categories/items/name",
-            "type": "string",
-            "title": "Category name",
-            "examples": ["TO GET FAMOUS", "HARD NEWS"]
-          },
-          "elements": {
-            "$id": "#/properties/categories/items/elements",
-            "type": "array",
-            "title": "Category elements",
-            "examples": [
-              [
-                "At the scene of a grisly murder/suicide",
-                "In the trailer park just after the tornado hit"
-              ]
-            ],
-            "items": {
-              "$id": "#/properties/categories/items/elements/items",
-              "type": "string",
-              "title": "Category element",
-              "description": "Represents single card in the deck.",
-              "examples": [
-                "At the scene of a grisly murder/suicide",
-                "In the trailer park just after the tornado hit"
-              ]
-            }
-          }
-        }
+				"type": "object",
+				"title": "Table category",
+				"examples": [
+					{
+						"elements": [
+							"At the scene of a grisly murder/suicide",
+							"In the trailer park just after the tornado hit",
+							"At the crime scene the police don’t know about yet",
+							"In the big sinkhole behind Buddy’s garage",
+							"In the pointless live coverage of that severe weather event",
+							"At what will be the biggest drug bust of the decade"
+						],
+						"name": "HARD NEWS"
+					}
+				],
+				"required": ["elements", "name"],
+				"properties": {
+					"name": {
+						"$id": "#/properties/categories/items/name",
+						"type": "string",
+						"title": "Category name",
+						"examples": ["TO GET FAMOUS", "HARD NEWS"]
+					},
+					"elements": {
+						"$id": "#/properties/categories/items/elements",
+						"type": "array",
+						"title": "Category elements",
+						"examples": [
+							[
+								"At the scene of a grisly murder/suicide",
+								"In the trailer park just after the tornado hit"
+							]
+						],
+						"items": {
+							"$id": "#/properties/categories/items/elements/items",
+							"type": "string",
+							"title": "Category element",
+							"description": "Represents single card in the deck.",
+							"examples": [
+								"At the scene of a grisly murder/suicide",
+								"In the trailer park just after the tornado hit"
+							]
+						}
+					}
+				}
 			}
 		}
 	}

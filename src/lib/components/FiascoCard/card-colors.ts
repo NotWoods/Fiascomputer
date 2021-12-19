@@ -48,5 +48,5 @@ export const cardColors: Record<CardType | OutcomeType, FiascoCardColors> = {
 		top: '#b72026',
 		left: '#fff',
 		bottom: '#fff'
-	},
+	}
 };

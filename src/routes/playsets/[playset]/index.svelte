@@ -91,11 +91,8 @@
 	</div>
 	<div class="links">
 		<a href="./setup" class="play-link" id="start-setup-control" on:click={newGame}>Play!</a>
-		<a
-			href="./setup"
-			class="resume-link"
-			id="resume-setup-control"
-			hidden={!alreadyStarted}>Resume</a
+		<a href="./setup" class="resume-link" id="resume-setup-control" hidden={!alreadyStarted}
+			>Resume</a
 		>
 		<a
 			href={credits ?? BLANK_PAGE}
