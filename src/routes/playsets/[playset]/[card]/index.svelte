@@ -4,20 +4,20 @@
 	import { hasTrailingSlash, redirectToAlwaysTrailingSlash } from '$lib/trailing-slash';
 	import { parseProps } from './_parse-props';
 
-	export const load: import('@sveltejs/kit').Load = async (input) => {
-		const { page } = input;
+	export const load: import('@sveltejs/kit').Load = async ({ page }) => {
 		if (!hasTrailingSlash(page)) {
 			return redirectToAlwaysTrailingSlash(page);
 		}
 
 		return {
-			props: await parseProps(input)
+			props: await parseProps(page)
 		};
 	};
 </script>
 
 <script lang="ts">
 	import Categories from '$lib/components/Table/Categories.svelte';
+	import CardCategory from '$lib/components/Table/CardCategory.svelte';
 	import Table from '$lib/components/Table/Table.svelte';
 	import Title from '$lib/components/Title.svelte';
 	import { getStoreContext } from '$lib/store';
@@ -34,6 +34,8 @@
 
 <div id="table" class="page table-page">
 	<Table subtitle={$playset.subtitle} {table} cardType={tableType}>
-		<Categories {tableType} {table} {pairIndex} />
+		<Categories {table} let:category>
+			<CardCategory {tableType} {table} {category} {pairIndex} />
+		</Categories>
 	</Table>
 </div>

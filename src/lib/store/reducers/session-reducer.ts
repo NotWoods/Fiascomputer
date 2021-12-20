@@ -88,6 +88,19 @@ export function sessionReducer(state: Session, action: SessionAction): Session {
 				})
 			};
 		}
+		case 'tilt': {
+			const { outcomeType, cardDetails } = action;
+			return {
+				...state,
+				tilts: {
+					...state.tilts,
+					[outcomeType]: {
+						table: 'tilt',
+						...cardDetails
+					}
+				}
+			};
+		}
 		case 'player': {
 			const { playerIndex, name } = action;
 			return {

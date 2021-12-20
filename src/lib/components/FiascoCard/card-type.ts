@@ -8,7 +8,7 @@ export function cardName(type: CardOrEngineType) {
 	return type.charAt(0).toLocaleUpperCase() + type.slice(1);
 }
 
-export function tableName(table: PlaysetTable, cardType: CardType) {
+export function tableName(table: PlaysetTable, cardType: CardOrEngineType) {
 	return table.title ?? `${cardName(cardType)}s...`;
 }
 

@@ -1,9 +1,13 @@
 import arrayShuffle from 'array-shuffle';
-import { detailTypes, type CardType } from '$lib/components/FiascoCard/card-type';
+import {
+	detailTypes,
+	type CardType,
+	type CardOrEngineType
+} from '$lib/components/FiascoCard/card-type';
 import type { PlaysetData, PlaysetTable, TableIndex } from '$lib/storage/playset';
 import { getTable } from './playset';
 
-export interface CardDetails<Type extends CardType | undefined = CardType> {
+export interface CardDetails<Type extends CardOrEngineType | undefined = CardType> {
 	table: Type;
 	category: TableIndex | undefined;
 	element: TableIndex | undefined;

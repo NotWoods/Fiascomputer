@@ -1,4 +1,4 @@
-import type { CardType, DetailType } from '$lib/components/FiascoCard/card-type';
+import type { CardOrEngineType, CardType, DetailType } from '$lib/components/FiascoCard/card-type';
 import type { OutcomeType } from '$lib/outcome';
 import type { CardDetails, Pair, Session } from '$lib/storage/session';
 
@@ -40,6 +40,14 @@ export function changeCard(
 	return {
 		type: table,
 		pairIndex,
+		cardDetails
+	} as const;
+}
+
+export function changeTilt(outcomeType: OutcomeType, cardDetails: Omit<CardDetails, 'table'>) {
+	return {
+		type: 'tilt',
+		outcomeType,
 		cardDetails
 	} as const;
 }

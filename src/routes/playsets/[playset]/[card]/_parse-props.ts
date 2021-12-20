@@ -1,5 +1,5 @@
 import { assertInSet, cardTypes } from '$lib/components/FiascoCard/card-type';
-import type { LoadInput } from '@sveltejs/kit';
+import type { Page } from '@sveltejs/kit';
 
 /**
  * Cast a string representing an integer into a number within the given range.
@@ -25,7 +25,7 @@ export function castIndex<T extends number>(
 	return parsed as T;
 }
 
-export async function parseProps({ page }: LoadInput) {
+export async function parseProps(page: Page) {
 	const { card } = page.params;
 	assertInSet(card, cardTypes);
 

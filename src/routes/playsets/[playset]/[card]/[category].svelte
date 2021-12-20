@@ -4,13 +4,12 @@
 	import { hasTrailingSlash, redirectToNeverTrailingSlash } from '$lib/trailing-slash';
 	import { castIndex, parseProps } from './_parse-props';
 
-	export const load: import('@sveltejs/kit').Load = async (input) => {
-		const { page } = input;
+	export const load: import('@sveltejs/kit').Load = async ({ page }) => {
 		if (hasTrailingSlash(page)) {
 			return redirectToNeverTrailingSlash(page);
 		}
 
-		const { tableType, pairIndex } = await parseProps(input);
+		const { tableType, pairIndex } = await parseProps(page);
 		return {
 			props: {
 				tableType,
@@ -24,7 +23,7 @@
 <script lang="ts">
 	import type { TableIndex } from '$lib/playset';
 	import type { CardType } from '$lib/components/FiascoCard/card-type';
-	import Category from '$lib/components/Table/Category.svelte';
+	import CardCategory from '$lib/components/Table/CardCategory.svelte';
 	import Table from '$lib/components/Table/Table.svelte';
 	import Title from '$lib/components/Title.svelte';
 	import { getStoreContext } from '$lib/store';
@@ -44,6 +43,6 @@
 
 <div id="table" class="page table-page">
 	<Table subtitle={$playset.subtitle} {table} cardType={tableType}>
-		<Category {tableType} {table} {category} {pairIndex} />
+		<CardCategory {tableType} {table} {category} {pairIndex} />
 	</Table>
 </div>

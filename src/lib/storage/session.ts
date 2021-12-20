@@ -1,4 +1,4 @@
-import type { CardType, DetailType } from '$lib/components/FiascoCard/card-type';
+import type { CardOrEngineType, CardType, DetailType } from '$lib/components/FiascoCard/card-type';
 import type { CardDetails } from '$lib/deck';
 import type { OutcomeDetails } from '$lib/outcome';
 
@@ -22,6 +22,10 @@ export interface Session {
 	playset: string | undefined;
 	players: readonly Player[];
 	pairs: readonly Pair[];
+	tilts: {
+		positive: CardDetails<'tilt'>;
+		negative: CardDetails<'tilt'>;
+	};
 }
 
 const MIN_PLAYERS = 5;
@@ -34,7 +38,7 @@ export function emptyPlayer(num: number): Player {
 	};
 }
 
-export function emptyCardDetails<Type extends CardType | undefined>(
+export function emptyCardDetails<Type extends CardOrEngineType | undefined>(
 	table: Type
 ): CardDetails<Type> {
 	return {
@@ -53,6 +57,10 @@ export function emptySession(playset?: string): Session {
 				relationship: emptyCardDetails('relationship'),
 				detail: emptyCardDetails(undefined)
 			};
-		})
+		}),
+		tilts: {
+			positive: emptyCardDetails('tilt'),
+			negative: emptyCardDetails('tilt')
+		}
 	};
 }

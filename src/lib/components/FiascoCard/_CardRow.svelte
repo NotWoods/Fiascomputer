@@ -3,20 +3,30 @@
 <script lang="ts" context="module">
 	export type DescriptionType = 'category' | 'element';
 
-	export function fallback(descriptionType: DescriptionType, editable: boolean = false) {
-		if (editable) {
-			return `Select ${descriptionType}`;
-		} else {
-			return '\u00a0';
-		}
-	}
+	const BLANK_SPACE = '\u00a0';
 </script>
 
 <script lang="ts">
+	import type { Category } from '$lib/storage/playset';
+	import type { CardDetails } from '$lib/storage/session';
+
+	export let categories: readonly Category[] | undefined;
+	export let cardDetails: Omit<CardDetails, 'table'>;
+
 	export let descriptionType: DescriptionType;
 	export let href: string;
 	export let editable: boolean;
 	export let onRemove: (descriptionType: DescriptionType) => void = () => {};
+
+	$: category =
+		categories != undefined && cardDetails.category != undefined
+			? categories[cardDetails.category]
+			: undefined;
+	$: element =
+		category != undefined && cardDetails.element != undefined
+			? category.elements[cardDetails.element]
+			: undefined;
+	$: value = descriptionType === 'category' ? category?.name : element;
 </script>
 
 <div class="card-description-line {descriptionType}" aria-label={descriptionType}>
@@ -26,7 +36,13 @@
 		class:font-hitchcock={descriptionType === 'category'}
 		class:font-sans={descriptionType === 'element'}
 	>
-		<slot>{fallback(descriptionType, editable)}</slot>
+		{#if value != undefined}
+			{value}
+		{:else if editable}
+			Select {descriptionType}
+		{:else}
+			{BLANK_SPACE}
+		{/if}
 	</a>
 	{#if editable}
 		<button type="button" class="remove close-button" on:click={() => onRemove(descriptionType)}>

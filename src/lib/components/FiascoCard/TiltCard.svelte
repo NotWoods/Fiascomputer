@@ -1,13 +1,20 @@
 <script lang="ts">
 	import type { OutcomeType } from '$lib/outcome';
+	import type { Engine } from '$lib/storage/engine';
+	import { getStoreContext } from '$lib/store';
 	import { cardColors } from './card-colors';
 	import CardRow from './_CardRow.svelte';
 
+	const { session } = getStoreContext();
+
+	export let engine: Engine | undefined;
 	export let outcomeType: OutcomeType;
 	export let editable = false;
 	export let onRemove: (() => void) | undefined = undefined;
 
 	$: colors = cardColors[outcomeType];
+	$: categories = engine?.tilt?.categories;
+	$: cardDetails = $session.tilts[outcomeType];
 </script>
 
 <div class="item tilt-{outcomeType}">
@@ -31,8 +38,20 @@
 			<img src="/images/cross-white.svg" alt="Remove" />
 		</button>
 	{/if}
-	<CardRow descriptionType="category" {editable} href="./tilt/" />
-	<CardRow descriptionType="element" {editable} href="./tilt/" />
+	<CardRow
+		{categories}
+		{cardDetails}
+		descriptionType="category"
+		{editable}
+		href="./tilt/?outcome={outcomeType}"
+	/>
+	<CardRow
+		{categories}
+		{cardDetails}
+		descriptionType="element"
+		{editable}
+		href="./tilt/?outcome={outcomeType}"
+	/>
 </div>
 
 <style>

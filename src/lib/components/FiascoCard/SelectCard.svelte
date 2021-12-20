@@ -6,7 +6,7 @@
 	import type { CardDetails } from '$lib/storage/session';
 	import { getStoreContext } from '$lib/store';
 	import { cardColors, cardName, icons } from './card-colors';
-	import CardRow, { DescriptionType, fallback } from './_CardRow.svelte';
+	import CardRow, { type DescriptionType } from './_CardRow.svelte';
 
 	export let playset: PlaysetData | undefined;
 	export let cardDetails: CardDetails;
@@ -66,29 +66,21 @@
 		</button>
 	{/if}
 	<CardRow
+		{categories}
+		{cardDetails}
 		descriptionType="category"
 		{editable}
 		href={cardRowLink('category', cardDetails, pairIndex)}
 		onRemove={resetCardDetails}
-	>
-		{#if categories && cardDetails.category !== undefined}
-			{categories[cardDetails.category].name}
-		{:else}
-			{fallback('category', editable)}
-		{/if}
-	</CardRow>
+	/>
 	<CardRow
+		{categories}
+		{cardDetails}
 		descriptionType="element"
 		{editable}
 		href={cardRowLink('element', cardDetails, pairIndex)}
 		onRemove={resetCardDetails}
-	>
-		{#if categories && cardDetails.category !== undefined && cardDetails.element !== undefined}
-			{categories[cardDetails.category].elements[cardDetails.element]}
-		{:else}
-			{fallback('element', editable)}
-		{/if}
-	</CardRow>
+	/>
 </div>
 
 <style>

@@ -1,29 +1,16 @@
 <script lang="ts">
 	import type { PlaysetTable } from '$lib/playset';
-	import Editable from '$lib/components/Editable.svelte';
-	import { bindDispatch, getStoreContext } from '$lib/store';
-	import { changeCard, renameCategory, renameElement } from '$lib/actions';
 	import type { TableIndex } from '$lib/storage/playset';
-	import type { CardType } from '../FiascoCard/card-type';
+	import Editable from '$lib/components/Editable.svelte';
 
-	export let tableType: CardType;
 	export let category: TableIndex;
 	export let table: PlaysetTable;
-	export let pairIndex: number | undefined = undefined;
+
+	export let onClick: (element?: number) => void;
+	export let onChangeCategory: ((text: string) => void) | undefined = undefined;
+	export let onChangeElement: ((element: number, text: string) => void) | undefined = undefined;
 
 	$: categoryData = table.categories[category];
-
-	const { playset, session } = getStoreContext();
-	const changeCategory = bindDispatch(playset, renameCategory);
-	const changeElement = bindDispatch(playset, renameElement);
-
-	function changeCardDetails(element?: number) {
-		if (pairIndex == undefined) return;
-
-		session.dispatch(
-			changeCard(tableType, pairIndex, { category, element: element as TableIndex | undefined })
-		);
-	}
 </script>
 
 <li class="category" value={category + 1}>
@@ -33,8 +20,9 @@
 			href="../setup"
 			class="category-link"
 			value={categoryData.name}
-			onClick={() => changeCardDetails()}
-			onChange={(text) => changeCategory(tableType, category, text)}
+			editable={onChangeCategory != undefined}
+			onClick={() => onClick()}
+			onChange={(text) => onChangeCategory?.(text)}
 		/>
 	</h3>
 	<ol class="elements">
@@ -52,8 +40,9 @@
 					href="../setup"
 					class="element-link"
 					value={elementData}
-					onClick={() => changeCardDetails(element)}
-					onChange={(text) => changeElement(tableType, category, element, text)}
+					editable={onChangeElement != undefined}
+					onClick={() => onClick(element)}
+					onChange={(text) => onChangeElement?.(element, text)}
 				/>
 			</li>
 		{/each}

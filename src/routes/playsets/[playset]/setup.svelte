@@ -6,7 +6,13 @@
 			return redirectToNeverTrailingSlash(page);
 		}
 
-		return {};
+		const engine = await loadBundledEngine('normal', fetch);
+
+		return {
+			props: {
+				engine
+			}
+		};
 	};
 </script>
 
@@ -20,8 +26,12 @@
 	import Player from './_Player.svelte';
 	import TiltCard from '$lib/components/FiascoCard/TiltCard.svelte';
 	import { OutcomeType } from '$lib/outcome';
+	import { type Engine, loadBundledEngine } from '$lib/storage/engine';
 
 	const { playset, session } = getStoreContext();
+
+	export let engine: Engine;
+
 	let tilt = false;
 
 	$: activePlayers = $session.players.length;
@@ -73,8 +83,8 @@
 		<div id="pairs" class="pairs" class:pairs-with-tilt={tilt}>
 			{#if tilt}
 				<div class="pair tilts">
-					<TiltCard outcomeType={OutcomeType.POSITIVE} editable />
-					<TiltCard outcomeType={OutcomeType.NEGATIVE} editable />
+					<TiltCard {engine} outcomeType={OutcomeType.POSITIVE} editable />
+					<TiltCard {engine} outcomeType={OutcomeType.NEGATIVE} editable />
 				</div>
 			{/if}
 			<Player playerIndex={0} editable outcomes />
