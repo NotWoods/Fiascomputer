@@ -1,5 +1,11 @@
 <script lang="ts" context="module">
-	export const load: import('@sveltejs/kit').Load = () => {
+	import { hasTrailingSlash, redirectToAlwaysTrailingSlash } from '$lib/trailing-slash';
+
+	export const load: import('@sveltejs/kit').Load = ({ page }) => {
+		if (!hasTrailingSlash(page)) {
+			return redirectToAlwaysTrailingSlash(page);
+		}
+
 		return {
 			props: {
 				currentVersion: '1.2'

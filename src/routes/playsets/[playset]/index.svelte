@@ -29,6 +29,7 @@
 	import Title from '$lib/components/Title.svelte';
 	import { getStoreContext } from '$lib/store';
 	import { sessionStarted } from '$lib/storage/session';
+	import { goto } from '$app/navigation';
 
 	const BLANK_PAGE = '/images/blank-page.svg';
 
@@ -41,9 +42,11 @@
 	$: credits = pages?.credits;
 	$: score = pages?.score;
 
-	async function newGame() {
+	async function newGame(event: MouseEvent) {
+		event.preventDefault();
 		const db = await dbReady;
 		db?.delete('sessions', $playset.id);
+		await goto('./setup');
 	}
 	function deletePlayset() {}
 </script>
@@ -82,9 +85,19 @@
 		</div>
 	</div>
 	<div class="links">
-		<a href="./setup" class="play-link" id="start-setup-control" on:click={newGame}>Play!</a>
-		<a href="./setup" class="resume-link" id="resume-setup-control" hidden={!alreadyStarted}
-			>Resume</a
+		<a
+			sveltekit:prefetch
+			href="./setup"
+			class="play-link"
+			id="start-setup-control"
+			on:click={newGame}>Play!</a
+		>
+		<a
+			sveltekit:prefetch
+			href="./setup"
+			class="resume-link"
+			id="resume-setup-control"
+			hidden={!alreadyStarted}>Resume</a
 		>
 		{#if typeof credits === 'string'}
 			<a href={credits} target="_blank" class="credits-link" id="playset-credits-page-link"

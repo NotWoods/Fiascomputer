@@ -1,3 +1,15 @@
+<script lang="ts" context="module">
+	import { hasTrailingSlash, redirectToAlwaysTrailingSlash } from '$lib/trailing-slash';
+
+	export const load: import('@sveltejs/kit').Load = async ({ page }) => {
+		if (!hasTrailingSlash(page)) {
+			return redirectToAlwaysTrailingSlash(page);
+		}
+
+		return {};
+	};
+</script>
+
 <script lang="ts">
 	import BlobbyImage from '$lib/components/BlobbyImage.svelte';
 	import Title from '$lib/components/Title.svelte';
