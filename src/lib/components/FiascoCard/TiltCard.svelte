@@ -62,7 +62,7 @@
 		{cardDetails}
 		descriptionType="element"
 		{editable}
-		href="./tilt/?outcome={outcomeType}"
+		href="./tilt/{cardDetails.category ?? ''}?outcome={outcomeType}"
 		onRemove={resetCardDetails}
 	/>
 </div>

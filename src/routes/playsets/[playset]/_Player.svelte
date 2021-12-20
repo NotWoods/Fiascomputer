@@ -3,6 +3,7 @@
 	import Editable from '$lib/components/Editable.svelte';
 	import Outcome from '$lib/components/Outcome/Outcome.svelte';
 	import { getStoreContext } from '$lib/store';
+	import PlayerOutcomes from './_PlayerOutcomes.svelte';
 
 	const { session } = getStoreContext();
 
@@ -25,12 +26,9 @@
 		/>
 	</div>
 	{#if outcomes}
-		<ol class="player-outcomes">
-			{#each player?.outcomes ?? [] as outcome, outcomeIndex}
-				<Outcome {outcome} {outcomeIndex} {playerIndex} />
-			{/each}
+		<PlayerOutcomes {playerIndex} editable>
 			<Outcome outcome={undefined} {playerIndex} />
-		</ol>
+		</PlayerOutcomes>
 	{/if}
 </div>
 
@@ -53,16 +51,6 @@
 	}
 	.player-name-outer {
 		grid-area: name;
-	}
-
-	.player-outcomes {
-		grid-area: outcomes;
-		width: 100%;
-		display: flex;
-		padding: 0 1rem;
-		gap: 1rem;
-		flex-wrap: wrap;
-		justify-content: center;
 	}
 
 	@media (max-width: 40em) {

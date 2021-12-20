@@ -8,6 +8,7 @@
 	export let outcome: OutcomeDetails | undefined;
 	export let playerIndex: number;
 	export let outcomeIndex: number | undefined = undefined;
+	export let editable = false;
 
 	$: value = outcome?.value;
 
@@ -50,10 +51,13 @@
 			on:change={onChange}
 			min="0"
 			max="5"
+			readonly={!editable}
 		/>
-		<button class="remove close-button" on:click={onRemove}>
-			<img src="/images/cross-white.svg" alt="Remove outcome" />
-		</button>
+		{#if editable}
+			<button class="remove close-button" on:click={onRemove}>
+				<img src="/images/cross-white.svg" alt="Remove outcome" />
+			</button>
+		{/if}
 	{:else}
 		{#each Object.values(OutcomeType) as newType}
 			<button
@@ -116,10 +120,10 @@
 		opacity: 0.5;
 	}
 	.outcome-positive {
-		background-color: #2c4e5f;
+		background-color: defs.$outcome-positive-color;
 	}
 	.outcome-negative {
-		background-color: #b72026;
+		background-color: defs.$outcome-negative-color;
 	}
 	.outcome-new-button:hover,
 	.outcome-new-button:focus {

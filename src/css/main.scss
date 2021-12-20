@@ -33,7 +33,7 @@ html {
     font-family: defs.$body-font;
 }
 
-.font-hitchcock {
+.font-hitchcock, h1, h2, h3, h4, h5, h6 {
     font-family: Hitchcock, serif;
     text-underline-offset: 30%;
 }
@@ -143,19 +143,22 @@ html:not(.player-list) #player-list {
     }
 }
 
+.document, .table {
+    flex: 1;
+    position: relative;
+    padding: 2rem;
+    background-color: defs.$yellow-card-background-color;
+    @include defs.shadow;
+}
+
 @mixin intro-page {
     @include defs.flex(column);
     @include defs.vertical-margin(auto);
 
     .document {
         @include defs.horizontal-margin(auto);
-        flex: 1;
-        position: relative;
         max-width: 40rem;
-        padding: 2rem;
         text-align: center;
-        background-color: defs.$yellow-card-background-color;
-        @include defs.shadow;
     }
 
     .heading {
@@ -914,16 +917,11 @@ html:not(.player-list) #player-list {
     @include defs.flex(row, $horizontal: center, $vertical: center);
 
     .table {
-        flex: 1;
-        position: relative;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         align-items: stretch;
         max-width: 80rem;
-        padding: 2rem;
-        background-color: defs.$yellow-card-background-color;
-        @include defs.shadow;
     }
 
     .table-subtitle {

@@ -27,6 +27,7 @@
 	import TiltCard from '$lib/components/FiascoCard/TiltCard.svelte';
 	import { OutcomeType } from '$lib/outcome';
 	import { type Engine, loadBundledEngine } from '$lib/storage/engine';
+	import AftermathButton from './_AftermathButton.svelte';
 
 	const { playset, session } = getStoreContext();
 
@@ -87,6 +88,7 @@
 				<div class="pair tilts">
 					<TiltCard {engine} outcomeType={OutcomeType.POSITIVE} editable />
 					<TiltCard {engine} outcomeType={OutcomeType.NEGATIVE} editable />
+					<AftermathButton />
 				</div>
 			{/if}
 			<Player playerIndex={0} editable outcomes />

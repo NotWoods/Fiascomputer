@@ -34,8 +34,6 @@
 	export let category: TableIndex;
 	export let pairIndex: number | undefined = undefined;
 
-	$: console.log(tableType, category, playset, pairIndex);
-
 	$: table = getTable($playset, tableType);
 </script>
 

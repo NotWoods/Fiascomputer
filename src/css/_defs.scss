@@ -35,6 +35,9 @@ $dark-green-background-color: hsl(150, 100%, 10%);
 $blue-background-color: hsl(210, 60%, 40%);
 $dark-blue-background-color: hsl(210, 100%, 15%);
 
+$outcome-positive-color: #2c4e5f;
+$outcome-negative-color: #b72026;
+
 @mixin vertical-margin($margin) {
     margin-top: $margin;
     margin-bottom: $margin;

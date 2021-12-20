@@ -1,6 +1,5 @@
 <script lang="ts" context="module">
-	import { loadKnownPages, loadStoredPages, Playset } from '$lib/playset';
-	import { loadKnownPlayset } from '$lib/playset';
+	import { loadKnownPages, Playset } from '$lib/playset';
 	import { dbReady } from '$lib/storage/db';
 	import { hasTrailingSlash, redirectToAlwaysTrailingSlash } from '$lib/trailing-slash';
 
@@ -10,10 +9,15 @@
 		}
 
 		const playsetId = page.params.playset;
+		const [pages, alreadyStarted] = await Promise.all([
+			loadKnownPages(playsetId, { fetch }),
+			sessionStarted(playsetId)
+		]);
 
 		return {
 			props: {
-				pages: await loadKnownPages(playsetId, { fetch })
+				pages,
+				alreadyStarted
 			}
 		};
 	};
@@ -24,14 +28,15 @@
 	import PlaysetName from '$lib/components/PlaysetToolbar/PlaysetName.svelte';
 	import Title from '$lib/components/Title.svelte';
 	import { getStoreContext } from '$lib/store';
+	import { sessionStarted } from '$lib/storage/session';
 
 	const BLANK_PAGE = '/images/blank-page.svg';
 
-	const { playset, session } = getStoreContext();
+	const { playset } = getStoreContext();
 
 	export let pages: Playset['pages'] | undefined;
+	export let alreadyStarted: boolean;
 
-	$: alreadyStarted = $session.playset != undefined;
 	$: cover = pages?.cover;
 	$: credits = pages?.credits;
 	$: score = pages?.score;

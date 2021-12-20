@@ -1,6 +1,7 @@
 import type { CardOrEngineType, CardType, DetailType } from '$lib/components/FiascoCard/card-type';
 import type { CardDetails } from '$lib/deck';
 import type { OutcomeDetails } from '$lib/outcome';
+import { dbReady } from './db';
 
 export function range<T>(length: number, map: (index: number) => T): T[] {
 	return Array.from({ length }, (_, index) => map(index));
@@ -63,4 +64,13 @@ export function emptySession(playset?: string): Session {
 			negative: emptyCardDetails('tilt')
 		}
 	};
+}
+
+export async function sessionStarted(id: string) {
+	const db = await dbReady;
+	if (db) {
+		const key = await db.getKey('sessions', id);
+		return Boolean(key);
+	}
+	return false;
 }
