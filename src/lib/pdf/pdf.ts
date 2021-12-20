@@ -194,6 +194,7 @@ export const loadPlaysetPagesFromPdf = async (pdf: PDFDocumentProxy, filename: s
 			);
 
 			const pages: PageImages = {
+				coverMime: 'image/png',
 				cover,
 				credits,
 				score

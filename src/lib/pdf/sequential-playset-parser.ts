@@ -60,7 +60,7 @@ function parseSpread(
 
 function parseCategories(tokens: string[], options: { categories: number; elements: number }) {
 	tokens = tokens.slice(); // Copy
-	const before = takeUntil((t) => isBoundary(t, 1));
+	takeUntil((t) => isBoundary(t, 1));
 
 	const categories = R.range(1, options.categories + 1).map((category) => {
 		// We take one token (because the next one starts with the category

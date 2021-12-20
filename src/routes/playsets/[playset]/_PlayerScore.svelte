@@ -51,14 +51,8 @@
 		font-size: 1.5rem;
 	}
 
-	.inbetween,
 	.result {
 		font-size: 2rem;
-	}
-	.inbetween {
-		color: defs.$shadow-color;
-	}
-	.result {
 		color: var(--heading-color);
 	}
 

@@ -1,4 +1,4 @@
-import type { CardOrEngineType, CardType, DetailType } from '$lib/components/FiascoCard/card-type';
+import type { CardOrEngineType, DetailType } from '$lib/components/FiascoCard/card-type';
 import type { CardDetails } from '$lib/deck';
 import type { OutcomeDetails } from '$lib/outcome';
 import { dbReady } from './db';

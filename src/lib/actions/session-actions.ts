@@ -1,4 +1,4 @@
-import type { CardOrEngineType, CardType, DetailType } from '$lib/components/FiascoCard/card-type';
+import type { CardType, DetailType } from '$lib/components/FiascoCard/card-type';
 import type { OutcomeType } from '$lib/outcome';
 import type { CardDetails, Pair, Session } from '$lib/storage/session';
 

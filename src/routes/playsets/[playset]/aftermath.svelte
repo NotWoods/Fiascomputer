@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
 	import { hasTrailingSlash, redirectToNeverTrailingSlash } from '$lib/trailing-slash';
-	import { Engine, loadBundledEngine } from '$lib/storage/engine';
+	import { loadBundledEngine } from '$lib/storage/engine';
 
 	export const load: import('@sveltejs/kit').Load = async ({ page, fetch }) => {
 		if (hasTrailingSlash(page)) {
