@@ -43,7 +43,7 @@
 	export let playset: PlaysetDataWithId;
 	export let existingSession: Session | undefined;
 
-	$: setStoreContext(playset, existingSession);
+	setStoreContext(playset, existingSession);
 </script>
 
 <slot />

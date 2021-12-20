@@ -32,7 +32,9 @@
 
 	export let engine: Engine;
 
-	let tilt = false;
+	let showTilt = Boolean(
+		$session.tilts.positive.category != undefined || $session.tilts.negative.category != undefined
+	);
 
 	$: activePlayers = $session.players.length;
 	$: title = $playset?.title ?? 'Playset';
@@ -71,17 +73,17 @@
 			<button type="button" id="randomize-button" on:click={randomize}>Random!</button>
 			<button
 				type="button"
-				aria-pressed={tilt}
+				aria-pressed={showTilt}
 				on:click={() => {
-					tilt = !tilt;
+					showTilt = !showTilt;
 				}}>Tilt</button
 			>
 			<a href="./play" hidden>Play!</a>
 		</div>
 	</div>
 	<div class="pairs-outer">
-		<div id="pairs" class="pairs" class:pairs-with-tilt={tilt}>
-			{#if tilt}
+		<div id="pairs" class="pairs" class:pairs-with-tilt={showTilt}>
+			{#if showTilt}
 				<div class="pair tilts">
 					<TiltCard {engine} outcomeType={OutcomeType.POSITIVE} editable />
 					<TiltCard {engine} outcomeType={OutcomeType.NEGATIVE} editable />
@@ -97,9 +99,6 @@
 			<Pair playset={$playset} pairIndex={3} editable />
 			<Player playerIndex={4} editable outcomes />
 			<Pair playset={$playset} pairIndex={4} editable />
-			{#if tilt}
-				<div class="blank" />
-			{/if}
 		</div>
 	</div>
 </div>
@@ -130,13 +129,9 @@
 		}
 
 		.tilts {
+			@include defs.flex($direction: column, $vertical: center, $horizontal: normal);
 			order: 0;
-		}
-		.blank {
-			order: var(--columns);
-		}
-		.tilts,
-		.blank {
+			grid-row: 1 / span 2;
 			border-right: 1px solid defs.$shadow-color;
 		}
 

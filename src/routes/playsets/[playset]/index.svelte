@@ -31,7 +31,7 @@
 
 	export let pages: Playset['pages'] | undefined;
 
-	$: alreadyStarted = $session.playset == undefined;
+	$: alreadyStarted = $session.playset != undefined;
 	$: cover = pages?.cover;
 	$: credits = pages?.credits;
 	$: score = pages?.score;

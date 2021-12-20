@@ -1,9 +1,11 @@
 <script lang="ts">
+	import { changeTilt } from '$lib/actions';
+
 	import type { OutcomeType } from '$lib/outcome';
 	import type { Engine } from '$lib/storage/engine';
 	import { getStoreContext } from '$lib/store';
 	import { cardColors } from './card-colors';
-	import CardRow from './_CardRow.svelte';
+	import CardRow, { type DescriptionType } from './_CardRow.svelte';
 
 	const { session } = getStoreContext();
 
@@ -15,6 +17,15 @@
 	$: colors = cardColors[outcomeType];
 	$: categories = engine?.tilt?.categories;
 	$: cardDetails = $session.tilts[outcomeType];
+
+	function resetCardDetails(descriptionType: DescriptionType) {
+		session.dispatch(
+			changeTilt(outcomeType, {
+				category: descriptionType === 'category' ? undefined : cardDetails.category,
+				element: undefined
+			})
+		);
+	}
 </script>
 
 <div class="item tilt-{outcomeType}">
@@ -44,6 +55,7 @@
 		descriptionType="category"
 		{editable}
 		href="./tilt/?outcome={outcomeType}"
+		onRemove={resetCardDetails}
 	/>
 	<CardRow
 		{categories}
@@ -51,6 +63,7 @@
 		descriptionType="element"
 		{editable}
 		href="./tilt/?outcome={outcomeType}"
+		onRemove={resetCardDetails}
 	/>
 </div>
 
