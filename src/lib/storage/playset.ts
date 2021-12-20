@@ -84,6 +84,25 @@ function arrayBufferToBlob(buffer: ArrayBuffer | undefined, type = 'image/png') 
 	}
 }
 
+export async function loadStoredPages(id: string): Promise<Playset['pages'] | undefined> {
+	const db = await dbReady;
+	if (db) {
+		try {
+			const images = await db.get('pages', id);
+			if (images) {
+				return {
+					cover: arrayBufferToBlob(images.cover, images.coverMime),
+					score: arrayBufferToBlob(images.score),
+					credits: arrayBufferToBlob(images.credits)
+				};
+			}
+		} catch (err) {
+			// it's OK if pages fail to load
+		}
+	}
+	return undefined;
+}
+
 export async function loadStoredPlayset(id: string, loadPages = false) {
 	const db = await dbReady;
 	if (db) {

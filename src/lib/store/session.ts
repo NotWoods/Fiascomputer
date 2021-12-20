@@ -1,27 +1,31 @@
 import { dbReady } from '$lib/storage/db';
 import { emptySession, type Session } from '$lib/storage/session';
+import type { Unsubscriber } from 'svelte/store';
 import { debounce } from './helpers';
 import { createReducerStore } from './reducers/create-store';
 import { sessionReducer } from './reducers/session-reducer';
 
-/**
- * Current active session
- */
-export const sessionStore = createReducerStore(sessionReducer, emptySession());
+let lastSubscription: Unsubscriber;
+export function createSessionStore(initialState = emptySession()) {
+	const sessionStore = createReducerStore(sessionReducer, initialState);
 
-sessionStore.subscribe(
-	debounce(
-		async (session: Session) => {
-			try {
-				const db = await dbReady;
-				if (session.playset) {
-					db?.put('sessions', session);
+	lastSubscription?.();
+	lastSubscription = sessionStore.subscribe(
+		debounce(
+			async (session: Session) => {
+				try {
+					const db = await dbReady;
+					if (session.playset) {
+						db?.put('sessions', session);
+					}
+				} catch (err) {
+					console.warn('Session update failure', err);
 				}
-			} catch (err) {
-				console.warn('Session update failure', err);
-			}
-		},
-		10_000,
-		true
-	)
-);
+			},
+			10_000,
+			true
+		)
+	);
+
+	return sessionStore;
+}

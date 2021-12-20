@@ -12,9 +12,10 @@
 
 <script lang="ts">
 	import { range } from '$lib/storage/session';
-	import { sessionStore } from '$lib/store';
 	import { changeActivePlayers } from '$lib/actions';
+	import { getStoreContext } from '$lib/store';
 
+	const { session } = getStoreContext();
 	const playerOptions = range(3, (i) => i + 3);
 
 	export let joinLink: string = '';
@@ -22,7 +23,7 @@
 	let state: 'inactive' | 'loading' | 'active' | undefined = undefined;
 
 	function handleClick(players: number) {
-		sessionStore.dispatch(changeActivePlayers(players));
+		session.dispatch(changeActivePlayers(players));
 	}
 </script>
 

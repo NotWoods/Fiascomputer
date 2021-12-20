@@ -1,5 +1,4 @@
 <script lang="ts" context="module">
-	import { loadKnownPlayset } from '$lib/playset';
 	import { hasTrailingSlash, redirectToNeverTrailingSlash } from '$lib/trailing-slash';
 
 	export const load: import('@sveltejs/kit').Load = async ({ page, fetch }) => {
@@ -7,14 +6,12 @@
 			return redirectToNeverTrailingSlash(page);
 		}
 
-		await loadKnownPlayset(page.params.playset, fetch);
-
 		return {};
 	};
 </script>
 
 <script lang="ts">
-	import { playsetStore, sessionStore } from '$lib/store';
+	import { getStoreContext } from '$lib/store';
 	import { changeActivePlayers, randomSetup } from '$lib/actions';
 	import PlaysetName from '$lib/components/PlaysetToolbar/PlaysetName.svelte';
 	import Title from '$lib/components/Title.svelte';
@@ -24,11 +21,11 @@
 	import TiltCard from '$lib/components/FiascoCard/TiltCard.svelte';
 	import { OutcomeType } from '$lib/outcome';
 
+	const { playset, session } = getStoreContext();
 	let tilt = false;
 
-	$: activePlayers = $sessionStore.players.length;
-	$: playset = $playsetStore;
-	$: title = playset?.title ?? 'Playset';
+	$: activePlayers = $session.players.length;
+	$: title = $playset?.title ?? 'Playset';
 
 	function handleInvite(event: Event) {
 		const select = event.currentTarget as HTMLSelectElement;
@@ -37,14 +34,13 @@
 			const destination = new URL('./players', window.location.href);
 			window.location.href = destination.href;
 		} else {
-			sessionStore.dispatch(changeActivePlayers(Number(select.value)));
+			session.dispatch(changeActivePlayers(Number(select.value)));
 		}
 	}
 
 	function randomize() {
-		if (!playset) return;
-		const { relationshipCards, detailCards } = playsetToCards(playset);
-		sessionStore.dispatch(randomSetup(relationshipCards, detailCards));
+		const { relationshipCards, detailCards } = playsetToCards($playset);
+		session.dispatch(randomSetup(relationshipCards, detailCards));
 	}
 </script>
 
@@ -82,15 +78,15 @@
 				</div>
 			{/if}
 			<Player playerIndex={0} editable outcomes />
-			<Pair {playset} pairIndex={0} editable />
+			<Pair playset={$playset} pairIndex={0} editable />
 			<Player playerIndex={1} editable outcomes />
-			<Pair {playset} pairIndex={1} editable />
+			<Pair playset={$playset} pairIndex={1} editable />
 			<Player playerIndex={2} editable outcomes />
-			<Pair {playset} pairIndex={2} editable />
+			<Pair playset={$playset} pairIndex={2} editable />
 			<Player playerIndex={3} editable outcomes />
-			<Pair {playset} pairIndex={3} editable />
+			<Pair playset={$playset} pairIndex={3} editable />
 			<Player playerIndex={4} editable outcomes />
-			<Pair {playset} pairIndex={4} editable />
+			<Pair playset={$playset} pairIndex={4} editable />
 			{#if tilt}
 				<div class="blank" />
 			{/if}

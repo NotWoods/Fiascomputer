@@ -31,8 +31,8 @@
 			<img src="/images/cross-white.svg" alt="Remove" />
 		</button>
 	{/if}
-	<CardRow descriptionType="category" {editable} href="/tilt/" />
-	<CardRow descriptionType="element" {editable} href="/tilt/" />
+	<CardRow descriptionType="category" {editable} href="./tilt/" />
+	<CardRow descriptionType="element" {editable} href="./tilt/" />
 </div>
 
 <style>

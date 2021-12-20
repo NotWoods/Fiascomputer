@@ -1,3 +1,13 @@
 {
-  "editor.formatOnSave": true
+	"editor.formatOnSave": true,
+	"json.schemas": [
+		{
+			"fileMatch": ["static/bundled/*.json"],
+			"url": "./static/deck-schema.json"
+		},
+		{
+			"fileMatch": ["static/engine/*.json"],
+			"url": "./static/engine-schema.json"
+		}
+	]
 }

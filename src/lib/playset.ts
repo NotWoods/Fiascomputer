@@ -1,8 +1,12 @@
-import { loadPlayset } from './actions';
-import { loadStoredPlayset, loadBundledPlayset } from './storage/playset';
+import {
+	loadStoredPlayset,
+	loadBundledPlayset,
+	loadStoredPages,
+	type PlaysetDataWithId
+} from './storage/playset';
 import type { Playset, PlaysetData } from './storage/playset';
-import { playsetStore } from './store';
-import { dbReady } from './storage/db';
+import type { CardOrEngineType, CardType } from './components/FiascoCard/card-type';
+import type { Engine } from './storage/engine';
 
 export function playsetLink(playset: Playset) {
 	return `/playsets/${encodeURIComponent(playset.id)}`;
@@ -15,8 +19,20 @@ export function playsetShortCode(playset: PlaysetData) {
 		.join('');
 }
 
-export function getTable(playset: PlaysetData, type: string) {
+export function getTable(playset: PlaysetData, type: CardType) {
 	return playset.tables[type] || playset.tables[`${type}s`];
+}
+
+export function getPlaysetOrEngineTable(
+	playset: PlaysetData,
+	engine: Engine | undefined,
+	type: CardOrEngineType
+) {
+	if (type === 'tilt') {
+		return engine?.tilt;
+	} else {
+		return getTable(playset, type);
+	}
 }
 
 export * from './storage/playset';
@@ -27,11 +43,11 @@ interface LoadKnownPlaysetOptions {
 }
 
 let lastLoadedId: string | undefined;
-let lastLoadedSet: Playset | undefined;
+let lastLoadedSet: PlaysetDataWithId | undefined;
 export async function loadKnownPlayset(
 	id: string,
 	options: LoadKnownPlaysetOptions = {}
-): Promise<Playset> {
+): Promise<PlaysetDataWithId | undefined> {
 	if (id === lastLoadedId) {
 		return lastLoadedSet!;
 	}
@@ -44,9 +60,31 @@ export async function loadKnownPlayset(
 	}
 
 	const loaded = await loadBundledPlayset(id, fetch);
+	if (!loaded) return undefined;
 	const { thumbnail, pages, ...playset } = loaded;
-	playsetStore.dispatch(loadPlayset(playset));
 	lastLoadedId = id;
-	lastLoadedSet = loaded;
-	return loaded;
+	lastLoadedSet = playset;
+	return playset;
+}
+
+let lastLoadedPagesId: string | undefined;
+let lastLoadedPages: Playset['pages'] | undefined;
+export async function loadKnownPages(id: string, options: LoadKnownPlaysetOptions = {}) {
+	if (id === lastLoadedPagesId) {
+		return lastLoadedPages!;
+	}
+	const { fetch = globalThis.fetch } = options;
+	const stored = await loadStoredPages(id);
+	if (stored) {
+		lastLoadedPagesId = id;
+		lastLoadedPages = stored;
+		return stored;
+	}
+
+	const loaded = await loadBundledPlayset(id, fetch);
+	if (!loaded) return undefined;
+	const { pages } = loaded;
+	lastLoadedPagesId = id;
+	lastLoadedPages = pages;
+	return pages;
 }

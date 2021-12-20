@@ -9,3 +9,4 @@ css/*.css.map
 join/index.html
 .svelte-kit
 node_modules
+static/engine/*.json

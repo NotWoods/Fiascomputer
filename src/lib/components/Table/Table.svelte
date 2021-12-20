@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Editable from '$lib/components/Editable.svelte';
 	import type { PlaysetTable } from '$lib/playset';
-	import { bindDispatch, playsetStore } from '$lib/store/index';
+	import { bindDispatch, getStoreContext } from '$lib/store';
 	import { renameSubtitle } from '$lib/actions';
 	import { CardType, tableName } from '../FiascoCard/card-type';
 
@@ -10,6 +10,8 @@
 	export let table: PlaysetTable;
 
 	export let onClose: (event: MouseEvent) => void = () => {};
+
+	const { playset } = getStoreContext();
 </script>
 
 <div class="table">
@@ -18,7 +20,7 @@
 		<Editable
 			class="table-subtitle-text"
 			value={subtitle}
-			onChange={bindDispatch(playsetStore, renameSubtitle)}
+			onChange={bindDispatch(playset, renameSubtitle)}
 		/>
 	</p>
 	<slot />

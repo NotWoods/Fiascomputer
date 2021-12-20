@@ -1,0 +1,69 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"$id": "https://notwoods.github.io/fiascomatic/engine-schema.json",
+	"type": "object",
+	"title": "Fiascomatic engine deck",
+	"description": "All the possible cards/tables inside a Fiasco Engine deck.",
+	"required": ["title"],
+	"properties": {
+		"title": {
+			"$id": "#/properties/title",
+			"type": "string",
+			"title": "Deck title",
+			"description": "Title presented throughout the app",
+			"examples": ["Engine Deck"]
+		},
+		"tilt": { "$ref": "./table-schema.json" },
+		"aftermath": {
+			"type": "object",
+			"title": "Aftermath",
+			"required": ["positive", "negative"],
+			"positive": {
+				"type": "object",
+				"title": "Positive aftermaths",
+				"patternProperties": {
+					"^\\d+([+-]\\d*)?$": {
+						"type": "string"
+					}
+				},
+				"examples": [
+					{
+						"0": "The worst thing.",
+						"1": "Terrible.",
+						"2": "Harsh.",
+						"3": "Repulsive.",
+						"4": "Shocking.",
+						"5": "Appalling.",
+						"6-7": "Wretched.",
+						"8-9": "Unfortunate.",
+						"10-11": "Adequate.",
+						"12+": "Inspirational."
+					}
+				]
+			},
+			"negative": {
+				"type": "object",
+				"title": "Negative aftermaths",
+				"patternProperties": {
+					"^\\d+([+-]\\d*)?$": {
+						"type": "string"
+					}
+				},
+				"examples": [
+					{
+						"0": "The worst thing.",
+						"1": "Horrifying.",
+						"2": "Revolting.",
+						"3": "Disastrous.",
+						"4": "Horrendous.",
+						"5": "Desperate.",
+						"6-7": "Pathetic.",
+						"8-9": "Hapless.",
+						"10-11": "Tolerable.",
+						"12+": "Amazing."
+					}
+				]
+			}
+		}
+	}
+}

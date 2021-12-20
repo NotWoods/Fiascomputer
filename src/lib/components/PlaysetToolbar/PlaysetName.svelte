@@ -1,11 +1,13 @@
 <script lang="ts">
 	import { renameTitle } from '$lib/actions';
 	import Editable from '$lib/components/Editable.svelte';
-	import { bindDispatch, playsetStore } from '$lib/store';
+	import { bindDispatch } from '$lib/store';
+	import { getStoreContext } from '$lib/store';
 
-	$: title = $playsetStore?.title ?? 'Playset';
+	const { playset } = getStoreContext();
+	$: title = $playset?.title ?? 'Playset';
 
-	const changeTitle = bindDispatch(playsetStore, renameTitle);
+	const changeTitle = bindDispatch(playset, renameTitle);
 </script>
 
 <h2 class="playset-name">

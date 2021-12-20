@@ -2,13 +2,15 @@
 	import { renamePlayer } from '$lib/actions';
 	import Editable from '$lib/components/Editable.svelte';
 	import Outcome from '$lib/components/Outcome/Outcome.svelte';
-	import { sessionStore } from '$lib/store';
+	import { getStoreContext } from '$lib/store';
+
+	const { session } = getStoreContext();
 
 	export let playerIndex: number;
 	export let editable = false;
 	export let outcomes = false;
 
-	$: player = $sessionStore.players[playerIndex];
+	$: player = $session.players[playerIndex];
 	$: playerId = `Player ${playerIndex + 1}`;
 </script>
 
@@ -19,7 +21,7 @@
 			class="player-name"
 			{editable}
 			value={player?.name ?? playerId}
-			onChange={(name) => sessionStore.dispatch(renamePlayer(playerIndex, name))}
+			onChange={(name) => session.dispatch(renamePlayer(playerIndex, name))}
 		/>
 	</div>
 	{#if outcomes}

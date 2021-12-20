@@ -10,39 +10,40 @@
 			return redirectToNeverTrailingSlash(page);
 		}
 
-		const { playset, tableType, pairIndex } = await parseProps(input);
+		const { tableType, pairIndex } = await parseProps(input);
 		return {
 			props: {
-				playset,
 				tableType,
 				pairIndex,
-				category: castIndex(page.params.category, playset.tables[tableType].categories.length)
+				category: castIndex(page.params.category, Infinity)
 			}
 		};
 	};
 </script>
 
 <script lang="ts">
-	import type { PlaysetData, TableIndex } from '$lib/playset';
+	import type { TableIndex } from '$lib/playset';
 	import type { CardType } from '$lib/components/FiascoCard/card-type';
 	import Category from '$lib/components/Table/Category.svelte';
 	import Table from '$lib/components/Table/Table.svelte';
 	import Title from '$lib/components/Title.svelte';
+	import { getStoreContext } from '$lib/store';
+
+	const { playset } = getStoreContext();
 
 	export let tableType: CardType;
 	export let category: TableIndex;
-	export let playset: PlaysetData;
 	export let pairIndex: number | undefined = undefined;
 
 	$: console.log(tableType, category, playset, pairIndex);
 
-	$: table = getTable(playset, tableType);
+	$: table = getTable($playset, tableType);
 </script>
 
-<Title text={cardName(tableType)} playsetTitle={playset.title} />
+<Title text={cardName(tableType)} playsetTitle={$playset.title} />
 
 <div id="table" class="page table-page">
-	<Table subtitle={playset.subtitle} {table} cardType={tableType}>
+	<Table subtitle={$playset.subtitle} {table} cardType={tableType}>
 		<Category {tableType} {table} {category} {pairIndex} />
 	</Table>
 </div>

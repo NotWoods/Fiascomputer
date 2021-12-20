@@ -2,10 +2,7 @@ import type { PlaysetAction } from '$lib/actions';
 import type { PlaysetDataWithId } from '$lib/playset';
 import { replace } from '../helpers';
 
-export function playsetReducer(
-	state: PlaysetDataWithId | undefined,
-	action: PlaysetAction
-): PlaysetDataWithId | undefined {
+export function playsetReducer(state: PlaysetDataWithId, action: PlaysetAction): PlaysetDataWithId {
 	switch (action.type) {
 		case 'playset':
 			if (!state || action.playset?.id !== state.id) {
@@ -14,8 +11,6 @@ export function playsetReducer(
 				return state;
 			}
 		case 'category': {
-			if (!state) return undefined;
-
 			const { table, category, text } = action;
 			const tableData = state.tables[table];
 			return {
@@ -35,8 +30,6 @@ export function playsetReducer(
 			};
 		}
 		case 'element': {
-			if (!state) return undefined;
-
 			const { table, category, element, text } = action;
 			const tableData = state.tables[table];
 			return {
@@ -56,15 +49,11 @@ export function playsetReducer(
 			};
 		}
 		case 'title':
-			if (!state) return undefined;
-
 			return {
 				...state,
 				title: action.title
 			};
 		case 'subtitle':
-			if (!state) return undefined;
-
 			return {
 				...state,
 				subtitle: action.subtitle

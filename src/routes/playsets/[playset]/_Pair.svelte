@@ -5,20 +5,22 @@
 	import SelectCard from '$lib/components/FiascoCard/SelectCard.svelte';
 	import { cardDetailsTableDefined } from '$lib/deck';
 	import type { PlaysetData } from '$lib/playset';
-	import { sessionStore } from '$lib/store';
+	import { getStoreContext } from '$lib/store';
+
+	const { session } = getStoreContext();
 
 	export let playset: PlaysetData | undefined;
 	export let pairIndex: number;
 	export let editable = false;
 
-	$: pair = $sessionStore.pairs[pairIndex];
+	$: pair = $session.pairs[pairIndex];
 
 	function setDetail(type: DetailType) {
-		sessionStore.dispatch(changeDetailType(type, pairIndex));
+		session.dispatch(changeDetailType(type, pairIndex));
 	}
 
 	function removeDetail() {
-		sessionStore.dispatch(clearDetailType(pairIndex));
+		session.dispatch(clearDetailType(pairIndex));
 	}
 </script>
 

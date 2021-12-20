@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PlaysetTable } from '$lib/playset';
 	import Editable from '$lib/components/Editable.svelte';
-	import { bindDispatch, playsetStore, sessionStore } from '$lib/store';
+	import { bindDispatch, getStoreContext } from '$lib/store';
 	import { changeCard, renameCategory, renameElement } from '$lib/actions';
 	import type { TableIndex } from '$lib/storage/playset';
 	import type { CardType } from '../FiascoCard/card-type';
@@ -13,13 +13,14 @@
 
 	$: categoryData = table.categories[category];
 
-	const changeCategory = bindDispatch(playsetStore, renameCategory);
-	const changeElement = bindDispatch(playsetStore, renameElement);
+	const { playset, session } = getStoreContext();
+	const changeCategory = bindDispatch(playset, renameCategory);
+	const changeElement = bindDispatch(playset, renameElement);
 
 	function changeCardDetails(element?: number) {
 		if (pairIndex == undefined) return;
 
-		sessionStore.dispatch(
+		session.dispatch(
 			changeCard(tableType, pairIndex, { category, element: element as TableIndex | undefined })
 		);
 	}

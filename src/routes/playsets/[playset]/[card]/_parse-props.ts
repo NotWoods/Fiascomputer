@@ -1,5 +1,4 @@
 import { assertInSet, cardTypes } from '$lib/components/FiascoCard/card-type';
-import { loadKnownPlayset } from '$lib/playset';
 import type { LoadInput } from '@sveltejs/kit';
 
 /**
@@ -26,15 +25,12 @@ export function castIndex<T extends number>(
 	return parsed as T;
 }
 
-export async function parseProps({ page, fetch }: LoadInput) {
-	const playset = await loadKnownPlayset(page.params.playset, fetch);
-
+export async function parseProps({ page }: LoadInput) {
 	const { card } = page.params;
 	assertInSet(card, cardTypes);
 
 	const pairIndex = castIndex(page.query.get('pair'), 5);
 	return {
-		playset,
 		tableType: card,
 		pairIndex
 	};

@@ -4,7 +4,7 @@
 	import { getTable } from '$lib/playset';
 	import type { PlaysetData } from '$lib/storage/playset';
 	import type { CardDetails } from '$lib/storage/session';
-	import { sessionStore } from '$lib/store/session';
+	import { getStoreContext } from '$lib/store';
 	import { cardColors, cardName, icons } from './card-colors';
 	import CardRow, { DescriptionType, fallback } from './_CardRow.svelte';
 
@@ -17,6 +17,8 @@
 	$: type = cardDetails.table;
 	$: colors = cardColors[type];
 	$: categories = playset ? getTable(playset, type).categories : undefined;
+
+	const { session } = getStoreContext();
 
 	function cardRowLink(
 		descriptionType: DescriptionType,
@@ -32,7 +34,7 @@
 	}
 
 	function resetCardDetails(descriptionType: DescriptionType) {
-		sessionStore.dispatch(
+		session.dispatch(
 			changeCard(cardDetails.table, pairIndex, {
 				category: descriptionType === 'category' ? undefined : cardDetails.category,
 				element: undefined

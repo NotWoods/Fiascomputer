@@ -1,7 +1,7 @@
 import type { CardType } from '$lib/components/FiascoCard/card-type';
 import type { PlaysetDataWithId } from '$lib/playset';
 
-export function loadPlayset(playset: PlaysetDataWithId | undefined) {
+export function loadPlayset(playset: PlaysetDataWithId) {
 	return {
 		type: 'playset',
 		playset
