@@ -40,6 +40,14 @@
 		}
 	}
 
+	function onBlur() {
+		const newValue = editableNode?.textContent ?? '';
+		if (newValue !== value) {
+			onChange(newValue);
+		}
+		editing = false;
+	}
+
 	function handleClick(event: MouseEvent) {
 		if (editing) {
 			event.preventDefault();
@@ -62,9 +70,7 @@
 			on:change={handleChange}
 			on:paste={onPaste}
 			on:keydown={onKeyDown}
-			on:blur={() => {
-				editing = false;
-			}}
+			on:blur={onBlur}
 			on:click={handleClick}
 			bind:this={editableNode}
 		>
@@ -77,9 +83,7 @@
 			on:change={handleChange}
 			on:paste={onPaste}
 			on:keydown={onKeyDown}
-			on:blur={() => {
-				editing = false;
-			}}
+			on:blur={onBlur}
 			on:click={onClick}
 			bind:this={editableNode}
 		>

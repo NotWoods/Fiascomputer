@@ -9,6 +9,7 @@
 			const db = await dbReady;
 			const session = await db?.get('sessions', id);
 			if (session) {
+				console.log('existing session', session);
 				return session;
 			}
 		} catch (err) {

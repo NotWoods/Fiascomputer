@@ -103,6 +103,10 @@ export function sessionReducer(state: Session, action: SessionAction): Session {
 		}
 		case 'player': {
 			const { playerIndex, name } = action;
+			if (state.players[playerIndex].name === name) {
+				return state;
+			}
+
 			return {
 				...state,
 				players: replace(state.players, playerIndex, (player) => {
@@ -161,6 +165,10 @@ export function sessionReducer(state: Session, action: SessionAction): Session {
 		}
 		case 'change-outcome-value': {
 			const { playerIndex, outcomeIndex, value } = action;
+			if (state.players[playerIndex].outcomes[outcomeIndex].value === value) {
+				return state;
+			}
+
 			return {
 				...state,
 				players: replace(state.players, playerIndex, (player) => {

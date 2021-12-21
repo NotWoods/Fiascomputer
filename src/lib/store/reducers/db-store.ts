@@ -1,4 +1,4 @@
-import { dbReady, FiascoDB } from '$lib/storage/db';
+import { dbReady, type FiascoDB } from '$lib/storage/db';
 import type { StoreNames, StoreValue } from 'idb';
 import type { ReducerStore } from './create-store';
 
@@ -57,11 +57,12 @@ export function connectToDb<Name extends StoreNames<FiascoDB>, State, Action>(op
 	async function pushStateToDb(state: State) {
 		const db = await dbReady;
 		if (db && validate(state)) {
+			console.log('storing', options.objectStoreName, state);
 			await db.put(options.objectStoreName, state);
 		}
 	}
 
-	store.subscribe((state) => {
+	return store.subscribe((state) => {
 		enqueue(() => pushStateToDb(state));
 	});
 }
