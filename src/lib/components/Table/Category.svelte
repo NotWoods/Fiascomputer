@@ -2,6 +2,7 @@
 	import type { PlaysetTable } from '$lib/playset';
 	import type { TableIndex } from '$lib/storage/playset';
 	import Editable from '$lib/components/Editable.svelte';
+	import { has } from 'ramda';
 
 	export let category: TableIndex;
 	export let table: PlaysetTable;
@@ -10,7 +11,19 @@
 	export let onChangeCategory: ((text: string) => void) | undefined = undefined;
 	export let onChangeElement: ((element: number, text: string) => void) | undefined = undefined;
 
+	let faded: ReadonlySet<number> = new Set();
+
 	$: categoryData = table.categories[category];
+
+	function toggleFade(element: number) {
+		if (faded.has(element)) {
+			const newSet = new Set(faded);
+			newSet.delete(element);
+			faded = newSet;
+		} else {
+			faded = new Set(faded).add(element);
+		}
+	}
 </script>
 
 <li class="category" value={category + 1}>
@@ -27,14 +40,16 @@
 	</h3>
 	<ol class="elements">
 		{#each categoryData.elements as elementData, element}
-			<li class="element-name font-sans" value={element + 1}>
-				<img
-					class="die"
-					src="/die/{element + 1}.svg"
-					alt={(element + 1).toString()}
-					width="16"
-					height="16"
-				/>
+			<li class="element-name font-sans" value={element + 1} class:faded={faded.has(element)}>
+				<button type="button" class="fade-button" on:click={() => toggleFade(element)}>
+					<img
+						class="die"
+						src="/die/{element + 1}.svg"
+						alt={(element + 1).toString()}
+						width="16"
+						height="16"
+					/>
+				</button>
 				<Editable
 					tag="a"
 					href="../setup"
@@ -49,10 +64,20 @@
 	</ol>
 </li>
 
-<style>
+<style lang="scss">
+	@use '../../../css/defs';
+
 	.die {
 		display: inline-block;
 		vertical-align: sub;
 		margin-right: 0.5rem;
+	}
+
+	.fade-button {
+		@include defs.plain-button;
+	}
+
+	.faded {
+		opacity: 0.5;
 	}
 </style>
