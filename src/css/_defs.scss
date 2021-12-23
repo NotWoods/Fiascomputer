@@ -1,11 +1,11 @@
 @font-face {
-    font-family: Hitchcock;
-    src: url("/fonts/Hitchcock.ttf") format('truetype');
+	font-family: Hitchcock;
+	src: url('/fonts/Hitchcock.ttf') format('truetype');
 }
 
 @font-face {
-    font-family: 'Akzidenz Grotesk';
-    src: url("/fonts/Akzidenz-grotesk.ttf") format('truetype');
+	font-family: 'Akzidenz Grotesk';
+	src: url('/fonts/Akzidenz-grotesk.ttf') format('truetype');
 }
 
 $background-color: var(--background-color);
@@ -39,334 +39,330 @@ $outcome-positive-color: #2c4e5f;
 $outcome-negative-color: #b72026;
 
 @mixin vertical-margin($margin) {
-    margin-top: $margin;
-    margin-bottom: $margin;
+	margin-top: $margin;
+	margin-bottom: $margin;
 }
 
 @mixin horizontal-margin($margin) {
-    margin-left: $margin;
-    margin-right: $margin;
+	margin-left: $margin;
+	margin-right: $margin;
 }
 
 @mixin flex(
-    $direction,
-    $horizontal: start,
-    $vertical: start,
-    $horizontal-spacing: false,
-    $vertical-spacing: false,
-    $multiline: false
+	$direction,
+	$horizontal: start,
+	$vertical: start,
+	$horizontal-spacing: false,
+	$vertical-spacing: false,
+	$multiline: false
 ) {
-    display: flex;
-    flex-direction: $direction;
+	display: flex;
+	flex-direction: $direction;
 
-    @if $horizontal == start {
-        $horizontal: flex-start;
-    }
-    @if $vertical == start {
-        $vertical: flex-start;
-    }
+	@if $horizontal == start {
+		$horizontal: flex-start;
+	}
+	@if $vertical == start {
+		$vertical: flex-start;
+	}
 
-    @if $horizontal == end {
-        $horizontal: flex-end;
-    }
-    @if $vertical == end {
-        $vertical: flex-end;
-    }
+	@if $horizontal == end {
+		$horizontal: flex-end;
+	}
+	@if $vertical == end {
+		$vertical: flex-end;
+	}
 
-    @if $direction == row {
-        justify-content: $horizontal;
-        align-items: $vertical;
-    }
-    @else if $direction == column {
-        justify-content: $vertical;
-        align-items: $horizontal;
-    }
+	@if $direction == row {
+		justify-content: $horizontal;
+		align-items: $vertical;
+	} @else if $direction == column {
+		justify-content: $vertical;
+		align-items: $horizontal;
+	}
 
-    @if $multiline {
-        flex-wrap: wrap;
-        @if $direction == row {
-            align-content: $vertical;
-        }
-        @else if $direction == column {
-            align-content: $horizontal;
-        }
-    }
+	@if $multiline {
+		flex-wrap: wrap;
+		@if $direction == row {
+			align-content: $vertical;
+		} @else if $direction == column {
+			align-content: $horizontal;
+		}
+	}
 
-    @if $horizontal-spacing {
-        @if $multiline {
-            & > * {
-                margin-left: calc($horizontal-spacing / 2);
-                margin-right: calc($horizontal-spacing / 2);
-            }
-        }
-        @else {
-            & > * + * {
-                margin-left: $horizontal-spacing;
-            }
-        }
-    }
+	@if $horizontal-spacing {
+		@if $multiline {
+			& > * {
+				margin-left: calc($horizontal-spacing / 2);
+				margin-right: calc($horizontal-spacing / 2);
+			}
+		} @else {
+			& > * + * {
+				margin-left: $horizontal-spacing;
+			}
+		}
+	}
 
-    @if $vertical-spacing {
-        @if $multiline {
-            & > * {
-                margin-top: calc($vertical-spacing / 2);
-                margin-bottom: calc($vertical-spacing / 2);
-            }
-        }
-        @else {
-            & > * + * {
-                margin-top: $vertical-spacing;
-            }
-        }
-    }
+	@if $vertical-spacing {
+		@if $multiline {
+			& > * {
+				margin-top: calc($vertical-spacing / 2);
+				margin-bottom: calc($vertical-spacing / 2);
+			}
+		} @else {
+			& > * + * {
+				margin-top: $vertical-spacing;
+			}
+		}
+	}
 }
 
 @mixin box($color: $white, $background-color: $dark-background-color, $border: false) {
-    color: $color;
-    background-color: $background-color;
+	color: $color;
+	background-color: $background-color;
 
-    @if $border == true {
-        border: 0.125rem solid $background-color;
-    }
+	@if $border == true {
+		border: 0.125rem solid $background-color;
+	}
 }
 
 @mixin button($color: $white, $background-color: $dark-background-color, $border: false) {
-    @include box($color: $color, $background-color: $background-color, $border: $border);
-    @include shadow;
-    font-family: $heading-font;
+	@include box($color: $color, $background-color: $background-color, $border: $border);
+	@include shadow;
+	font-family: $heading-font;
 
-    &:hover,
-    &:focus {
-        background-color: $black;
-        border-color: $black;
-        outline: none;
-    }
+	&:hover,
+	&:focus {
+		background-color: $black;
+		border-color: $black;
+		outline: none;
+	}
 
-    &[type=button]:active,
-    &[href]:active {
-        transform: translate(0.125rem, 0.125rem);
-        @include shadow(0.25rem);
-    }
+	&[type='button']:active,
+	&[href]:active {
+		transform: translate(0.125rem, 0.125rem);
+		@include shadow(0.25rem);
+	}
 }
 
 $shadow-color: hsla(0, 0%, 0%, 0.25);
 @mixin shadow($size: 0.375rem) {
-    box-shadow: $size $size $shadow-color;
+	box-shadow: $size $size $shadow-color;
 }
 
 @mixin text-shadow($size: 0.25rem) {
-    text-shadow: $size $size $shadow-color;
+	text-shadow: $size $size $shadow-color;
 }
 
 @mixin page-heading {
-    font-family: $heading-font;
-    font-size: 2rem;
-    line-height: 1.5;
-    text-align: center;
-    color: $heading-color;
+	font-family: $heading-font;
+	font-size: 2rem;
+	line-height: 1.5;
+	text-align: center;
+	color: $heading-color;
 }
 
 @mixin heading {
-    text-align: center;
-    font-family: $heading-font;
-    font-size: 1.5rem;
-    color: $text-red;
-    margin-bottom: 1rem;
+	text-align: center;
+	font-family: $heading-font;
+	font-size: 1.5rem;
+	color: $text-red;
+	margin-bottom: 1rem;
 }
 
 @mixin subheading {
-    font-family: $heading-font;
-    font-size: 1.25rem;
-    color: $text-red;
-    margin-bottom: 1rem;
+	font-family: $heading-font;
+	font-size: 1.25rem;
+	color: $text-red;
+	margin-bottom: 1rem;
 }
 
 @mixin subsubheading {
-    font-family: $heading-font;
-    margin-bottom: 1rem;
+	font-family: $heading-font;
+	margin-bottom: 1rem;
 }
 
 @mixin plain-button {
-    border: 0;
-    color: inherit;
-    background-color: transparent;
+	border: 0;
+	color: inherit;
+	background-color: transparent;
 }
 
 @mixin columns($count, $gap: 0) {
-    -moz-columns: $count;
-    -webkit-columns: $count;
-    columns: $count;
-    -moz-column-gap: $gap;
-    -webkit-column-gap: $gap;
-    column-gap: $gap;
+	-moz-columns: $count;
+	-webkit-columns: $count;
+	columns: $count;
+	-moz-column-gap: $gap;
+	-webkit-column-gap: $gap;
+	column-gap: $gap;
 }
 
 @mixin die-item {
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-    padding-left: 1.5rem;
-    text-indent: -1.5rem;
-    line-height: 1.25;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+	padding-left: 1.5rem;
+	text-indent: -1.5rem;
+	line-height: 1.25;
 }
 
 @mixin die-bullet($counter) {
-    &:before {
-        content: counter($counter);
-        margin-right: 0.5rem;
-        font-family: Dice, sans-serif;
-        border-radius: 0.25em;
-        background-color: $white;
-    }
+	&:before {
+		content: counter($counter);
+		margin-right: 0.5rem;
+		font-family: Dice, sans-serif;
+		border-radius: 0.25em;
+		background-color: $white;
+	}
 }
 
 @mixin close-button {
-    img {
-        width: auto;
-        height: 2rem;
-        opacity: 0.75;
-        transition: transform 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
-    }
+	img {
+		width: auto;
+		height: 2rem;
+		opacity: 0.75;
+		transition: transform 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+	}
 
-    &:focus img,
-    &:hover img {
-        transform: rotate(8deg);
-    }
+	&:focus img,
+	&:hover img {
+		transform: rotate(8deg);
+	}
 }
 
-@mixin line-through($top: false, $right: false, $bottom: false, $left: false, $color: $color, $width: $width) {
-    background-repeat: no-repeat;
+@mixin line-through(
+	$top: false,
+	$right: false,
+	$bottom: false,
+	$left: false,
+	$color: $color,
+	$width: $width
+) {
+	background-repeat: no-repeat;
 
-    @if $left and $right {
-        background-image: linear-gradient(to right, $color, $color);
-        background-size: 100% $width;
-        background-position: center center;
-    }
-    @else if $left and $top {
-        background-image:
-            linear-gradient(to right, $color, $color),
-            linear-gradient(to right, $color, $color);
-        background-size: 50% $width, $width 50%;
-        background-position: left center, center top;
-    }
-    @else if $right and $top {
-        background-image:
-            linear-gradient(to right, $color, $color),
-            linear-gradient(to right, $color, $color);
-        background-size: 50% $width, $width 50%;
-        background-position: right center, center top;
-    }
-    @else if $left and $bottom {
-        background-image:
-            linear-gradient(to right, $color, $color),
-            linear-gradient(to right, $color, $color);
-        background-size: 50% $width, $width 50%;
-        background-position: left center, center bottom;
-    }
+	@if $left and $right {
+		background-image: linear-gradient(to right, $color, $color);
+		background-size: 100% $width;
+		background-position: center center;
+	} @else if $left and $top {
+		background-image: linear-gradient(to right, $color, $color),
+			linear-gradient(to right, $color, $color);
+		background-size: 50% $width, $width 50%;
+		background-position: left center, center top;
+	} @else if $right and $top {
+		background-image: linear-gradient(to right, $color, $color),
+			linear-gradient(to right, $color, $color);
+		background-size: 50% $width, $width 50%;
+		background-position: right center, center top;
+	} @else if $left and $bottom {
+		background-image: linear-gradient(to right, $color, $color),
+			linear-gradient(to right, $color, $color);
+		background-size: 50% $width, $width 50%;
+		background-position: left center, center bottom;
+	}
 }
 
 @mixin editable($background-color) {
-    &[contenteditable=true] {
-        min-width: 1rem;
-        color: $black;
-        outline: 0.25rem solid $background-color;
-        background-color: $background-color;
-    }
+	&[contenteditable='true'] {
+		min-width: 1rem;
+		color: $black;
+		outline: 0.25rem solid $background-color;
+		background-color: $background-color;
+	}
 }
 
 @mixin editable-parent {
-    &:hover {
-        .edit {
-            opacity: 1;
-        }
-    }
+	&:hover {
+		.edit {
+			opacity: 1;
+		}
+	}
 }
 
 @keyframes spin {
-    from {
-        transform: rotate(0);
-    }
+	from {
+		transform: rotate(0);
+	}
 
-    to {
-        transform: rotate(1turn);
-    }
+	to {
+		transform: rotate(1turn);
+	}
 }
 
 @mixin edit-button($position: outside) {
-    @include plain-button;
-    position: absolute;
-    top: 0;
-    opacity: 0;
+	@include plain-button;
+	position: absolute;
+	top: 0;
+	opacity: 0;
 
-    @if $position == outside {
-        left: 100%;
-        margin-left: 0.5em;
-    }
-    @else {
-        right: 0;
-    }
+	@if $position == outside {
+		left: 100%;
+		margin-left: 0.5em;
+	} @else {
+		right: 0;
+	}
 
-    img {
-        display: block;
-        vertical-align: middle;
-        width: 1em;
-    }
+	img {
+		display: block;
+		vertical-align: middle;
+		width: 1em;
+	}
 
-    &:focus {
-        opacity: 1;
-    }
+	&:focus {
+		opacity: 1;
+	}
 }
 
 @mixin inline-edit-button {
-    @media (max-width: 40rem) {
-        position: static !important;
-        display: inline !important;
-        margin: 0 !important;
-        vertical-align: middle;
-    }
+	@media (max-width: 40rem) {
+		position: static !important;
+		display: inline !important;
+		margin: 0 !important;
+		vertical-align: middle;
+	}
 }
 
 @mixin loading-indicator {
-    content: "";
-    width: 2rem;
-    height: 1rem;
-    border: 0.375rem solid $heading-color;
-    border-bottom-width: 0;
-    border-radius: 2rem 2rem 0 0;
-    animation-duration: 0.75s;
-    animation-name: spin;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-    transform-origin: bottom;
+	content: '';
+	width: 2rem;
+	height: 1rem;
+	border: 0.375rem solid $heading-color;
+	border-bottom-width: 0;
+	border-radius: 2rem 2rem 0 0;
+	animation-duration: 0.75s;
+	animation-name: spin;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+	transform-origin: bottom;
 }
 
 @mixin paper {
-    position: relative;
-    padding: 2rem;
-    background-color: $yellow-card-background-color;
-    @include shadow;
+	position: relative;
+	padding: 2rem;
+	background-color: $yellow-card-background-color;
+	@include shadow;
 }
 
 @mixin document {
-    h3 {
-        @include subheading;
-    }
+	h3 {
+		@include subheading;
+	}
 
-    h4 {
-        @include subsubheading;
-    }
+	h4 {
+		@include subsubheading;
+	}
 
-    p {
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-    }
+	p {
+		margin-top: 1rem;
+		margin-bottom: 1rem;
+	}
 
-    em {
-        font-style: italic;
-    }
+	em {
+		font-style: italic;
+	}
 
-    a {
-        display: inline;
-        color: $blue;
-        text-decoration: underline;
-    }
+	a {
+		display: inline;
+		color: $blue;
+		text-decoration: underline;
+	}
 }

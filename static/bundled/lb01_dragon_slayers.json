@@ -1,199 +1,155 @@
 {
-  "title": "Dragon Slayers",
-  "subtitle": "...IN A LAND OF MYTH",
-  "tables": {
-    "relationship": {
-      "categories": [
-        {
-          "elements": [
-            "Bound by a blood ritual",
-            "Siblings",
-            "Orphan and caretaker"
-          ],
-          "name": "Family"
-        },
-        {
-          "elements": [
-            "Unrequited lovers",
-            "Spouses in an arranged marriage"
-          ],
-          "name": "Romance"
-        },
-        {
-          "elements": [
-            "Master and defeated foe turned into servant",
-            "Bounty hunter and bounty",
-            "Employer and henchman"
-          ],
-          "name": "Adventure"
-        },
-        {
-          "elements": [
-            "Sorcerer and apprentice",
-            "Creator and magical automaton"
-          ],
-          "name": "Magic"
-        },
-        {
-          "elements": [
-            "Disgruntled elves",
-            "Members of the same guild",
-            "Worshipers of the same god"
-          ],
-          "name": "Culture"
-        },
-        {
-          "elements": [
-            "Longtime adventuring companions",
-            "New blood and veteran adventurer",
-            "Drinking buddies",
-            "Reluctant allies",
-            "Leader / wannabe leader",
-            "Vicious scoundrel / pacifist healer"
-          ],
-          "name": "Fellowship"
-        },
-        {
-          "elements": [
-            "You each have a scar the other gave you",
-            "Fighter and coward",
-            "“You killed my father”"
-          ],
-          "name": "War"
-        }
-      ],
-      "title": "relationships..."
-    },
-    "need": {
-      "categories": [
-        {
-          "elements": [
-            "...by defending the little guy",
-            "...to that one special person"
-          ],
-          "name": "To be a Hero"
-        },
-        {
-          "elements": [
-            "...and they're all enemies",
-            "...and use them for necromantic experiments"
-          ],
-          "name": "To Crush your Enemies"
-        },
-        {
-          "elements": [
-            "...even if it means nobody else gets a share"
-          ],
-          "name": "To Amass a Hoard"
-        },
-        {
-          "elements": [
-            "...with everybody else's treasure",
-            "...after one last quest",
-            "...before they realize who you really work for"
-          ],
-          "name": "To Fly"
-        },
-        {
-          "elements": [
-            "...by marrying a royal heir",
-            "...forever",
-            "...an army of undead"
-          ],
-          "name": "To Rule"
-        },
-        {
-          "elements": [
-            "...in forbidden rituals",
-            "...in tavern brawls"
-          ],
-          "name": "To Overindulge"
-        }
-      ],
-      "title": "NEEDS..."
-    },
-    "object": {
-      "categories": [
-        {
-          "elements": [
-            "Sword of Cataclysmic Combustion",
-            "Staff of Resurrection with one charge left"
-          ],
-          "name": "Weapon"
-        },
-        {
-          "elements": [
-            "Enchanting Charm of Enchantment"
-          ],
-          "name": "Spell"
-        },
-        {
-          "elements": [
-            "Crown of Fearlessness",
-            "Mystery potion without a label"
-          ],
-          "name": "Magic Item"
-        },
-        {
-          "elements": [
-            "Massive pile of gold coins"
-          ],
-          "name": "Treasure"
-        },
-        {
-          "elements": [
-            "Old ally polymorphed into a toad",
-            "Statue of a deity, with a hidden compartment",
-            "“This old charm? I was wearing it when they found me as a baby.”"
-          ],
-          "name": "Sentimental"
-        }
-      ],
-      "title": "Arms and Arcana..."
-    },
-    "location": {
-      "categories": [
-        {
-          "elements": [
-            "Taverns, plural"
-          ],
-          "name": "In the Town"
-        },
-        {
-          "elements": [
-            "Magic gate to the dungeon"
-          ],
-          "name": "On the Outskirts"
-        },
-        {
-          "elements": [
-            "Grove of the dead druid Hekrabar"
-          ],
-          "name": "In the Wild"
-        },
-        {
-          "elements": [
-            "Orc stronghold, full of orcs",
-            "Altar to unpopular gods"
-          ],
-          "name": "Dungeon—Upper Level"
-        },
-        {
-          "elements": [
-            "Trapped corridor",
-            "Dragon's lair"
-          ],
-          "name": "Dungeon—Lower Level"
-        },
-        {
-          "elements": [
-            "Cave holding hidden treasure (if you still have the map)",
-            "Small village, now a burnt ruin"
-          ],
-          "name": "From the Past"
-        }
-      ],
-      "title": "LOCATIONS..."
-    }
-  }
+	"title": "Dragon Slayers",
+	"subtitle": "...IN A LAND OF MYTH",
+	"tables": {
+		"relationship": {
+			"categories": [
+				{
+					"elements": ["Bound by a blood ritual", "Siblings", "Orphan and caretaker"],
+					"name": "Family"
+				},
+				{
+					"elements": ["Unrequited lovers", "Spouses in an arranged marriage"],
+					"name": "Romance"
+				},
+				{
+					"elements": [
+						"Master and defeated foe turned into servant",
+						"Bounty hunter and bounty",
+						"Employer and henchman"
+					],
+					"name": "Adventure"
+				},
+				{
+					"elements": ["Sorcerer and apprentice", "Creator and magical automaton"],
+					"name": "Magic"
+				},
+				{
+					"elements": [
+						"Disgruntled elves",
+						"Members of the same guild",
+						"Worshipers of the same god"
+					],
+					"name": "Culture"
+				},
+				{
+					"elements": [
+						"Longtime adventuring companions",
+						"New blood and veteran adventurer",
+						"Drinking buddies",
+						"Reluctant allies",
+						"Leader / wannabe leader",
+						"Vicious scoundrel / pacifist healer"
+					],
+					"name": "Fellowship"
+				},
+				{
+					"elements": [
+						"You each have a scar the other gave you",
+						"Fighter and coward",
+						"“You killed my father”"
+					],
+					"name": "War"
+				}
+			],
+			"title": "relationships..."
+		},
+		"need": {
+			"categories": [
+				{
+					"elements": ["...by defending the little guy", "...to that one special person"],
+					"name": "To be a Hero"
+				},
+				{
+					"elements": ["...and they're all enemies", "...and use them for necromantic experiments"],
+					"name": "To Crush your Enemies"
+				},
+				{
+					"elements": ["...even if it means nobody else gets a share"],
+					"name": "To Amass a Hoard"
+				},
+				{
+					"elements": [
+						"...with everybody else's treasure",
+						"...after one last quest",
+						"...before they realize who you really work for"
+					],
+					"name": "To Fly"
+				},
+				{
+					"elements": ["...by marrying a royal heir", "...forever", "...an army of undead"],
+					"name": "To Rule"
+				},
+				{
+					"elements": ["...in forbidden rituals", "...in tavern brawls"],
+					"name": "To Overindulge"
+				}
+			],
+			"title": "NEEDS..."
+		},
+		"object": {
+			"categories": [
+				{
+					"elements": [
+						"Sword of Cataclysmic Combustion",
+						"Staff of Resurrection with one charge left"
+					],
+					"name": "Weapon"
+				},
+				{
+					"elements": ["Enchanting Charm of Enchantment"],
+					"name": "Spell"
+				},
+				{
+					"elements": ["Crown of Fearlessness", "Mystery potion without a label"],
+					"name": "Magic Item"
+				},
+				{
+					"elements": ["Massive pile of gold coins"],
+					"name": "Treasure"
+				},
+				{
+					"elements": [
+						"Old ally polymorphed into a toad",
+						"Statue of a deity, with a hidden compartment",
+						"“This old charm? I was wearing it when they found me as a baby.”"
+					],
+					"name": "Sentimental"
+				}
+			],
+			"title": "Arms and Arcana..."
+		},
+		"location": {
+			"categories": [
+				{
+					"elements": ["Taverns, plural"],
+					"name": "In the Town"
+				},
+				{
+					"elements": ["Magic gate to the dungeon"],
+					"name": "On the Outskirts"
+				},
+				{
+					"elements": ["Grove of the dead druid Hekrabar"],
+					"name": "In the Wild"
+				},
+				{
+					"elements": ["Orc stronghold, full of orcs", "Altar to unpopular gods"],
+					"name": "Dungeon—Upper Level"
+				},
+				{
+					"elements": ["Trapped corridor", "Dragon's lair"],
+					"name": "Dungeon—Lower Level"
+				},
+				{
+					"elements": [
+						"Cave holding hidden treasure (if you still have the map)",
+						"Small village, now a burnt ruin"
+					],
+					"name": "From the Past"
+				}
+			],
+			"title": "LOCATIONS..."
+		}
+	}
 }

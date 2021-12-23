@@ -1,1298 +1,1306 @@
 @use './defs';
 @use './defaults';
 
-html, body {
-    width: 100%;
-    height: 100%;
+html,
+body {
+	width: 100%;
+	height: 100%;
 }
 
 body {
-    background-color: defs.$background-color;
+	background-color: defs.$background-color;
 }
 
 #svelte {
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
+	min-height: 100%;
+	display: flex;
+	flex-direction: column;
 }
 
 main {
-    flex: 1;
-    @include defs.flex(column, $horizontal: stretch);
+	flex: 1;
+	@include defs.flex(column, $horizontal: stretch);
 }
 
 main > .page {
-    position: relative;
+	position: relative;
 }
 
 .loading .page:not(.splash-page) {
-    display: none;
+	display: none;
 }
 
 html {
-    font-family: defs.$body-font;
+	font-family: defs.$body-font;
 }
 
-.font-hitchcock, h1, h2, h3, h4, h5, h6 {
-    font-family: Hitchcock, serif;
-    text-underline-offset: 30%;
+.font-hitchcock,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: Hitchcock, serif;
+	text-underline-offset: 30%;
 }
 .font-sans {
-    font-family: 'Akzidenz Grotesk', sans-serif;
+	font-family: 'Akzidenz Grotesk', sans-serif;
 }
 
 .fill-current {
-    fill: currentColor;
+	fill: currentColor;
 }
 
 @mixin menu-button($image) {
-    @include defs.plain-button;
-    padding: 0.5rem;
-    padding-left: 2rem;
-    background-image: $image;
-    background-repeat: no-repeat;
-    background-position: 0.5rem center;
-    background-size: auto 1rem;
+	@include defs.plain-button;
+	padding: 0.5rem;
+	padding-left: 2rem;
+	background-image: $image;
+	background-repeat: no-repeat;
+	background-position: 0.5rem center;
+	background-size: auto 1rem;
 }
 
 header {
-    position: relative;
-    z-index: 2;
-    color: defs.$white;
-    background-color: defs.$black;
-    font-family: defs.$heading-font;
-    @include defs.flex(row, $vertical: center);
+	position: relative;
+	z-index: 2;
+	color: defs.$white;
+	background-color: defs.$black;
+	font-family: defs.$heading-font;
+	@include defs.flex(row, $vertical: center);
 
-    #app-title {
-        flex: 1;
-        position: relative;
-        overflow: hidden;
-        padding: 0.5rem;
+	#app-title {
+		flex: 1;
+		position: relative;
+		overflow: hidden;
+		padding: 0.5rem;
 
-        &:after {
-            display: block;
-            content: "";
-            position: absolute;
-            right: 0;
-            top: 0;
-            height: 100%;
-            width: 2rem;
-            background-image: linear-gradient(to right, transparent, black);
-            pointer-events: none;
-        }
-    }
+		&:after {
+			display: block;
+			content: '';
+			position: absolute;
+			right: 0;
+			top: 0;
+			height: 100%;
+			width: 2rem;
+			background-image: linear-gradient(to right, transparent, black);
+			pointer-events: none;
+		}
+	}
 
-    #menu {
-        position: absolute;
-        right: 0;
-        top: 100%;
-        padding: 0.75rem;
-        color: defs.$white;
-        background-color: defs.$black;
-        @include defs.shadow;
+	#menu {
+		position: absolute;
+		right: 0;
+		top: 100%;
+		padding: 0.75rem;
+		color: defs.$white;
+		background-color: defs.$black;
+		@include defs.shadow;
 
-        .menu-item + .menu-item {
-            margin-top: 0.75rem;
-        }
+		.menu-item + .menu-item {
+			margin-top: 0.75rem;
+		}
 
-        select {
-            padding: 0.25rem;
-        }
-    }
+		select {
+			padding: 0.25rem;
+		}
+	}
 
-    button {
-        @include defs.plain-button;
-    }
+	button {
+		@include defs.plain-button;
+	}
 }
 
 html.fullscreen {
-    #enter-fullscreen-menu-item {
-        display: none;
-    }
+	#enter-fullscreen-menu-item {
+		display: none;
+	}
 }
 
 html:not(.fullscreen) {
-    #leave-fullscreen-menu-item {
-        display: none;
-    }
+	#leave-fullscreen-menu-item {
+		display: none;
+	}
 }
 
 html:not(.player-list) #player-list {
-    display: none;
+	display: none;
 }
 
 .splash-page {
-    @include defs.flex(column);
-    @include defs.vertical-margin(auto);
-    @include defs.horizontal-margin(auto);
+	@include defs.flex(column);
+	@include defs.vertical-margin(auto);
+	@include defs.horizontal-margin(auto);
 
-    .splash-message {
-        @include defs.page-heading;
-        &:before {
-            @include defs.loading-indicator;
-            display: inline-block;
-            margin-right: 1rem;
-            margin-bottom: 1rem;
-        }
-    }
+	.splash-message {
+		@include defs.page-heading;
+		&:before {
+			@include defs.loading-indicator;
+			display: inline-block;
+			margin-right: 1rem;
+			margin-bottom: 1rem;
+		}
+	}
 
-    @media (max-width: 40em) {
-        .splash-message {
-            font-size: 0.75rem;
-        }
-    }
+	@media (max-width: 40em) {
+		.splash-message {
+			font-size: 0.75rem;
+		}
+	}
 }
 
-.document, .table {
-    flex: 1;
-    position: relative;
-    padding: 2rem;
-    background-color: defs.$yellow-card-background-color;
-    @include defs.shadow;
+.document,
+.table {
+	flex: 1;
+	position: relative;
+	padding: 2rem;
+	background-color: defs.$yellow-card-background-color;
+	@include defs.shadow;
 }
 
 @mixin intro-page {
-    @include defs.flex(column);
-    @include defs.vertical-margin(auto);
+	@include defs.flex(column);
+	@include defs.vertical-margin(auto);
 
-    .document {
-        @include defs.horizontal-margin(auto);
-        max-width: 40rem;
-        text-align: center;
-    }
+	.document {
+		@include defs.horizontal-margin(auto);
+		max-width: 40rem;
+		text-align: center;
+	}
 
-    .heading {
-        font-family: defs.$heading-font;
-        color: defs.$text-red;
-    }
+	.heading {
+		font-family: defs.$heading-font;
+		color: defs.$text-red;
+	}
 
-    @media (max-width: 40em) {
-        .heading {
-            font-size: 1rem;
-        }
-    }
+	@media (max-width: 40em) {
+		.heading {
+			font-size: 1rem;
+		}
+	}
 
-    @media (min-width: 40em) {
-        .heading {
-            font-size: 3rem;
-        }
-    }
+	@media (min-width: 40em) {
+		.heading {
+			font-size: 3rem;
+		}
+	}
 
-    .introduction {
-        max-width: 50rem;
-        margin-top: 2rem;
-        margin-bottom: 2rem;
-        font-size: 1rem;
-        line-height: 1.5;
+	.introduction {
+		max-width: 50rem;
+		margin-top: 2rem;
+		margin-bottom: 2rem;
+		font-size: 1rem;
+		line-height: 1.5;
 
-        p + p {
-            margin-top: 1rem;
-        }
+		p + p {
+			margin-top: 1rem;
+		}
 
-        a {
-            display: inline;
-            color: defs.$blue;
-            text-decoration: underline;
-        }
-    }
+		a {
+			display: inline;
+			color: defs.$blue;
+			text-decoration: underline;
+		}
+	}
 
-    .credits {
-        @include defs.horizontal-margin(auto);
-        margin-top: 1rem;
-        padding: 1rem;
-        text-align: center;
-        color: defs.$heading-color;
-        font-family: defs.$heading-font;
-        line-height: 1.5;
-        font-size: 0.75rem;
+	.credits {
+		@include defs.horizontal-margin(auto);
+		margin-top: 1rem;
+		padding: 1rem;
+		text-align: center;
+		color: defs.$heading-color;
+		font-family: defs.$heading-font;
+		line-height: 1.5;
+		font-size: 0.75rem;
 
-        a {
-            display: inline;
-            color: defs.$white;
-            border-bottom: 1px solid defs.$white;
-            padding-bottom: 2px;
-        }
+		a {
+			display: inline;
+			color: defs.$white;
+			border-bottom: 1px solid defs.$white;
+			padding-bottom: 2px;
+		}
 
-        p + p {
-            margin-top: 1rem;
-        }
-    }
+		p + p {
+			margin-top: 1rem;
+		}
+	}
 }
 
 .close-button {
-    @include defs.plain-button;
-    @include defs.close-button;
+	@include defs.plain-button;
+	@include defs.close-button;
 }
 .table-page .close-button,
 .help-page .close-button,
 .version-page .close-button,
 .intro-page .close-button,
 .detail-remove.close-button {
-    position: absolute;
-    right: 0;
-    top: 0;
-    margin: 2rem;
+	position: absolute;
+	right: 0;
+	top: 0;
+	margin: 2rem;
 }
 
 .intro-page {
-    @include intro-page;
+	@include intro-page;
 
-    .welcome {
-        display: block;
-        margin-bottom: 0.5rem;
-    }
+	.welcome {
+		display: block;
+		margin-bottom: 0.5rem;
+	}
 
-    @media (max-width: 40em) {
-        .welcome {
-            font-size: 0.75em;
-        }
-    }
+	@media (max-width: 40em) {
+		.welcome {
+			font-size: 0.75em;
+		}
+	}
 
-    @media (min-width: 40em) {
-        .welcome {
-            font-size: 0.5em;
-        }
-    }
+	@media (min-width: 40em) {
+		.welcome {
+			font-size: 0.5em;
+		}
+	}
 
-    .start {
-        display: inline-block;
-        @include defs.plain-button;
-        @include defs.button;
-        padding: 1rem;
-    }
+	.start {
+		display: inline-block;
+		@include defs.plain-button;
+		@include defs.button;
+		padding: 1rem;
+	}
 }
 
 .join-page {
-    @include defs.flex(column);
-    @include defs.vertical-margin(auto);
-    @include defs.horizontal-margin(auto);
+	@include defs.flex(column);
+	@include defs.vertical-margin(auto);
+	@include defs.horizontal-margin(auto);
 
-    &:not(.login) .login,
-    &:not(.empty) .empty,
-    &:not(.loading) .loading,
-    &:not(.error) .error {
-        display: none;
-    }
+	&:not(.login) .login,
+	&:not(.empty) .empty,
+	&:not(.loading) .loading,
+	&:not(.error) .error {
+		display: none;
+	}
 
-    .login {
-        @include defs.paper;
-        @include defs.document;
-        text-align: center;
+	.login {
+		@include defs.paper;
+		@include defs.document;
+		text-align: center;
 
-        .title {
-            @include defs.heading;
-            margin-bottom: 1rem;
-        }
+		.title {
+			@include defs.heading;
+			margin-bottom: 1rem;
+		}
 
-        button {
-            @include defs.plain-button;
-            @include defs.button;
-            padding: 1rem;
-        }
-    }
+		button {
+			@include defs.plain-button;
+			@include defs.button;
+			padding: 1rem;
+		}
+	}
 
-    .empty {
-        @include intro-page;
-    }
+	.empty {
+		@include intro-page;
+	}
 
-    .loading {
-        @include defs.flex(column);
-        @include defs.vertical-margin(auto);
-        @include defs.horizontal-margin(auto);
+	.loading {
+		@include defs.flex(column);
+		@include defs.vertical-margin(auto);
+		@include defs.horizontal-margin(auto);
 
-        .loading-message {
-            @include defs.page-heading;
-            &:before {
-                @include defs.loading-indicator;
-                display: inline-block;
-                margin-right: 1rem;
-                margin-bottom: 1rem;
-            }
-        }
+		.loading-message {
+			@include defs.page-heading;
+			&:before {
+				@include defs.loading-indicator;
+				display: inline-block;
+				margin-right: 1rem;
+				margin-bottom: 1rem;
+			}
+		}
 
-        @media (max-width: 40em) {
-            .loading-message {
-                font-size: 0.75rem;
-            }
-        }
-    }
+		@media (max-width: 40em) {
+			.loading-message {
+				font-size: 0.75rem;
+			}
+		}
+	}
 
-    .error {
-        @include defs.paper;
-        @include defs.document;
+	.error {
+		@include defs.paper;
+		@include defs.document;
 
-        .heading {
-            @include defs.heading;
-        }
+		.heading {
+			@include defs.heading;
+		}
 
-        .error-details-heading {
-            text-align: center;
-        }
+		.error-details-heading {
+			text-align: center;
+		}
 
-        .error-details {
-            font-family: monospace;
-            font-size: 1rem;
-        }
-    }
+		.error-details {
+			font-family: monospace;
+			font-size: 1rem;
+		}
+	}
 }
 
 .add-playset-page {
-    @include defs.vertical-margin(auto);
-    max-width: 40rem;
-    align-self: center;
-    text-align: center;
-    padding: 1rem;
+	@include defs.vertical-margin(auto);
+	max-width: 40rem;
+	align-self: center;
+	text-align: center;
+	padding: 1rem;
 
-    .heading {
-        @include defs.page-heading;
-        margin-bottom: 2rem;
-    }
+	.heading {
+		@include defs.page-heading;
+		margin-bottom: 2rem;
+	}
 
-    .add-playset-method-list {
-        text-align: center;
+	.add-playset-method-list {
+		text-align: center;
 
-        label, span, input[type=file] {
-            color: white;
-        }
-    }
+		label,
+		span,
+		input[type='file'] {
+			color: white;
+		}
+	}
 
-    .add-playset-method + .add-playset-method {
-        margin-top: 1.5rem;
+	.add-playset-method + .add-playset-method {
+		margin-top: 1.5rem;
 
-        &:before {
-            display: block;
-            content: "or";
-            margin-bottom: 1.5rem;
-            font-family: defs.$heading-font;
-            color: defs.$heading-color;
-        }
-    }
+		&:before {
+			display: block;
+			content: 'or';
+			margin-bottom: 1.5rem;
+			font-family: defs.$heading-font;
+			color: defs.$heading-color;
+		}
+	}
 
-    .add-playset-file-button {
-        @include defs.plain-button;
-        @include defs.button;
-        padding: 1rem;
-    }
+	.add-playset-file-button {
+		@include defs.plain-button;
+		@include defs.button;
+		padding: 1rem;
+	}
 
-    .add-playset-drag-drop-field {
-        display: block;
-        padding: 2rem;
-        border: 3px dashed defs.$heading-color;
-        font-family: defs.$heading-font;
-        background-color: defs.$dark-background-color;
-    }
+	.add-playset-drag-drop-field {
+		display: block;
+		padding: 2rem;
+		border: 3px dashed defs.$heading-color;
+		font-family: defs.$heading-font;
+		background-color: defs.$dark-background-color;
+	}
 
-    &.drag {
-        .add-playset-drag-drop-field {
-            background-color: defs.$black;
-        }
-    }
+	&.drag {
+		.add-playset-drag-drop-field {
+			background-color: defs.$black;
+		}
+	}
 
-    .tip {
-        font-size: 0.75rem;
-        margin-top: 2rem;
-        font-family: defs.$heading-font;
-        color: defs.$heading-color;
-        line-height: 2;
+	.tip {
+		font-size: 0.75rem;
+		margin-top: 2rem;
+		font-family: defs.$heading-font;
+		color: defs.$heading-color;
+		line-height: 2;
 
-        a {
-            display: inline-block;
-            color: defs.$white;
-            text-decoration: underline;
-        }
-    }
+		a {
+			display: inline-block;
+			color: defs.$white;
+			text-decoration: underline;
+		}
+	}
 }
 
 .playsets-page {
-    flex: 1;
-    @include defs.flex(column, $horizontal: center);
-    overflow: auto;
+	flex: 1;
+	@include defs.flex(column, $horizontal: center);
+	overflow: auto;
 
-    h2 {
-        @include defs.page-heading;
-        margin-top: 2rem;
-        margin-bottom: 1.25rem;
-    }
+	h2 {
+		@include defs.page-heading;
+		margin-top: 2rem;
+		margin-bottom: 1.25rem;
+	}
 
-    .playsets {
-        @include defs.flex(row,
-            $horizontal: center,
-            $vertical: stretch,
-            $horizontal-spacing: 1.5rem,
-            $vertical-spacing: 1.5rem,
-            $multiline: true
-        );
-    }
+	.playsets {
+		@include defs.flex(
+			row,
+			$horizontal: center,
+			$vertical: stretch,
+			$horizontal-spacing: 1.5rem,
+			$vertical-spacing: 1.5rem,
+			$multiline: true
+		);
+	}
 
-    .playset,
-    .add-playset {
-        @include defs.flex(row, $vertical: stretch);
-        overflow: visible;
-        position: relative;
-    }
+	.playset,
+	.add-playset {
+		@include defs.flex(row, $vertical: stretch);
+		overflow: visible;
+		position: relative;
+	}
 
-    .playset.deleted .playset-link {
-        opacity: 0.25;
-    }
+	.playset.deleted .playset-link {
+		opacity: 0.25;
+	}
 
-    .playset.deleted:hover:after {
-        content: "Recover";
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        @include defs.flex(column, $horizontal: center, $vertical: center);
-        font-family: defs.$heading-font;
-        color: defs.$white;
-        pointer-events: none;
-    }
+	.playset.deleted:hover:after {
+		content: 'Recover';
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		@include defs.flex(column, $horizontal: center, $vertical: center);
+		font-family: defs.$heading-font;
+		color: defs.$white;
+		pointer-events: none;
+	}
 
-    .playset-link,
-    .add-playset-link {
-        flex: 1;
-        @include defs.flex(column, $horizontal: center);
-        @include defs.button($border: true);
-        text-align: center;
-    }
+	.playset-link,
+	.add-playset-link {
+		flex: 1;
+		@include defs.flex(column, $horizontal: center);
+		@include defs.button($border: true);
+		text-align: center;
+	}
 
-    .add-playset-link {
-        &:before {
-            display: flex;
-            width: 8rem;
-            height: 12rem;
-            align-items: center;
-            justify-content: center;
-            content: "+";
-            font-size: 8rem;
-        }
-    }
+	.add-playset-link {
+		&:before {
+			display: flex;
+			width: 8rem;
+			height: 12rem;
+			align-items: center;
+			justify-content: center;
+			content: '+';
+			font-size: 8rem;
+		}
+	}
 
-    .playset-thumbnail {
-        display: block;
-        height: 12rem;
-    }
+	.playset-thumbnail {
+		display: block;
+		height: 12rem;
+	}
 
-    .playset-name,
-    .add-playset-label {
-        flex: 1;
-        @include defs.flex(column, $horizontal: center, $vertical: center);
-        width: 8rem;
-        padding: 0.5rem;
-        font-size: 0.75rem;
-        font-family: defs.$heading-font;
-        line-height: 1.5;
-    }
+	.playset-name,
+	.add-playset-label {
+		flex: 1;
+		@include defs.flex(column, $horizontal: center, $vertical: center);
+		width: 8rem;
+		padding: 0.5rem;
+		font-size: 0.75rem;
+		font-family: defs.$heading-font;
+		line-height: 1.5;
+	}
 }
 
 .playsets-page.loading {
-    .add-playset:before {
-        @include defs.loading-indicator;
-        display: block;
-        align-self: center;
-        margin-right: 1.5rem;
-    }
+	.add-playset:before {
+		@include defs.loading-indicator;
+		display: block;
+		align-self: center;
+		margin-right: 1.5rem;
+	}
 }
 
 .players-page {
-    @include defs.vertical-margin(auto);
+	@include defs.vertical-margin(auto);
 
-    @include defs.flex(column,
-        $horizontal: center,
-        $vertical-spacing: 1rem
-    );
+	@include defs.flex(column, $horizontal: center, $vertical-spacing: 1rem);
 
-    @media (max-width: 40em) {
-        padding: 2rem;
-    }
+	@media (max-width: 40em) {
+		padding: 2rem;
+	}
 
-    @media (min-width: 40em) {
-        padding: 1rem;
-    }
+	@media (min-width: 40em) {
+		padding: 1rem;
+	}
 
-    h2 {
-        @include defs.page-heading;
-    }
+	h2 {
+		@include defs.page-heading;
+	}
 
-    .links {
-        @include defs.flex(row, $vertical: center, $horizontal: center);
-        flex-wrap: wrap;
-    }
+	.links {
+		@include defs.flex(row, $vertical: center, $horizontal: center);
+		flex-wrap: wrap;
+	}
 
-    .collaboration button,
-    .players-link {
-        @include defs.plain-button;
-        @include defs.button;
-        padding: 1rem;
-        font-family: defs.$heading-font;
-        font-size: 1.5rem;
-        text-align: center;
-    }
+	.collaboration button,
+	.players-link {
+		@include defs.plain-button;
+		@include defs.button;
+		padding: 1rem;
+		font-family: defs.$heading-font;
+		font-size: 1.5rem;
+		text-align: center;
+	}
 
-    .players-link {
-        margin: 1rem;
-    }
+	.players-link {
+		margin: 1rem;
+	}
 
-    @mixin google-drive-logo {
-        background-image: url("/images/google-drive.png");
-        background-repeat: no-repeat;
-        background-size: 3rem auto;
-        background-position: 1rem center;
-        padding-left: 5rem;
-    }
+	@mixin google-drive-logo {
+		background-image: url('/images/google-drive.png');
+		background-repeat: no-repeat;
+		background-size: 3rem auto;
+		background-position: 1rem center;
+		padding-left: 5rem;
+	}
 
-    .collaboration {
-        button {
-            position: relative;
-            @include google-drive-logo;
+	.collaboration {
+		button {
+			position: relative;
+			@include google-drive-logo;
 
-            &:after {
-                @include defs.button;
-                position: absolute;
-                left: 90%;
-                bottom: 85%;
-                display: block;
-                content: "New!";
-                font-size: 0.75rem;
-                padding: 0.5rem;
-                background-color: defs.$other-background-color;
-            }
+			&:after {
+				@include defs.button;
+				position: absolute;
+				left: 90%;
+				bottom: 85%;
+				display: block;
+				content: 'New!';
+				font-size: 0.75rem;
+				padding: 0.5rem;
+				background-color: defs.$other-background-color;
+			}
 
-            .backend {
-                display: block;
-                margin-top: 0.5rem;
-                font-size: 1rem;
-                color: darken(defs.$white, 25%);
-            }
-        }
+			.backend {
+				display: block;
+				margin-top: 0.5rem;
+				font-size: 1rem;
+				color: darken(defs.$white, 25%);
+			}
+		}
 
-        .loading {
-            &:before {
-                @include defs.loading-indicator;
-                display: block;
-                margin-bottom: 1rem;
-            }
+		.loading {
+			&:before {
+				@include defs.loading-indicator;
+				display: block;
+				margin-bottom: 1rem;
+			}
 
-            .message {
-                display: none;
-            }
-        }
+			.message {
+				display: none;
+			}
+		}
 
-        .active {
-            padding: 1rem;
-            color: defs.$white;
-            background-color: defs.$dark-background-color;
+		.active {
+			padding: 1rem;
+			color: defs.$white;
+			background-color: defs.$dark-background-color;
 
-            @include google-drive-logo;
+			@include google-drive-logo;
 
-            .instructions {
-                font-family: defs.$heading-font;
-                margin-bottom: 0.5rem;
-            }
+			.instructions {
+				font-family: defs.$heading-font;
+				margin-bottom: 0.5rem;
+			}
 
-            #join-link {
-                display: inline;
-                font-size: 1rem;
-                font-family: monospace, monospace;
-                text-decoration: underline;
-            }
-        }
+			#join-link {
+				display: inline;
+				font-size: 1rem;
+				font-family: monospace, monospace;
+				text-decoration: underline;
+			}
+		}
 
-        &:not(.inactive) .inactive,
-        &:not(.active) .active,
-        &:not(.loading) .loading {
-            display: none;
-        }
-    }
+		&:not(.inactive) .inactive,
+		&:not(.active) .active,
+		&:not(.loading) .loading {
+			display: none;
+		}
+	}
 
-    @media (min-width: 40em) {
-        .players-link:before {
-            display: block;
-            content: "";
-            width: 5rem;
-            height: 7rem;
-            margin-left: auto;
-            margin-right: auto;
-            margin-bottom: 1rem;
-            background-repeat: no-repeat;
-            background-size: auto 3rem;
-        }
+	@media (min-width: 40em) {
+		.players-link:before {
+			display: block;
+			content: '';
+			width: 5rem;
+			height: 7rem;
+			margin-left: auto;
+			margin-right: auto;
+			margin-bottom: 1rem;
+			background-repeat: no-repeat;
+			background-size: auto 3rem;
+		}
 
-        #players-link-3:before {
-            background-image:
-            url("/images/player-white.svg"),
-            url("/images/player-white.svg"),
-            url("/images/player-white.svg");
-            background-position: center top, right bottom, left bottom;
-        }
+		#players-link-3:before {
+			background-image: url('/images/player-white.svg'), url('/images/player-white.svg'),
+				url('/images/player-white.svg');
+			background-position: center top, right bottom, left bottom;
+		}
 
-        #players-link-4:before {
-            background-image:
-            url("/images/player-white.svg"),
-            url("/images/player-white.svg"),
-            url("/images/player-white.svg"),
-            url("/images/player-white.svg");
-            background-position: left top, right top, right bottom, left bottom;
-        }
+		#players-link-4:before {
+			background-image: url('/images/player-white.svg'), url('/images/player-white.svg'),
+				url('/images/player-white.svg'), url('/images/player-white.svg');
+			background-position: left top, right top, right bottom, left bottom;
+		}
 
-        #players-link-5:before {
-            width: 7rem;
-            background-image:
-            url("/images/player-white.svg"),
-            url("/images/player-white.svg"),
-            url("/images/player-white.svg"),
-            url("/images/player-white.svg"),
-            url("/images/player-white.svg");
-            background-position: left top, right top, right bottom, left bottom, center center;
-        }
-    }
+		#players-link-5:before {
+			width: 7rem;
+			background-image: url('/images/player-white.svg'), url('/images/player-white.svg'),
+				url('/images/player-white.svg'), url('/images/player-white.svg'),
+				url('/images/player-white.svg');
+			background-position: left top, right top, right bottom, left bottom, center center;
+		}
+	}
 }
 
 @media (min-width: 40em) {
-    .setup-page {
-        flex: 1;
-        @include defs.flex(column, $vertical: center, $horizontal: stretch);
+	.setup-page {
+		flex: 1;
+		@include defs.flex(column, $vertical: center, $horizontal: stretch);
 
-        .pairs-outer {
-            flex: 1;
-            overflow: auto;
-        }
+		.pairs-outer {
+			flex: 1;
+			overflow: auto;
+		}
 
-        .pair {
-            align-self: stretch;
-            padding: 1rem;
-        }
-    }
+		.pair {
+			align-self: stretch;
+			padding: 1rem;
+		}
+	}
 }
 
 .setup-page {
-    overflow: auto;
-    text-align: center;
+	overflow: auto;
+	text-align: center;
 
-    .playset {
-        @include defs.flex(row, $horizontal: center, $vertical: center);
+	.playset {
+		@include defs.flex(row, $horizontal: center, $vertical: center);
 
-        &:hover {
-            .edit {
-                opacity: 1;
-            }
-        }
-    }
+		&:hover {
+			.edit {
+				opacity: 1;
+			}
+		}
+	}
 
-    .playset-name {
-        order: 2;
-        font-size: 2rem;
-        font-family: defs.$heading-font;
-        color: defs.$heading-color;
+	.playset-name {
+		order: 2;
+		font-size: 2rem;
+		font-family: defs.$heading-font;
+		color: defs.$heading-color;
 
-        .playset-name-text {
-            @include defs.editable(defs.$heading-color);
-            vertical-align: middle;
-        }
+		.playset-name-text {
+			@include defs.editable(defs.$heading-color);
+			vertical-align: middle;
+		}
 
-        position: relative;
-        .edit {
-            @include defs.edit-button;
-            display: inline;
-            margin-left: 0;
-            position: static;
-            vertical-align: middle;
-        }
-    }
+		position: relative;
+		.edit {
+			@include defs.edit-button;
+			display: inline;
+			margin-left: 0;
+			position: static;
+			vertical-align: middle;
+		}
+	}
 
-    #player-count-control-box {
-        order: 3;
-    }
+	#player-count-control-box {
+		order: 3;
+	}
 
-    #randomize-button-box {
-        order: 1;
+	#randomize-button-box {
+		order: 1;
 
-        a, button {
-            @include defs.plain-button;
-            @include defs.button;
-            padding: 1rem;
-            display: inline-block;
-        }
-    }
+		a,
+		button {
+			@include defs.plain-button;
+			@include defs.button;
+			padding: 1rem;
+			display: inline-block;
+		}
+	}
 
-    #player-count-control {
-        font-family: defs.$heading-font;
-        padding: 0.25rem;
-    }
+	#player-count-control {
+		font-family: defs.$heading-font;
+		padding: 0.25rem;
+	}
 
-    @media (max-width: 40em) {
-        .playset {
-            flex-wrap: wrap;
-        }
+	@media (max-width: 40em) {
+		.playset {
+			flex-wrap: wrap;
+		}
 
-        #player-count-control-box {
-            width: 100%;
-            margin-bottom: 1rem;
-        }
+		#player-count-control-box {
+			width: 100%;
+			margin-bottom: 1rem;
+		}
 
-        #randomize-button-box {
-            z-index: 1;
-            width: 100%;
-            margin-top: 1rem;
-        }
-    }
+		#randomize-button-box {
+			z-index: 1;
+			width: 100%;
+			margin-top: 1rem;
+		}
+	}
 
-    @media (min-width: 40em) {
-        .playset {
-            flex-shrink: 0;
-            padding: 1rem;
-        }
+	@media (min-width: 40em) {
+		.playset {
+			flex-shrink: 0;
+			padding: 1rem;
+		}
 
-        .playset-name {
-            flex: 1;
-        }
+		.playset-name {
+			flex: 1;
+		}
 
-        #player-count-control-box {
-            margin-left: 1rem;
-        }
+		#player-count-control-box {
+			margin-left: 1rem;
+		}
 
-        #randomize-button-box {
-            margin-right: 1rem;
-        }
-    }
+		#randomize-button-box {
+			margin-right: 1rem;
+		}
+	}
 
-    .item {
-        margin-bottom: 1rem;
-    }
-    .item:last-child {
-        margin-bottom: 0;
-    }
+	.item {
+		margin-bottom: 1rem;
+	}
+	.item:last-child {
+		margin-bottom: 0;
+	}
 
-    .item {
-        padding: 1rem;
-        background-color: defs.$yellow-card-background-color;
-        @include defs.shadow;
-    }
+	.item {
+		padding: 1rem;
+		background-color: defs.$yellow-card-background-color;
+		@include defs.shadow;
+	}
 
-    .relationship-heading,
-    .detail-heading {
-        font-family: defs.$heading-font;
-        font-size: 0.75rem;
-        color: hsl(0, 100%, 35%);
-    }
+	.relationship-heading,
+	.detail-heading {
+		font-family: defs.$heading-font;
+		font-size: 0.75rem;
+		color: hsl(0, 100%, 35%);
+	}
 
-    .unspecified-detail {
-        @include defs.flex(column, $horizontal: stretch, $vertical-spacing: 1rem);
+	.unspecified-detail {
+		@include defs.flex(column, $horizontal: stretch, $vertical-spacing: 1rem);
 
-        .detail-control {
-            flex: 1;
-            @include defs.plain-button;
-            @include defs.button;
-            padding: 0.5rem;
-        }
-    }
+		.detail-control {
+			flex: 1;
+			@include defs.plain-button;
+			@include defs.button;
+			padding: 0.5rem;
+		}
+	}
 
-    .detail:not(.need):not(.location):not(.object) {
-        .specified-detail {
-            display: none;
-        }
-    }
+	.detail:not(.need):not(.location):not(.object) {
+		.specified-detail {
+			display: none;
+		}
+	}
 
-    .detail.need, .detail.location, .detail.object {
-        .unspecified-detail {
-            display: none;
-        }
-    }
+	.detail.need,
+	.detail.location,
+	.detail.object {
+		.unspecified-detail {
+			display: none;
+		}
+	}
 
-    .detail.need {
-        background-color: defs.$red-card-background-color;
-    }
+	.detail.need {
+		background-color: defs.$red-card-background-color;
+	}
 
-    .detail.location {
-        background-color: defs.$green-card-background-color;
-    }
+	.detail.location {
+		background-color: defs.$green-card-background-color;
+	}
 
-    .detail.object {
-        background-color: defs.$blue-card-background-color;
-    }
+	.detail.object {
+		background-color: defs.$blue-card-background-color;
+	}
 
-    .category,
-    .element {
-        @include defs.flex(row, $vertical: center, $horizontal-spacing: 1rem);
-    }
+	.category,
+	.element {
+		@include defs.flex(row, $vertical: center, $horizontal-spacing: 1rem);
+	}
 
-    .name {
-        @include defs.editable(transparentize(defs.$white, 0.5));
+	.name {
+		@include defs.editable(transparentize(defs.$white, 0.5));
 
-        &:hover,
-        &:focus {
-            text-decoration: underline;
-        }
-    }
+		&:hover,
+		&:focus {
+			text-decoration: underline;
+		}
+	}
 
-    .relationship-category,
-    .detail-category {
-        font-family: defs.$heading-font;
-    }
+	.relationship-category,
+	.detail-category {
+		font-family: defs.$heading-font;
+	}
 
-    .die {
-        @include defs.plain-button;
-    }
+	.die {
+		@include defs.plain-button;
+	}
 
-    .relationship-element-name,
-    .detail-element-name {
-        font-size: 1.25rem;
-    }
+	.relationship-element-name,
+	.detail-element-name {
+		font-size: 1.25rem;
+	}
 
-    .player-image {
-        width: auto;
-        height: 6rem;
-        border: 1rem solid defs.$background-color;
-        background-color: defs.$background-color;
-    }
+	.player-image {
+		width: auto;
+		height: 6rem;
+		border: 1rem solid defs.$background-color;
+		background-color: defs.$background-color;
+	}
 
-    .player-name-outer {
-        background-color: defs.$background-color;
-        border: 1rem solid defs.$background-color;
-        border-top: 0;
-        font-size: 1.5rem;
+	.player-name-outer {
+		background-color: defs.$background-color;
+		border: 1rem solid defs.$background-color;
+		border-top: 0;
+		font-size: 1.5rem;
 
-        position: relative;
+		position: relative;
 
-        .edit {
-            @include defs.edit-button;
-        }
-        &:hover {
-            .edit {
-                opacity: 1;
-            }
-        }
-    }
+		.edit {
+			@include defs.edit-button;
+		}
+		&:hover {
+			.edit {
+				opacity: 1;
+			}
+		}
+	}
 
-    .player-name {
-        color: defs.$heading-color;
-        font-family: defs.$heading-font;
-        @include defs.editable(defs.$heading-color);
-    }
+	.player-name {
+		color: defs.$heading-color;
+		font-family: defs.$heading-font;
+		@include defs.editable(defs.$heading-color);
+	}
 
-    .remove {
-        img {
-            height: 1.25em;
-            vertical-align: middle;
-        }
-    }
+	.remove {
+		img {
+			height: 1.25em;
+			vertical-align: middle;
+		}
+	}
 
-    .detail-type {
-        position: relative;
-    }
+	.detail-type {
+		position: relative;
+	}
 
-    .detail-type .remove {
-        position: absolute;
-        right: 0;
-        top: 0;
-    }
+	.detail-type .remove {
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
 
-    .detail-type:hover .remove,
-    .detail-type:focus .remove,
-    .removable.relationship-category:hover .remove,
-    .removable.relationship-category:focus .remove,
-    .removable.relationship-element:hover .remove,
-    .removable.relationship-element:focus .remove,
-    .removable.detail-category:hover .remove,
-    .removable.detail-category:focus .remove,
-    .removable.detail-element:hover .remove,
-    .removable.detail-element:focus .remove {
-        visibility: visible;
-    }
+	.detail-type:hover .remove,
+	.detail-type:focus .remove,
+	.removable.relationship-category:hover .remove,
+	.removable.relationship-category:focus .remove,
+	.removable.relationship-element:hover .remove,
+	.removable.relationship-element:focus .remove,
+	.removable.detail-category:hover .remove,
+	.removable.detail-category:focus .remove,
+	.removable.detail-element:hover .remove,
+	.removable.detail-element:focus .remove {
+		visibility: visible;
+	}
 
-
-    @media (max-width: 40em) {
-        .detail-type .remove,
-        .removable.relationship-category .remove,
-        .removable.relationship-element .remove,
-        .removable.detail-category .remove,
-        .removable.detail-element .remove {
-            visibility: visible !important;
-        }
-    }
+	@media (max-width: 40em) {
+		.detail-type .remove,
+		.removable.relationship-category .remove,
+		.removable.relationship-element .remove,
+		.removable.detail-category .remove,
+		.removable.detail-element .remove {
+			visibility: visible !important;
+		}
+	}
 }
 
 .table-page {
-    flex: 1 0;
-    @include defs.flex(row, $horizontal: center, $vertical: center);
+	flex: 1 0;
+	@include defs.flex(row, $horizontal: center, $vertical: center);
 
-    .table {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: stretch;
-        max-width: 80rem;
-    }
+	.table {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		align-items: stretch;
+		max-width: 80rem;
+	}
 
-    .table-subtitle {
-        order: 3;
-    }
+	.table-subtitle {
+		order: 3;
+	}
 
-    .table-title,
-    .table-subtitle {
-        align-self: center;
-        text-align: center;
-        font-size: 1.5rem;
-        font-family: defs.$heading-font;
-        color: defs.$text-red;
-    }
+	.table-title,
+	.table-subtitle {
+		align-self: center;
+		text-align: center;
+		font-size: 1.5rem;
+		font-family: defs.$heading-font;
+		color: defs.$text-red;
+	}
 
-    .table-title {
-        margin-bottom: 1.5rem
-    }
+	.table-title {
+		margin-bottom: 1.5rem;
+	}
 
-    .table-subtitle {
-        margin-top: 0.75rem;
-        .table-subtitle-text {
-            @include defs.editable(transparentize(defs.$white, 0.5));
-        }
-        position: relative;
-        .edit { @include defs.edit-button; }
-        &:hover .edit { opacity: 1; }
-    }
+	.table-subtitle {
+		margin-top: 0.75rem;
+		.table-subtitle-text {
+			@include defs.editable(transparentize(defs.$white, 0.5));
+		}
+		position: relative;
+		.edit {
+			@include defs.edit-button;
+		}
+		&:hover .edit {
+			opacity: 1;
+		}
+	}
 
-    @media (min-width: 50em) {
-        .categories {
-            @include defs.columns(2, 1rem);
-            counter-reset: category;
-        }
+	@media (min-width: 50em) {
+		.categories {
+			@include defs.columns(2, 1rem);
+			counter-reset: category;
+		}
 
-        .category {
-            -webkit-column-break-inside: avoid;
-            page-break-inside: avoid;
-            break-inside: avoid;
-        }
-    }
+		.category {
+			-webkit-column-break-inside: avoid;
+			page-break-inside: avoid;
+			break-inside: avoid;
+		}
+	}
 
-    .category {
-        counter-increment: category;
-    }
+	.category {
+		counter-increment: category;
+	}
 
-    // Counters are not incremented for elements with `display: none`, so we
-    // only hide the descendants here. We also apply margins only on the
-    // descendants, so that this element does not take up space when disabled.
-    .category.disabled > * {
-        display: none;
-    }
+	// Counters are not incremented for elements with `display: none`, so we
+	// only hide the descendants here. We also apply margins only on the
+	// descendants, so that this element does not take up space when disabled.
+	.category.disabled > * {
+		display: none;
+	}
 
-    .category-name {
-        font-size: 1.125rem;
-        font-family: defs.$heading-font;
-        margin-bottom: 0.75rem;
+	.category-name {
+		font-size: 1.125rem;
+		font-family: defs.$heading-font;
+		margin-bottom: 0.75rem;
 
-        .category-link {
-            @include defs.plain-button;
-            display: inline;
+		.category-link {
+			@include defs.plain-button;
+			display: inline;
 
-            text-align: left;
-            border-bottom: 1px solid transparent;
+			text-align: left;
+			border-bottom: 1px solid transparent;
 
-            &:before {
-                content: counter(category) " ";
-            }
+			&:before {
+				content: counter(category) ' ';
+			}
 
-            &[href]:hover,
-            &[href]:focus {
-                border-bottom-color: defs.$black;
-            }
-        }
+			&[href]:hover,
+			&[href]:focus {
+				border-bottom-color: defs.$black;
+			}
+		}
 
-        position: relative;
-        .edit { @include defs.edit-button(inside); }
-        &:hover .edit { opacity: 1; }
-    }
+		position: relative;
+		.edit {
+			@include defs.edit-button(inside);
+		}
+		&:hover .edit {
+			opacity: 1;
+		}
+	}
 
-    .elements {
-        margin-bottom: 0.75rem;
-        counter-reset: element;
-    }
+	.elements {
+		margin-bottom: 0.75rem;
+		counter-reset: element;
+	}
 
-    .element-name {
-        counter-increment: element;
-        @include defs.die-item;
+	.element-name {
+		counter-increment: element;
+		@include defs.die-item;
 
-        .element-link {
-            display: inline;
+		.element-link {
+			display: inline;
 
-            &[href]:hover,
-            &[href]:focus {
-                text-decoration: underline;
-            }
-        }
+			&[href]:hover,
+			&[href]:focus {
+				text-decoration: underline;
+			}
+		}
 
-        position: relative;
-        .edit { @include defs.edit-button(inside); }
-        &:hover .edit { opacity: 1; }
-    }
+		position: relative;
+		.edit {
+			@include defs.edit-button(inside);
+		}
+		&:hover .edit {
+			opacity: 1;
+		}
+	}
 
-    .table-title,
-    .table-subtitle,
-    .category-link,
-    .element-link {
-        @include defs.editable(transparentize(defs.$white, 0.5));
-    }
+	.table-title,
+	.table-subtitle,
+	.category-link,
+	.element-link {
+		@include defs.editable(transparentize(defs.$white, 0.5));
+	}
 }
 
 .table-page.single-category {
-    .categories {
-        @include defs.columns(1);
-    }
+	.categories {
+		@include defs.columns(1);
+	}
 
-    .category-name {
-        font-size: 2rem;
-        margin-bottom: 1rem;
-    }
+	.category-name {
+		font-size: 2rem;
+		margin-bottom: 1rem;
+	}
 
-    .element-name {
-        font-size: 1.5em;
-    }
+	.element-name {
+		font-size: 1.5em;
+	}
 }
 
 .playset-preview-page {
-    flex: 1;
-    align-self: stretch;
-    overflow: auto;
+	flex: 1;
+	align-self: stretch;
+	overflow: auto;
 
-    .playset-name {
-        @include defs.page-heading;
-        align-self: center;
+	.playset-name {
+		@include defs.page-heading;
+		align-self: center;
 
-        .playset-name-text {
-            @include defs.editable(defs.$heading-color);
-            vertical-align: middle;
-        }
+		.playset-name-text {
+			@include defs.editable(defs.$heading-color);
+			vertical-align: middle;
+		}
 
-        position: relative;
-        .edit {
-            @include defs.edit-button;
-            display: inline;
-            margin-left: 0;
-            position: static;
-            vertical-align: middle;
-        }
+		position: relative;
+		.edit {
+			@include defs.edit-button;
+			display: inline;
+			margin-left: 0;
+			position: static;
+			vertical-align: middle;
+		}
 
-        &:hover {
-            .edit {
-                opacity: 1;
-            }
-        }
-    }
+		&:hover {
+			.edit {
+				opacity: 1;
+			}
+		}
+	}
 
-    .links {
-        @include defs.flex(column, $horizontal: center);
-    }
+	.links {
+		@include defs.flex(column, $horizontal: center);
+	}
 
-    .play-link,
-    .resume-link,
-    .credits-link,
-    .delete-link {
-        @include defs.button;
-        display: inline-block;
-        padding: 1rem;
-    }
+	.play-link,
+	.resume-link,
+	.credits-link,
+	.delete-link {
+		@include defs.button;
+		display: inline-block;
+		padding: 1rem;
+	}
 
-    .play-link,
-    .resume-link {
-        font-size: 1.5rem;
-    }
+	.play-link,
+	.resume-link {
+		font-size: 1.5rem;
+	}
 }
 
 @media (max-width: 40em) {
-    .playset-preview-page {
-        padding-top: 1rem;
+	.playset-preview-page {
+		padding-top: 1rem;
 
-        @include defs.flex(column,
-            $vertical-spacing: 1rem,
-            $horizontal: stretch
-        );
+		@include defs.flex(column, $vertical-spacing: 1rem, $horizontal: stretch);
 
-        .playset-page {
-            display: block;
-            width: 100%;
-            height: auto;
-            object-fit: contain;
-        }
+		.playset-page {
+			display: block;
+			width: 100%;
+			height: auto;
+			object-fit: contain;
+		}
 
-        .pages-outer {
-            order: 3;
-        }
+		.pages-outer {
+			order: 3;
+		}
 
-        .links {
-            order: 2;
-        }
+		.links {
+			order: 2;
+		}
 
-        .credits-link,
-        .delete-link {
-            margin-top: 1rem;
-        }
+		.credits-link,
+		.delete-link {
+			margin-top: 1rem;
+		}
 
-        .playset-cover-page-link {
-            display: none;
-        }
-    }
+		.playset-cover-page-link {
+			display: none;
+		}
+	}
 }
 
 @media (min-width: 40em) {
-    .playset-preview-page {
-        padding: 2rem;
+	.playset-preview-page {
+		padding: 2rem;
 
-        @include defs.flex(column,
-            $horizontal: stretch,
-            $vertical-spacing: 1rem
-        );
+		@include defs.flex(column, $horizontal: stretch, $vertical-spacing: 1rem);
 
-        .pages-outer {
-            flex: 1;
-            overflow: auto;
-            position: relative;
-        }
+		.pages-outer {
+			flex: 1;
+			overflow: auto;
+			position: relative;
+		}
 
-        .pages-inner {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            font-size: 0;
-            text-align: center;
-        }
+		.pages-inner {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			font-size: 0;
+			text-align: center;
+		}
 
-        .playset-page-link {
-            display: inline;
-            vertical-align: middle;
+		.playset-page-link {
+			display: inline;
+			vertical-align: middle;
 
-            &[href] {
-                cursor: zoom-in;
-            }
-        }
+			&[href] {
+				cursor: zoom-in;
+			}
+		}
 
-        .playset-page {
-            display: inline-block;
-            width: auto;
-            height: 100%;
-        }
+		.playset-page {
+			display: inline-block;
+			width: auto;
+			height: 100%;
+		}
 
-        .credits-link,
-        .delete-link {
-            // Fixed in order to prevent overflow when :active pseudoclass applies.
-            position: fixed;
-            margin: 2rem;
-            bottom: 0;
-        }
+		.credits-link,
+		.delete-link {
+			// Fixed in order to prevent overflow when :active pseudoclass applies.
+			position: fixed;
+			margin: 2rem;
+			bottom: 0;
+		}
 
-        .credits-link {
-            left: 0;
-        }
+		.credits-link {
+			left: 0;
+		}
 
-        .delete-link {
-            right: 0;
-        }
-    }
+		.delete-link {
+			right: 0;
+		}
+	}
 }
 
 .help-page {
-    @include defs.flex(row, $horizontal: center);
-    @include defs.vertical-margin(auto);
+	@include defs.flex(row, $horizontal: center);
+	@include defs.vertical-margin(auto);
 
-    .document {
-        @include defs.paper;
-        @include defs.document;
-        flex: 1;
-        position: relative;
-        max-width: 60rem;
+	.document {
+		@include defs.paper;
+		@include defs.document;
+		flex: 1;
+		position: relative;
+		max-width: 60rem;
 
-        @media (min-width: 40em) {
-            @include defs.vertical-margin(2rem);
-        }
-    }
+		@media (min-width: 40em) {
+			@include defs.vertical-margin(2rem);
+		}
+	}
 
-    .title {
-        @include defs.heading;
-    }
+	.title {
+		@include defs.heading;
+	}
 }
 
 .version-page {
-    @include defs.flex(row, $horizontal: center);
-    @include defs.vertical-margin(auto);
+	@include defs.flex(row, $horizontal: center);
+	@include defs.vertical-margin(auto);
 
-    .document {
-        @include defs.paper;
-        @include defs.document;
-        flex: 1;
-        position: relative;
-        max-width: 60rem;
-        text-align: center;
+	.document {
+		@include defs.paper;
+		@include defs.document;
+		flex: 1;
+		position: relative;
+		max-width: 60rem;
+		text-align: center;
 
-        @media (min-width: 40em) {
-            @include defs.vertical-margin(2rem);
-        }
-    }
+		@media (min-width: 40em) {
+			@include defs.vertical-margin(2rem);
+		}
+	}
 
-    .title {
-        @include defs.heading;
-        margin-bottom: 2rem;
-    }
+	.title {
+		@include defs.heading;
+		margin-bottom: 2rem;
+	}
 
-    .start-button {
-        @include defs.plain-button;
-        @include defs.button;
-        padding: 1rem;
-    }
+	.start-button {
+		@include defs.plain-button;
+		@include defs.button;
+		padding: 1rem;
+	}
 
-    .version {
-        margin-top: 2rem;
-        margin-bottom: 2rem;
-    }
+	.version {
+		margin-top: 2rem;
+		margin-bottom: 2rem;
+	}
 
-    .version:not(.current) {
-        display: none;
-    }
+	.version:not(.current) {
+		display: none;
+	}
 
-    iframe {
-        display: block;
-        @include defs.horizontal-margin(auto);
-        width: 100%;
-        max-width: 560px;
-        height: 315px;
-        border: 0;
-    }
+	iframe {
+		display: block;
+		@include defs.horizontal-margin(auto);
+		width: 100%;
+		max-width: 560px;
+		height: 315px;
+		border: 0;
+	}
 }
 
 .back {
-    position: absolute;
-    left: 0;
-    top: 0;
-    @include defs.plain-button;
-    @include defs.button;
-    padding: 1rem;
-    margin: 1rem; // Beware that flex mixin margins may apply here.
+	position: absolute;
+	left: 0;
+	top: 0;
+	@include defs.plain-button;
+	@include defs.button;
+	padding: 1rem;
+	margin: 1rem; // Beware that flex mixin margins may apply here.
 }
 
 @media (max-width: 40em) {
-    .back {
-        display: none;
-    }
+	.back {
+		display: none;
+	}
 
-    .edit {
-        opacity: 1 !important;
-    }
+	.edit {
+		opacity: 1 !important;
+	}
 
-    .page:not(.table-page) .edit {
-        position: static !important;
-        display: inline !important;
-        margin: 0 !important;
-        vertical-align: middle;
-    }
+	.page:not(.table-page) .edit {
+		position: static !important;
+		display: inline !important;
+		margin: 0 !important;
+		vertical-align: middle;
+	}
 }
 
 .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
 }
