@@ -1,19 +1,19 @@
-import sequentialParsePlayset from './sequential-playset-parser.js';
-import equivalenceParsePlayset from './equivalence-playset-parser.js';
-import validatePlayset from './validate-playset.js';
-import { getDocument } from 'pdfjs-dist';
+import type { PageImages } from '$lib/storage/pages';
+import PDF from 'pdfjs-dist';
 import type { PDFDocumentProxy } from 'pdfjs-dist/types/src/display/api';
-import { Pages, processPages } from './pages.js';
-import type { PageImages } from '$lib/storage/pages.js';
+import equivalenceParsePlayset from './equivalence-playset-parser';
+import { Pages, processPages } from './pages';
+import sequentialParsePlayset from './sequential-playset-parser';
+import validatePlayset from './validate-playset';
 
-export async function loadDocument(someFile: string | URL | ArrayBuffer | Blob) {
+export async function loadDocument(someFile: string | URL | Uint8Array | ArrayBuffer | Blob) {
 	if (someFile instanceof Blob) {
 		someFile = await someFile.arrayBuffer();
 	}
-	if (someFile instanceof ArrayBuffer) {
-		return getDocument(new Uint8Array(someFile)).promise;
+	if (someFile instanceof ArrayBuffer || someFile instanceof Uint8Array) {
+		return PDF.getDocument(new Uint8Array(someFile)).promise;
 	} else {
-		return getDocument(someFile).promise;
+		return PDF.getDocument(someFile).promise;
 	}
 }
 
@@ -118,7 +118,7 @@ export async function loadPlaysets(pdf: PDFDocumentProxy, filename: string) {
 	// We put this early because we cannot run the validation after the
 	// playsets have been been converted to lists.
 	if (playsets.some((p) => validatePlayset(p).length > 0)) {
-		alert(
+		throw new Error(
 			'We were able to load the playset in the file "' +
 				filename +
 				'", but there were some parts that ' +

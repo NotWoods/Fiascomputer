@@ -4,6 +4,8 @@ source/**/*.js
 tests/bundle.js
 tests/main.js
 tests/specs/*.js
+test/playsets/*
+!test/playsets/README
 css/*.css
 css/*.css.map
 join/index.html
