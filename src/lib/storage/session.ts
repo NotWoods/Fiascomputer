@@ -78,3 +78,35 @@ export async function sessionStarted(id: string) {
 	}
 	return false;
 }
+
+export function usedCards(pairs: Session['pairs'], tilts?: Session['tilts']) {
+	const used: Record<CardOrEngineType, Set<`${number}-${number}`>> = {
+		relationship: new Set(),
+		need: new Set(),
+		location: new Set(),
+		object: new Set(),
+		tilt: new Set()
+	};
+
+	function addToUsed({ table, category, element }: CardDetails<CardOrEngineType | undefined>) {
+		if (table != undefined && category != undefined && element != undefined) {
+			used[table].add(`${category}-${element}`);
+		}
+	}
+
+	for (const pair of pairs) {
+		addToUsed(pair.relationship);
+		addToUsed(pair.detail);
+	}
+	if (tilts) {
+		addToUsed(tilts.positive);
+		addToUsed(tilts.negative);
+	}
+
+	return (cardToCheck: CardDetails<CardOrEngineType>) => {
+		const { table, category, element } = cardToCheck;
+		return (
+			category != undefined && element != undefined && used[table].has(`${category}-${element}`)
+		);
+	};
+}

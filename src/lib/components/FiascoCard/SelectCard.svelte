@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { changeCard } from '$lib/actions';
-
 	import { getTable } from '$lib/playset';
 	import type { CardDetails } from '$lib/storage/session';
 	import { getStoreContext } from '$lib/store';
 	import { cardColors, cardName, icons } from './card-colors';
-	import CardRow, { type DescriptionType } from './_CardRow.svelte';
+	import BaseCard from './_BaseCard.svelte';
+	import type { DescriptionType } from './_CardRow.svelte';
 
 	const { playset, session } = getStoreContext();
 
@@ -23,7 +23,7 @@
 		if (!editable) {
 			return undefined;
 		} else if (playerIndex != undefined) {
-			return `./hand?player=${playerIndex}&pair=${pairIndex}`;
+			return `./hand?player=${playerIndex}&pair=${pairIndex}&wanted=${type}`;
 		} else {
 			const category = descriptionType === 'category' ? undefined : cardDetails.category;
 			let link = `./${cardDetails.table}/${category || ''}`;
@@ -44,60 +44,31 @@
 	}
 </script>
 
-<div class="item {type}">
-	<h3 aria-label={cardName(type)}>
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			viewBox="0 0 786 187"
-			class="card-graphic"
-			aria-hidden="true"
-		>
-			<path fill={colors.top} d="M0 0v186l788-71V0H0Z" />
-			<path fill="#fff" d={icons[type]} />
-			<text class="card-heading font-hitchcock" x="190" y="120">{cardName(type)}</text>
-		</svg>
-	</h3>
-	{#if onRemove}
-		<button
-			type="reset"
-			class="remove detail-remove close-button"
-			on:click|preventDefault={onRemove}
-		>
-			<img src="/images/cross-white.svg" alt="Remove" />
-		</button>
-	{/if}
-	<CardRow
-		{categories}
-		{cardDetails}
-		descriptionType="category"
-		{editable}
-		href={cardRowLink('category')}
-		onRemove={resetCardDetails}
-	/>
-	<CardRow
-		{categories}
-		{cardDetails}
-		descriptionType="element"
-		{editable}
-		href={cardRowLink('element')}
-		onRemove={resetCardDetails}
-	/>
-</div>
+<BaseCard
+	label={cardName(type)}
+	{cardDetails}
+	{categories}
+	{editable}
+	buildHref={cardRowLink}
+	onRemoveCard={onRemove}
+	onRemoveRow={resetCardDetails}
+>
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		viewBox="0 0 786 187"
+		class="card-graphic"
+		aria-hidden="true"
+	>
+		<path fill={colors.top} d="M0 0v186l788-71V0H0Z" />
+		<path fill="#fff" d={icons[type]} />
+		<text class="card-heading font-hitchcock" x="190" y="120">{cardName(type)}</text>
+	</svg>
+</BaseCard>
 
 <style>
-	.item {
-		position: relative;
-	}
-	.card-graphic {
-		margin: -1em;
-		margin-bottom: 0;
-	}
 	.card-heading {
 		fill: white;
 		transform: rotateZ(-4deg);
 		font-size: 300%;
-	}
-	.detail-remove {
-		margin: 1rem;
 	}
 </style>

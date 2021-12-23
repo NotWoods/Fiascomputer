@@ -15,7 +15,7 @@
 	import { changeActivePlayers } from '$lib/actions';
 	import { getStoreContext } from '$lib/store';
 
-	const { session } = getStoreContext();
+	const { playset, session } = getStoreContext();
 	const playerOptions = range(3, (i) => i + 3);
 
 	export let joinLink: string = '';
@@ -23,7 +23,7 @@
 	let state: 'inactive' | 'loading' | 'active' | undefined = undefined;
 
 	function handleClick(players: number) {
-		session.dispatch(changeActivePlayers(players));
+		session.dispatch(changeActivePlayers(players, $playset));
 	}
 </script>
 

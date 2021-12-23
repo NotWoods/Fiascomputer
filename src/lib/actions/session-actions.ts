@@ -1,5 +1,6 @@
 import type { CardType, DetailType } from '$lib/components/FiascoCard/card-type';
 import type { OutcomeType } from '$lib/outcome';
+import type { PlaysetData } from '$lib/storage/playset';
 import type { CardDetails, Pair, Session } from '$lib/storage/session';
 
 export function loadSession(session: Session) {
@@ -60,10 +61,11 @@ export function renamePlayer(playerIndex: number, name: string) {
 	} as const;
 }
 
-export function changeActivePlayers(count: number) {
+export function changeActivePlayers(count: number, playset: Pick<PlaysetData, 'tables'>) {
 	return {
 		type: 'activePlayers',
-		count
+		count,
+		playset
 	} as const;
 }
 

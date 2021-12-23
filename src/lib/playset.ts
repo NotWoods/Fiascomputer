@@ -19,7 +19,7 @@ export function playsetShortCode(playset: PlaysetData) {
 		.join('');
 }
 
-export function getTable(playset: PlaysetData, type: CardType) {
+export function getTable(playset: Pick<PlaysetData, 'tables'>, type: CardType) {
 	return playset.tables[type] || playset.tables[`${type}s`];
 }
 

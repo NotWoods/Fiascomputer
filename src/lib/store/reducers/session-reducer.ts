@@ -1,6 +1,7 @@
 import type { SessionAction } from '$lib/actions';
-import { buildDeck, type CardDetails } from '$lib/deck';
-import { emptyCardDetails, emptyPlayer, type Session } from '$lib/storage/session';
+import type { CardType } from '$lib/components/FiascoCard/card-type';
+import { buildDeck, playsetToCards, type CardDetails } from '$lib/deck';
+import { emptyCardDetails, emptyPlayer, type Player, type Session } from '$lib/storage/session';
 import { remove, replace } from '../helpers';
 
 function replaceCardDetails<Details extends CardDetails<any>>(
@@ -12,6 +13,17 @@ function replaceCardDetails<Details extends CardDetails<any>>(
 	} else {
 		return state;
 	}
+}
+
+const cardTypeOrder: Record<CardType, number> = {
+	relationship: 1,
+	need: 2,
+	location: 3,
+	object: 4
+};
+
+function sortCards(a: CardDetails, b: CardDetails) {
+	return cardTypeOrder[a.table] - cardTypeOrder[b.table];
 }
 
 export function sessionReducer(state: Session, action: SessionAction): Session {
@@ -81,8 +93,8 @@ export function sessionReducer(state: Session, action: SessionAction): Session {
 					return {
 						...pair,
 						[pairKey]: {
-							table: type,
-							...cardDetails
+							...cardDetails,
+							table: type
 						}
 					};
 				})
@@ -95,8 +107,8 @@ export function sessionReducer(state: Session, action: SessionAction): Session {
 				tilts: {
 					...state.tilts,
 					[outcomeType]: {
-						table: 'tilt',
-						...cardDetails
+						...cardDetails,
+						table: 'tilt'
 					}
 				}
 			};
@@ -118,24 +130,37 @@ export function sessionReducer(state: Session, action: SessionAction): Session {
 			};
 		}
 		case 'activePlayers': {
-			const { count } = action;
-			if (state.players.length > count) {
-				return {
-					...state,
-					players: state.players.slice(0, count)
-				};
-			} else if (state.players.length < count) {
-				const newPlayers = state.players.slice();
-				for (let i = state.players.length; i < count; i++) {
-					newPlayers.push(emptyPlayer(i + 1));
-				}
-				return {
-					...state,
-					players: newPlayers
-				};
-			} else {
+			const { count, playset } = action;
+			if (state.players.length === count) {
 				return state;
 			}
+
+			const { relationshipCards, detailCards } = playsetToCards(playset);
+			const cards = (relationshipCards as CardDetails[]).concat(detailCards);
+			const hands = buildDeck(cards).deal(count);
+
+			let players: Player[] = [];
+
+			if (state.players.length > count) {
+				players = state.players.slice(0, count);
+			} else {
+				players = state.players.slice();
+				for (let i = state.players.length; i < count; i++) {
+					players.push(emptyPlayer(i + 1));
+				}
+			}
+
+			players = players.map((player, playerIndex) => {
+				return {
+					...player,
+					hand: new Set(hands[playerIndex].sort(sortCards))
+				};
+			});
+
+			return {
+				...state,
+				players
+			};
 		}
 		case 'add-outcome': {
 			const { playerIndex, outcomeType } = action;

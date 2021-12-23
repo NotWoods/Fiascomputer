@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { renamePlayer } from '$lib/actions/actions';
+	import { renamePlayer } from '$lib/actions';
 	import Editable from '$lib/components/Editable.svelte';
 	import { getStoreContext } from '$lib/store';
 

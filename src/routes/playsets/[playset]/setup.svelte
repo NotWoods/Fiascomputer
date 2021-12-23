@@ -49,7 +49,7 @@
 			const destination = new URL('./players', window.location.href);
 			window.location.href = destination.href;
 		} else {
-			session.dispatch(changeActivePlayers(Number(select.value)));
+			session.dispatch(changeActivePlayers(Number(select.value), $playset));
 		}
 	}
 

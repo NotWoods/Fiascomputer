@@ -45,7 +45,7 @@
 	async function newGame(event: MouseEvent) {
 		event.preventDefault();
 		const db = await dbReady;
-		db?.delete('sessions', $playset.id);
+		await db?.delete('sessions', $playset.id);
 		await goto('./setup');
 	}
 	function deletePlayset() {}
