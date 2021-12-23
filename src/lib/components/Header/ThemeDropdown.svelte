@@ -42,3 +42,11 @@
 		<option value="gray">Plain Gray</option>
 	</select>
 </MenuItem>
+
+<style lang="scss">
+	@use '../../../css/_defs';
+
+	select {
+		padding: 0.25rem;
+	}
+</style>

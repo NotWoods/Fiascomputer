@@ -1,29 +1,32 @@
 <script lang="ts">
-	import { renamePlayer } from '$lib/actions';
-	import Editable from '$lib/components/Editable.svelte';
 	import Outcome from '$lib/components/Outcome/Outcome.svelte';
-	import { getStoreContext } from '$lib/store';
+	import PlayerName from '$lib/components/PlayerName.svelte';
 	import PlayerOutcomes from './_PlayerOutcomes.svelte';
 
-	const { session } = getStoreContext();
-
 	export let playerIndex: number;
+	export let selected = false;
 	export let editable = false;
 	export let outcomes = false;
-
-	$: player = $session.players[playerIndex];
-	$: playerId = `Player ${playerIndex + 1}`;
+	export let onSelect: (index: number) => void;
 </script>
 
 <div id="player-{playerIndex + 1}" class="player">
-	<img class="player-image" src="/images/player-black.svg" alt={playerId} width="66" height="96" />
-	<div class="player-name-outer">
-		<Editable
-			class="player-name"
-			{editable}
-			value={player?.name ?? playerId}
-			onChange={(name) => session.dispatch(renamePlayer(playerIndex, name))}
+	<button
+		type="button"
+		class="player-image-outer"
+		aria-pressed={selected}
+		on:click={() => onSelect(playerIndex)}
+	>
+		<img
+			class="player-image"
+			src="/images/player-{selected ? 'white' : 'black'}.svg"
+			alt="Player {playerIndex + 1}"
+			width="66"
+			height="96"
 		/>
+	</button>
+	<div class="player-name-outer">
+		<PlayerName {playerIndex} {editable} />
 	</div>
 	{#if outcomes}
 		<PlayerOutcomes {playerIndex} editable>
@@ -46,7 +49,8 @@
 			/ 1fr;
 		justify-items: center;
 	}
-	.player-image {
+	.player-image-outer {
+		@include defs.plain-button;
 		grid-area: icon;
 	}
 	.player-name-outer {

@@ -52,82 +52,6 @@ h6 {
 	fill: currentColor;
 }
 
-@mixin menu-button($image) {
-	@include defs.plain-button;
-	padding: 0.5rem;
-	padding-left: 2rem;
-	background-image: $image;
-	background-repeat: no-repeat;
-	background-position: 0.5rem center;
-	background-size: auto 1rem;
-}
-
-header {
-	position: relative;
-	z-index: 2;
-	color: defs.$white;
-	background-color: defs.$black;
-	font-family: defs.$heading-font;
-	@include defs.flex(row, $vertical: center);
-
-	#app-title {
-		flex: 1;
-		position: relative;
-		overflow: hidden;
-		padding: 0.5rem;
-
-		&:after {
-			display: block;
-			content: '';
-			position: absolute;
-			right: 0;
-			top: 0;
-			height: 100%;
-			width: 2rem;
-			background-image: linear-gradient(to right, transparent, black);
-			pointer-events: none;
-		}
-	}
-
-	#menu {
-		position: absolute;
-		right: 0;
-		top: 100%;
-		padding: 0.75rem;
-		color: defs.$white;
-		background-color: defs.$black;
-		@include defs.shadow;
-
-		.menu-item + .menu-item {
-			margin-top: 0.75rem;
-		}
-
-		select {
-			padding: 0.25rem;
-		}
-	}
-
-	button {
-		@include defs.plain-button;
-	}
-}
-
-html.fullscreen {
-	#enter-fullscreen-menu-item {
-		display: none;
-	}
-}
-
-html:not(.fullscreen) {
-	#leave-fullscreen-menu-item {
-		display: none;
-	}
-}
-
-html:not(.player-list) #player-list {
-	display: none;
-}
-
 .splash-page {
 	@include defs.flex(column);
 	@include defs.vertical-margin(auto);
@@ -819,7 +743,7 @@ html:not(.player-list) #player-list {
 		@include defs.flex(row, $vertical: center, $horizontal-spacing: 1rem);
 	}
 
-	.name {
+	a.name {
 		@include defs.editable(transparentize(defs.$white, 0.5));
 
 		&:hover,

@@ -60,6 +60,44 @@
 <style lang="scss">
 	@use '../../../css/_defs';
 
+	header {
+		position: relative;
+		z-index: 2;
+		color: defs.$white;
+		background-color: defs.$black;
+		font-family: defs.$heading-font;
+		@include defs.flex(row, $vertical: center);
+
+		#app-title {
+			flex: 1;
+			position: relative;
+			overflow: hidden;
+			padding: 0.5rem;
+
+			&:after {
+				display: block;
+				content: '';
+				position: absolute;
+				right: 0;
+				top: 0;
+				height: 100%;
+				width: 2rem;
+				background-image: linear-gradient(to right, transparent, black);
+				pointer-events: none;
+			}
+		}
+
+		#menu {
+			position: absolute;
+			right: 0;
+			top: 100%;
+			padding: 0.75rem;
+			color: defs.$white;
+			background-color: defs.$black;
+			@include defs.shadow;
+		}
+	}
+
 	.header-button {
 		@include defs.plain-button;
 		padding: 0.5rem;

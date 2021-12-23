@@ -34,3 +34,23 @@
 		>Leave fullscreen</button
 	>
 </MenuItem>
+
+<style lang="scss">
+	@use '../../../css/_defs';
+
+	button {
+		@include defs.plain-button;
+	}
+
+	:global(html.fullscreen) {
+		:global(#enter-fullscreen-menu-item) {
+			display: none;
+		}
+	}
+
+	:global(html:not(.fullscreen)) {
+		:global(#leave-fullscreen-menu-item) {
+			display: none;
+		}
+	}
+</style>

@@ -4,13 +4,12 @@
 	import { cardName, DetailType, detailTypes } from '$lib/components/FiascoCard/card-colors';
 	import SelectCard from '$lib/components/FiascoCard/SelectCard.svelte';
 	import { cardDetailsTableDefined } from '$lib/deck';
-	import type { PlaysetData } from '$lib/playset';
 	import { getStoreContext } from '$lib/store';
 
 	const { session } = getStoreContext();
 
-	export let playset: PlaysetData | undefined;
 	export let pairIndex: number;
+	export let playerIndex: number | undefined = undefined;
 	export let editable = false;
 
 	$: pair = $session.pairs[pairIndex];
@@ -25,12 +24,12 @@
 </script>
 
 <div id="pair-{pairIndex + 1}" class="pair">
-	<SelectCard {playset} cardDetails={pair.relationship} {pairIndex} {editable} />
+	<SelectCard cardDetails={pair.relationship} {pairIndex} {playerIndex} {editable} />
 	{#if cardDetailsTableDefined(pair.detail)}
 		<SelectCard
-			{playset}
 			cardDetails={pair.detail}
 			{pairIndex}
+			{playerIndex}
 			{editable}
 			onRemove={editable ? removeDetail : undefined}
 		/>

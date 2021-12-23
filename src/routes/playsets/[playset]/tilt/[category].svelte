@@ -1,4 +1,5 @@
 <script lang="ts" context="module">
+	import { loadBundledEngine } from '$lib/storage/engine';
 	import { hasTrailingSlash, redirectToNeverTrailingSlash } from '$lib/trailing-slash';
 	import { castIndex } from '../[card]/_parse-props';
 
@@ -23,7 +24,7 @@
 	import Table from '$lib/components/Table/Table.svelte';
 	import Title from '$lib/components/Title.svelte';
 	import { getStoreContext } from '$lib/store';
-	import { Engine, loadBundledEngine } from '$lib/storage/engine';
+	import type { Engine } from '$lib/storage/engine';
 	import TiltCategory from '$lib/components/Table/TiltCategory.svelte';
 	import type { OutcomeType } from '$lib/outcome';
 	import type { TableIndex } from '$lib/playset';

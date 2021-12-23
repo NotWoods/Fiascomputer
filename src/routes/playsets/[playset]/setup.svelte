@@ -1,4 +1,5 @@
 <script lang="ts" context="module">
+	import { loadBundledEngine } from '$lib/storage/engine';
 	import { hasTrailingSlash, redirectToNeverTrailingSlash } from '$lib/trailing-slash';
 
 	export const load: import('@sveltejs/kit').Load = async ({ page, fetch }) => {
@@ -26,7 +27,7 @@
 	import Player from './_Player.svelte';
 	import TiltCard from '$lib/components/FiascoCard/TiltCard.svelte';
 	import { OutcomeType } from '$lib/outcome';
-	import { type Engine, loadBundledEngine } from '$lib/storage/engine';
+	import type { Engine } from '$lib/storage/engine';
 	import AftermathButton from './_AftermathButton.svelte';
 
 	const { playset, session } = getStoreContext();
@@ -36,6 +37,7 @@
 	let showTilt = Boolean(
 		$session.tilts.positive.category != undefined || $session.tilts.negative.category != undefined
 	);
+	let selectedPlayer: number | undefined;
 
 	$: activePlayers = $session.players.length;
 	$: title = $playset?.title ?? 'Playset';
@@ -48,6 +50,14 @@
 			window.location.href = destination.href;
 		} else {
 			session.dispatch(changeActivePlayers(Number(select.value)));
+		}
+	}
+
+	function onSelect(playerIndex: number) {
+		if (selectedPlayer === playerIndex) {
+			selectedPlayer = undefined;
+		} else {
+			selectedPlayer = playerIndex;
 		}
 	}
 
@@ -91,16 +101,16 @@
 					<AftermathButton />
 				</div>
 			{/if}
-			<Player playerIndex={0} editable outcomes />
-			<Pair playset={$playset} pairIndex={0} editable />
-			<Player playerIndex={1} editable outcomes />
-			<Pair playset={$playset} pairIndex={1} editable />
-			<Player playerIndex={2} editable outcomes />
-			<Pair playset={$playset} pairIndex={2} editable />
-			<Player playerIndex={3} editable outcomes />
-			<Pair playset={$playset} pairIndex={3} editable />
-			<Player playerIndex={4} editable outcomes />
-			<Pair playset={$playset} pairIndex={4} editable />
+			<Player playerIndex={0} editable outcomes selected={selectedPlayer === 0} {onSelect} />
+			<Pair pairIndex={0} playerIndex={selectedPlayer} editable />
+			<Player playerIndex={1} editable outcomes selected={selectedPlayer === 1} {onSelect} />
+			<Pair pairIndex={1} playerIndex={selectedPlayer} editable />
+			<Player playerIndex={2} editable outcomes selected={selectedPlayer === 2} {onSelect} />
+			<Pair pairIndex={2} playerIndex={selectedPlayer} editable />
+			<Player playerIndex={3} editable outcomes selected={selectedPlayer === 3} {onSelect} />
+			<Pair pairIndex={3} playerIndex={selectedPlayer} editable />
+			<Player playerIndex={4} editable outcomes selected={selectedPlayer === 4} {onSelect} />
+			<Pair pairIndex={4} playerIndex={selectedPlayer} editable />
 		</div>
 	</div>
 </div>

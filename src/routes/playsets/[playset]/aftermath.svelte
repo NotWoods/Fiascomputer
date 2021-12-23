@@ -40,7 +40,6 @@
 	import Title from '$lib/components/Title.svelte';
 	import PlayerScore from './_PlayerScore.svelte';
 
-	const PLAYER_INDEX = [0, 1, 2, 3, 4];
 	const { playset, session } = getStoreContext();
 
 	export let aftermath: Aftermath;
@@ -54,7 +53,7 @@
 	<h2 class="page-heading font-hitchcock">Aftermath</h2>
 	<ol class="players">
 		<h3 class="sr-only">Players</h3>
-		{#each PLAYER_INDEX as playerIndex}
+		{#each $session.players as _, playerIndex}
 			<PlayerScore {playerIndex} />
 		{/each}
 	</ol>

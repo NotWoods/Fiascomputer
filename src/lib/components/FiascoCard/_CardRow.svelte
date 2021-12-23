@@ -14,7 +14,7 @@
 	export let cardDetails: Omit<CardDetails, 'table'>;
 
 	export let descriptionType: DescriptionType;
-	export let href: string;
+	export let href: string | undefined = undefined;
 	export let editable: boolean;
 	export let onRemove: (descriptionType: DescriptionType) => void = () => {};
 
@@ -30,30 +30,44 @@
 </script>
 
 <div class="card-description-line {descriptionType}" aria-label={descriptionType}>
-	<a
-		{href}
-		class="name {descriptionType}-name"
-		class:font-hitchcock={descriptionType === 'category'}
-		class:font-sans={descriptionType === 'element'}
-	>
-		{#if value != undefined}
-			{value}
-		{:else if editable}
-			Select {descriptionType}
-		{:else}
-			{BLANK_SPACE}
+	{#if href != undefined}
+		<a
+			{href}
+			class="name {descriptionType}-name"
+			class:font-hitchcock={descriptionType === 'category'}
+			class:font-sans={descriptionType === 'element'}
+		>
+			{#if value != undefined}
+				{value}
+			{:else if editable}
+				Select {descriptionType}
+			{:else}
+				{BLANK_SPACE}
+			{/if}
+		</a>
+		{#if editable}
+			<button type="button" class="remove close-button" on:click={() => onRemove(descriptionType)}>
+				<img src="/images/cross-black.svg" alt="Remove" />
+			</button>
 		{/if}
-	</a>
-	{#if editable}
-		<button type="button" class="remove close-button" on:click={() => onRemove(descriptionType)}>
-			<img src="/images/cross-black.svg" alt="Remove" />
-		</button>
+	{:else}
+		<span
+			class="name {descriptionType}-name"
+			class:font-hitchcock={descriptionType === 'category'}
+			class:font-sans={descriptionType === 'element'}
+		>
+			{#if value != undefined}
+				{value}
+			{:else}
+				{BLANK_SPACE}
+			{/if}
+		</span>
 	{/if}
 </div>
 
 <style>
 	.element-name {
-		font-size: 1.1rem;
+		font-size: 1.2rem;
 	}
 
 	.card-description-line {

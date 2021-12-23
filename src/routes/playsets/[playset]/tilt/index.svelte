@@ -1,4 +1,5 @@
 <script lang="ts" context="module">
+	import { loadBundledEngine } from '$lib/storage/engine';
 	import { hasTrailingSlash, redirectToAlwaysTrailingSlash } from '$lib/trailing-slash';
 
 	export const load: import('@sveltejs/kit').Load = async ({ page, fetch }) => {
@@ -22,7 +23,7 @@
 	import Table from '$lib/components/Table/Table.svelte';
 	import Title from '$lib/components/Title.svelte';
 	import { getStoreContext } from '$lib/store';
-	import { Engine, loadBundledEngine } from '$lib/storage/engine';
+	import type { Engine } from '$lib/storage/engine';
 	import TiltCategory from '$lib/components/Table/TiltCategory.svelte';
 	import type { OutcomeType } from '$lib/outcome';
 

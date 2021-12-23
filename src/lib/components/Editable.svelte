@@ -66,6 +66,7 @@
 		<a
 			href="/"
 			{...$$restProps}
+			class="editable {$$restProps.class}"
 			contentEditable={editing}
 			on:change={handleChange}
 			on:paste={onPaste}
@@ -79,6 +80,7 @@
 	{:else}
 		<span
 			{...$$restProps}
+			class="editable {$$restProps.class}"
 			contentEditable={editing}
 			on:change={handleChange}
 			on:paste={onPaste}
@@ -102,3 +104,19 @@
 		{text}
 	</span>
 {/if}
+
+<style lang="scss">
+	@use '../../css/defs';
+
+	.edit {
+		@include defs.edit-button;
+		top: auto;
+		left: auto;
+		right: auto;
+	}
+	.edit:hover,
+	.edit:focus,
+	.editable:hover + .edit {
+		opacity: 1;
+	}
+</style>

@@ -2,36 +2,37 @@
 	import { changeCard } from '$lib/actions';
 
 	import { getTable } from '$lib/playset';
-	import type { PlaysetData } from '$lib/storage/playset';
 	import type { CardDetails } from '$lib/storage/session';
 	import { getStoreContext } from '$lib/store';
 	import { cardColors, cardName, icons } from './card-colors';
 	import CardRow, { type DescriptionType } from './_CardRow.svelte';
 
-	export let playset: PlaysetData | undefined;
+	const { playset, session } = getStoreContext();
+
 	export let cardDetails: CardDetails;
 	export let pairIndex: number;
+	export let playerIndex: number | undefined = undefined;
 	export let editable = false;
 	export let onRemove: (() => void) | undefined = undefined;
 
 	$: type = cardDetails.table;
 	$: colors = cardColors[type];
-	$: categories = playset ? getTable(playset, type).categories : undefined;
+	$: categories = getTable($playset, type).categories;
 
-	const { session } = getStoreContext();
-
-	function cardRowLink(
-		descriptionType: DescriptionType,
-		cardDetails: CardDetails,
-		pairIndex: number
-	) {
-		const category = descriptionType === 'category' ? undefined : cardDetails.category;
-		let link = `./${cardDetails.table}/${category || ''}`;
-		if (editable) {
-			link = `${link}?pair=${pairIndex}`;
+	$: cardRowLink = (descriptionType: DescriptionType) => {
+		if (!editable) {
+			return undefined;
+		} else if (playerIndex != undefined) {
+			return `./hand?player=${playerIndex}&pair=${pairIndex}`;
+		} else {
+			const category = descriptionType === 'category' ? undefined : cardDetails.category;
+			let link = `./${cardDetails.table}/${category || ''}`;
+			if (editable) {
+				link = `${link}?pair=${pairIndex}`;
+			}
+			return link;
 		}
-		return link;
-	}
+	};
 
 	function resetCardDetails(descriptionType: DescriptionType) {
 		session.dispatch(
@@ -70,7 +71,7 @@
 		{cardDetails}
 		descriptionType="category"
 		{editable}
-		href={cardRowLink('category', cardDetails, pairIndex)}
+		href={cardRowLink('category')}
 		onRemove={resetCardDetails}
 	/>
 	<CardRow
@@ -78,7 +79,7 @@
 		{cardDetails}
 		descriptionType="element"
 		{editable}
-		href={cardRowLink('element', cardDetails, pairIndex)}
+		href={cardRowLink('element')}
 		onRemove={resetCardDetails}
 	/>
 </div>

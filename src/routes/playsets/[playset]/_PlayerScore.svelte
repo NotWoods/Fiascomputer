@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Outcome from '$lib/components/Outcome/Outcome.svelte';
+	import PlayerName from '$lib/components/PlayerName.svelte';
 	import { sumOutcomes } from '$lib/outcome';
 	import { getStoreContext } from '$lib/store';
 	import PlayerOutcomes from './_PlayerOutcomes.svelte';
@@ -21,7 +22,7 @@
 		height="60"
 	/>
 	<h4 class="player-name">
-		{player?.name ?? `Player ${playerIndex + 1}`}
+		<PlayerName {playerIndex} />
 	</h4>
 	<PlayerOutcomes {playerIndex} editable={false}>
 		<span class="result font-sans">⇒</span>
@@ -37,8 +38,7 @@
 		display: grid;
 		grid-template:
 			'icon name outcomes' auto
-			/ 2rem auto 1fr;
-		justify-items: center;
+			/ 2rem auto max-content;
 		align-items: center;
 		gap: 1rem;
 	}
