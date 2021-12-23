@@ -61,11 +61,16 @@ export function renamePlayer(playerIndex: number, name: string) {
 	} as const;
 }
 
-export function changeActivePlayers(count: number, playset: Pick<PlaysetData, 'tables'>) {
+export function changeActivePlayers(
+	count: number,
+	playset: Pick<PlaysetData, 'tables'>,
+	force = false
+) {
 	return {
 		type: 'activePlayers',
 		count,
-		playset
+		playset,
+		force
 	} as const;
 }
 

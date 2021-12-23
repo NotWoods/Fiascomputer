@@ -105,10 +105,4 @@
 		opacity: 0.3;
 		cursor: default;
 	}
-
-	@media (max-width: 40em) {
-		.hand-page {
-			padding: 0.5rem;
-		}
-	}
 </style>

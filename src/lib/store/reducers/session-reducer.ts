@@ -1,6 +1,7 @@
 import type { SessionAction } from '$lib/actions';
 import type { CardType } from '$lib/components/FiascoCard/card-type';
 import { buildDeck, playsetToCards, type CardDetails } from '$lib/deck';
+import { dealHands } from '$lib/storage/hand';
 import { emptyCardDetails, emptyPlayer, type Player, type Session } from '$lib/storage/session';
 import { remove, replace } from '../helpers';
 
@@ -13,17 +14,6 @@ function replaceCardDetails<Details extends CardDetails<any>>(
 	} else {
 		return state;
 	}
-}
-
-const cardTypeOrder: Record<CardType, number> = {
-	relationship: 1,
-	need: 2,
-	location: 3,
-	object: 4
-};
-
-function sortCards(a: CardDetails, b: CardDetails) {
-	return cardTypeOrder[a.table] - cardTypeOrder[b.table];
 }
 
 export function sessionReducer(state: Session, action: SessionAction): Session {
@@ -130,18 +120,15 @@ export function sessionReducer(state: Session, action: SessionAction): Session {
 			};
 		}
 		case 'activePlayers': {
-			const { count, playset } = action;
-			if (state.players.length === count) {
+			const { count, playset, force } = action;
+			if (state.players.length === count && !force) {
 				return state;
 			}
 
-			const { relationshipCards, detailCards } = playsetToCards(playset);
-			const cards = (relationshipCards as CardDetails[]).concat(detailCards);
-			const hands = buildDeck(cards).deal(count);
-
+			const hands = dealHands(playset, count);
 			let players: Player[] = [];
 
-			if (state.players.length > count) {
+			if (state.players.length >= count) {
 				players = state.players.slice(0, count);
 			} else {
 				players = state.players.slice();
@@ -153,7 +140,7 @@ export function sessionReducer(state: Session, action: SessionAction): Session {
 			players = players.map((player, playerIndex) => {
 				return {
 					...player,
-					hand: new Set(hands[playerIndex].sort(sortCards))
+					hand: new Set(hands[playerIndex])
 				};
 			});
 

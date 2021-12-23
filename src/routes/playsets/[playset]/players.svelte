@@ -14,6 +14,7 @@
 	import { range } from '$lib/storage/session';
 	import { changeActivePlayers } from '$lib/actions';
 	import { getStoreContext } from '$lib/store';
+	import { goto } from '$app/navigation';
 
 	const { playset, session } = getStoreContext();
 	const playerOptions = range(3, (i) => i + 3);
@@ -22,8 +23,9 @@
 
 	let state: 'inactive' | 'loading' | 'active' | undefined = undefined;
 
-	function handleClick(players: number) {
-		session.dispatch(changeActivePlayers(players, $playset));
+	async function handleClick(players: number) {
+		await session.dispatch(changeActivePlayers(players, $playset, true));
+		await goto('./setup');
 	}
 </script>
 
@@ -48,7 +50,6 @@
 		{#each playerOptions as players}
 			<button
 				type="button"
-				href="./setup"
 				class="players-link"
 				id="players-link-{players}"
 				on:click={() => handleClick(players)}

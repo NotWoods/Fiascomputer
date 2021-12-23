@@ -44,9 +44,14 @@
 
 	async function newGame(event: MouseEvent) {
 		event.preventDefault();
-		const db = await dbReady;
-		await db?.delete('sessions', $playset.id);
-		await goto('./setup');
+		if (alreadyStarted) {
+			const db = await dbReady;
+			await db?.delete('sessions', $playset.id);
+			// Refresh after deleting from DB
+			window.location.href = './players';
+		} else {
+			await goto('./players');
+		}
 	}
 	function deletePlayset() {}
 </script>
@@ -87,7 +92,7 @@
 	<div class="links">
 		<a
 			sveltekit:prefetch
-			href="./setup"
+			href="./players"
 			class="play-link"
 			id="start-setup-control"
 			on:click={newGame}>Play!</a
