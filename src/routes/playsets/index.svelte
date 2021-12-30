@@ -13,11 +13,19 @@
 <script lang="ts">
 	import BlobbyImage from '$lib/components/BlobbyImage.svelte';
 	import Title from '$lib/components/Title.svelte';
-	import { BUNDLED_PLAYSETS, loadBundledPlayset } from '$lib/playset';
+	import { BUNDLED_PLAYSETS, loadBundledPlayset, PlaysetData } from '$lib/playset';
 	import { playsetLink } from '$lib/playset';
 
+	function sortPlaysets(a: PlaysetData, b: PlaysetData) {
+		if (Boolean(a.score) === Boolean(b.score)) {
+			return a.title.localeCompare(b.title);
+		} else {
+			return b.score ? 1 : -1;
+		}
+	}
+
 	const playsetsReady = Promise.all(BUNDLED_PLAYSETS.map((id) => loadBundledPlayset(id))).then(
-		(playsets) => playsets.sort((a, b) => a.title.localeCompare(b.title))
+		(playsets) => playsets.sort(sortPlaysets)
 	);
 	let loading = 0;
 </script>

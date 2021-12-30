@@ -2,6 +2,7 @@
 	"$schema": "../deck-schema.json",
 	"title": "Trashfire 2020",
 	"backgroundColor": "#D03827",
+	"score": "2020 was, as all of you know, a bit more of a fiasco than we'd like. Here at BPG HQ, we could think of no better way* to put the year behind us than to make a Fiasco playset full of our shared pandemic-related frustrations. We hope that you enjoy reading it and maybe even playing it with friends in your next Fiasco game!",
 	"tables": {
 		"relationship": {
 			"categories": [

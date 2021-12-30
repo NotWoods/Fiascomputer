@@ -9,10 +9,10 @@
 
 <div class="deck font-hitchcock">
 	<div class="deck-cover">
-		<h3 class="deck-cover-playset">Playset</h3>
 		<BlobUrl src={cover ?? BLANK_PAGE} let:url>
 			<img class="deck-cover-icon" src={url} alt="{title} Cover" width={562} height={785} />
 		</BlobUrl>
+		<h3 class="deck-cover-playset">Playset</h3>
 		<p class="deck-title">
 			{title}
 		</p>
@@ -24,6 +24,10 @@
 </div>
 
 <style>
+	:root {
+		--deck-angle: 30deg;
+	}
+
 	.deck {
 		perspective: 500px;
 		transform-style: preserve-3d;
@@ -36,6 +40,7 @@
 		border: 2px solid rgba(255, 255, 255, 0.5);
 		color: white;
 		height: 28em;
+		transition: transform ease-in-out 0.2s;
 	}
 	.deck-title {
 		text-align: center;
@@ -46,7 +51,7 @@
 	.deck-cover {
 		position: relative;
 		width: 20em;
-		transform: rotateY(25deg);
+		transform: rotateY(var(--deck-angle));
 		transform-origin: left;
 		border-bottom-color: rgba(0, 0, 0, 0.5);
 		border-right-color: rgba(0, 0, 0, 0.5);
@@ -68,17 +73,19 @@
 		object-fit: contain;
 		width: 100%;
 		height: auto;
-		top: 0;
+		top: 1em;
 		bottom: 0;
 		margin: auto;
 	}
 	.deck-cover .deck-title {
+		left: 0;
+		right: 0;
 		bottom: 0;
 	}
 
 	.deck-side {
 		width: 5em;
-		transform: rotateY(-25deg);
+		transform: rotateY(calc(-90deg + var(--deck-angle)));
 		transform-origin: right;
 		display: flex;
 		flex-direction: column;
@@ -97,5 +104,6 @@
 	.deck-side .deck-title {
 		writing-mode: vertical-rl;
 		writing-mode: sideways-lr;
+		flex: 1;
 	}
 </style>
