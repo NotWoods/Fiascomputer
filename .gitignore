@@ -10,6 +10,7 @@ css/*.css
 css/*.css.map
 join/index.html
 .svelte-kit
+build
 node_modules
 
 # Fiasco core assets

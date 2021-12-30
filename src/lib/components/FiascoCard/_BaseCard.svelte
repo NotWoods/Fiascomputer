@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { Category } from '$lib/storage/playset';
 	import type { CardDetails } from '$lib/storage/session';
-	import { cardColors } from './card-colors';
 	import type { CardOrEngineType } from './card-type';
 	import CardRow, { type DescriptionType } from './_CardRow.svelte';
 

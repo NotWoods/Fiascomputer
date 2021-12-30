@@ -1,5 +1,6 @@
 source
 tests
+build
 .svelte-kit
 node_modules
 package-lock.json

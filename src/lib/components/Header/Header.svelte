@@ -42,7 +42,7 @@
 			<a href="/players">Invite players</a>
 		</MenuItem>
 		<MenuItem {menuItems} id="select-playset">
-			<a href="/playsets">Select playset</a>
+			<a href="/playsets/">Select playset</a>
 		</MenuItem>
 		<MenuItem {menuItems} id="add-playset">
 			<a href="/add-playset">Add playset</a>

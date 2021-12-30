@@ -1,6 +1,5 @@
 import type { SessionAction } from '$lib/actions';
-import type { CardType } from '$lib/components/FiascoCard/card-type';
-import { buildDeck, playsetToCards, type CardDetails } from '$lib/deck';
+import { buildDeck, type CardDetails } from '$lib/deck';
 import { dealHands } from '$lib/storage/hand';
 import { emptyCardDetails, emptyPlayer, type Player, type Session } from '$lib/storage/session';
 import { remove, replace } from '../helpers';

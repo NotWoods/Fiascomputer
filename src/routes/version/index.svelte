@@ -54,7 +54,7 @@
 			</p>
 		</Version>
 
-		<a href="/playsets" class="start-button">Start</a>
+		<a href="/playsets/" class="start-button">Start</a>
 
 		<button
 			type="button"

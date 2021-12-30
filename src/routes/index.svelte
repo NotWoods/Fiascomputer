@@ -4,7 +4,7 @@
 	export const load: import('@sveltejs/kit').Load = () => {
 		return {
 			status: 301,
-			redirect: '/playsets'
+			redirect: '/playsets/'
 		};
 	};
 </script>

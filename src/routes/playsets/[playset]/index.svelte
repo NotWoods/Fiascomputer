@@ -62,7 +62,7 @@
 	style="--playset-background: {$playset.backgroundColor ?? ''}"
 >
 	<PlaysetToolbar>
-		<a slot="start" href="/playsets" class="back">Back</a>
+		<a slot="start" href="/playsets/" class="back">Back</a>
 	</PlaysetToolbar>
 	{#if $playset.score}
 		<PlaysetOverviewDeck title={$playset.title} {cover} score={$playset.score} />
@@ -89,7 +89,7 @@
 				>Credits</a
 			>
 		{/if}
-		<a href="/playsets" class="delete-link" id="delete-playset-control" on:click={deletePlayset}
+		<a href="/playsets/" class="delete-link" id="delete-playset-control" on:click={deletePlayset}
 			>Delete playset</a
 		>
 	</div>

@@ -1,7 +1,5 @@
 import { dbReady, type FiascoDB } from '$lib/storage/db';
 import type { StoreNames, StoreValue } from 'idb';
-import type { Subscriber } from 'svelte/store';
-import type { ReducerStore } from './create-store';
 
 function taskQueue() {
 	interface Task {

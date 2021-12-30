@@ -1,5 +1,7 @@
-<script lang="ts">
+<script context="module">
 	import Title from '$lib/components/Title.svelte';
+
+	export const prerender = true;
 </script>
 
 <Title homePage text="" />

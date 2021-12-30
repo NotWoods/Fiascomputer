@@ -17,7 +17,7 @@
 			<p>
 				If you have a <cite>Fiasco</cite> playset PDF, you can use it in Fiascomputer! To add a
 				playset, press the <a href="/add-playset">Add Playset</a> button in either the menu or the
-				<a href="/playsets">playset listing</a>.
+				<a href="/playsets/">playset listing</a>.
 			</p>
 			<p>Hint: You can add more than one playset at a time.</p>
 			<p>
@@ -33,9 +33,9 @@
 			<h4>Editing a playset</h4>
 			<p>
 				If you want to add your own touch to a playset, or if the playset was not correctly imported
-				by Fiascomputer, you can edit it. To do so, open the <a href="/setup">setup page</a> and click
-				any category or element to select it. In the table that appears, hover over the item that you
-				want to edit and click the pencil that appears. You can also a playset's title in this way.
+				by Fiascomputer, you can edit it. To do so, open the setup page and click any category or
+				element to select it. In the table that appears, hover over the item that you want to edit
+				and click the pencil that appears. You can also a playset's title in this way.
 			</p>
 
 			<h4>Creating a playset</h4>
@@ -48,7 +48,7 @@
 
 			<h4>Deleting a playset</h4>
 			<p>
-				To delete a playset, select the playset in the <a href="/playsets">playset listing</a> and then
+				To delete a playset, select the playset in the <a href="/playsets/">playset listing</a> and then
 				press the Delete Playset button. You will return to the playset listing and the playset will
 				be grayed out to show that it will be deleted. If you select the playset again, you can recover
 				the playset. If you don't, the playset is permanently deleted when you close Fiascomputer.
@@ -180,7 +180,7 @@
 		<a
 			class="close-button"
 			id="close-help-control"
-			href="/playsets"
+			href="/playsets/"
 			on:click|preventDefault={() => history.back()}
 		>
 			<img src="/images/cross-black.svg" alt="Close" />

@@ -1,6 +1,8 @@
 <script lang="ts" context="module">
 	import { hasTrailingSlash, redirectToAlwaysTrailingSlash } from '$lib/trailing-slash';
 
+	export const prerender = true;
+
 	export const load: import('@sveltejs/kit').Load = async ({ page }) => {
 		if (!hasTrailingSlash(page)) {
 			return redirectToAlwaysTrailingSlash(page);

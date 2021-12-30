@@ -17,16 +17,17 @@
 		"idb": "^7.0.0",
 		"pdfjs-dist": "^2.12.313",
 		"ramda": "^0.27.1",
-		"ts-extras": "^0.6.0"
+		"ts-extras": "^0.7.0"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "next",
+		"@sveltejs/adapter-static": "next",
 		"@sveltejs/kit": "next",
 		"@types/jest": "^27.0.3",
-		"@types/ramda": "^0.27.61",
-		"@typescript-eslint/eslint-plugin": "^5.8.0",
-		"@typescript-eslint/parser": "^5.8.0",
-		"esbuild": "^0.14.7",
+		"@types/ramda": "^0.27.62",
+		"@typescript-eslint/eslint-plugin": "^5.8.1",
+		"@typescript-eslint/parser": "^5.8.1",
+		"esbuild": "^0.14.9",
 		"esbuild-jest": "^0.5.0",
 		"eslint": "^8.5.0",
 		"eslint-config-prettier": "^8.3.0",
