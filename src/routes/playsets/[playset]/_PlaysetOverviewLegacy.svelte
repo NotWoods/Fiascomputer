@@ -1,5 +1,5 @@
 <script lang="ts">
-	import BlobbyImage from '$lib/components/BlobbyImage.svelte';
+	import BlobUrl from '$lib/components/BlobUrl.svelte';
 
 	const BLANK_PAGE = '/images/blank-page.svg';
 
@@ -11,36 +11,57 @@
 <!-- We use both `inner` and `outer` below to properly achieve 100% image height with proper aspect ratio. -->
 <div class="overview pages-outer">
 	<div class="pages-inner">
-		<BlobbyImage
-			aClass="playset-page-link playset-cover-page-link"
-			imgClass="playset-page playset-cover-page"
-			target="_blank"
-			src={cover ?? BLANK_PAGE}
-			alt="{playsetTitle} Cover"
-			width={600}
-			height={900}
-		/>
+		<BlobUrl src={cover ?? BLANK_PAGE} let:url>
+			<a class="playset-page-link playset-cover-page-link" href={url} target="_blank">
+				<img
+					class="playset-page playset-cover-page"
+					src={url}
+					alt="{playsetTitle} Cover"
+					width={600}
+					height={900}
+				/>
+			</a>
+		</BlobUrl>
 		{#if score}
-			<BlobbyImage
-				aClass="playset-page-link "
-				imgClass="playset-page"
-				target="_blank"
-				src={score}
-				alt="{playsetTitle} Score"
-				width={600}
-				height={900}
-			/>
+			<BlobUrl src={score} let:url>
+				<a class="playset-page-link" href={url} target="_blank">
+					<img class="playset-page" src={url} alt="{playsetTitle} Score" width={600} height={900} />
+				</a>
+			</BlobUrl>
 		{/if}
 	</div>
 </div>
 
-<style>
-	:global(.playset-page) {
+<style lang="scss">
+	.playset-page {
 		aspect-ratio: 600 / 900;
 		background-color: white;
 		object-fit: contain;
 	}
-	:global(.playset-cover-page) {
+	.playset-cover-page {
 		background-color: var(--playset-background, white);
+	}
+
+	@media (min-width: 40em) {
+		.playset-page-link {
+			display: inline;
+			vertical-align: middle;
+
+			&[href] {
+				cursor: zoom-in;
+			}
+		}
+
+		.playset-page {
+			display: inline-block;
+			width: auto;
+			height: 100%;
+		}
+	}
+
+	@media (max-width: 40em) {
+		.playset-cover-page-link {
+			display: none;
+		}
 	}
 </style>

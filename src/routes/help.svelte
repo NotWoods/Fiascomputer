@@ -187,3 +187,28 @@
 		</a>
 	</div>
 </div>
+
+<style lang="scss">
+	@use '../css/defs';
+
+	.help-page {
+		@include defs.flex(row, $horizontal: center);
+		@include defs.vertical-margin(auto);
+
+		.document {
+			@include defs.paper;
+			@include defs.document;
+			flex: 1;
+			position: relative;
+			max-width: 60rem;
+
+			@media (min-width: 40em) {
+				@include defs.vertical-margin(2rem);
+			}
+		}
+
+		.title {
+			@include defs.heading;
+		}
+	}
+</style>

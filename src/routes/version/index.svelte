@@ -66,3 +66,54 @@
 		</button>
 	</div>
 </div>
+
+<style lang="scss">
+	@use '../../css/defs';
+
+	.version-page {
+		@include defs.flex(row, $horizontal: center);
+		@include defs.vertical-margin(auto);
+
+		.document {
+			@include defs.paper;
+			@include defs.document;
+			flex: 1;
+			position: relative;
+			max-width: 60rem;
+			text-align: center;
+
+			@media (min-width: 40em) {
+				@include defs.vertical-margin(2rem);
+			}
+		}
+
+		.title {
+			@include defs.heading;
+			margin-bottom: 2rem;
+		}
+
+		.start-button {
+			@include defs.plain-button;
+			@include defs.button;
+			padding: 1rem;
+		}
+
+		.version {
+			margin-top: 2rem;
+			margin-bottom: 2rem;
+		}
+
+		.version:not(.current) {
+			display: none;
+		}
+
+		iframe {
+			display: block;
+			@include defs.horizontal-margin(auto);
+			width: 100%;
+			max-width: 560px;
+			height: 315px;
+			border: 0;
+		}
+	}
+</style>

@@ -95,7 +95,101 @@
 	</div>
 </div>
 
-<style>
+<style lang="scss">
+	@use '../../../css/defs';
+
+	.playset-preview-page {
+		flex: 1;
+		align-self: stretch;
+		overflow: auto;
+
+		.links {
+			@include defs.flex(column, $horizontal: center);
+		}
+
+		.play-link,
+		.resume-link,
+		.credits-link,
+		.delete-link {
+			@include defs.button;
+			display: inline-block;
+			padding: 1rem;
+		}
+
+		.play-link,
+		.resume-link {
+			font-size: 1.5rem;
+		}
+	}
+
+	@media (max-width: 40em) {
+		.playset-preview-page {
+			@include defs.flex(column, $vertical-spacing: 1rem, $horizontal: stretch);
+
+			.playset-page {
+				display: block;
+				width: 100%;
+				height: auto;
+				object-fit: contain;
+			}
+
+			.pages-outer {
+				order: 3;
+			}
+
+			.links {
+				order: 2;
+			}
+
+			.credits-link,
+			.delete-link {
+				margin-top: 1rem;
+			}
+		}
+	}
+
+	@media (min-width: 40em) {
+		.playset-preview-page {
+			@include defs.flex(column, $horizontal: stretch, $vertical-spacing: 1rem);
+
+			.pages-outer {
+				flex: 1;
+				overflow: auto;
+				position: relative;
+			}
+
+			.pages-inner {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				font-size: 0;
+				text-align: center;
+			}
+
+			.links {
+				padding-bottom: 2rem;
+			}
+
+			.credits-link,
+			.delete-link {
+				// Fixed in order to prevent overflow when :active pseudoclass applies.
+				position: fixed;
+				margin: 2rem;
+				bottom: 0;
+			}
+
+			.credits-link {
+				left: 0;
+			}
+
+			.delete-link {
+				right: 0;
+			}
+		}
+	}
+
 	.resume-link {
 		margin-top: 1rem;
 	}

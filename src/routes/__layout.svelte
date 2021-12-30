@@ -7,3 +7,12 @@
 <main>
 	<slot />
 </main>
+
+<style lang="scss">
+	@use '../css/defs';
+
+	main {
+		flex: 1;
+		@include defs.flex(column, $horizontal: stretch);
+	}
+</style>

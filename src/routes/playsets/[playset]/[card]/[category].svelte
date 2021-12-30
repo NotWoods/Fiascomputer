@@ -1,5 +1,4 @@
 <script lang="ts" context="module">
-	import { cardName } from '$lib/components/FiascoCard/card-type';
 	import { getTable } from '$lib/playset';
 	import { hasTrailingSlash, redirectToNeverTrailingSlash } from '$lib/trailing-slash';
 	import { castIndex, parseProps } from './_parse-props';
@@ -25,7 +24,6 @@
 	import type { CardType } from '$lib/components/FiascoCard/card-type';
 	import CardCategory from '$lib/components/Table/CardCategory.svelte';
 	import Table from '$lib/components/Table/Table.svelte';
-	import Title from '$lib/components/Title.svelte';
 	import { getStoreContext } from '$lib/store';
 
 	const { playset } = getStoreContext();
@@ -37,10 +35,23 @@
 	$: table = getTable($playset, tableType);
 </script>
 
-<Title text={cardName(tableType)} playsetTitle={$playset.title} />
+<Table subtitle={$playset.subtitle} {table} cardType={tableType}>
+	<CardCategory {tableType} {table} {category} {pairIndex} />
+</Table>
 
-<div id="table" class="page table-page">
-	<Table subtitle={$playset.subtitle} {table} cardType={tableType}>
-		<CardCategory {tableType} {table} {category} {pairIndex} />
-	</Table>
-</div>
+<style lang="scss">
+	@use '../../../../css/defs';
+
+	:global(.categories) {
+		@include defs.columns(1);
+	}
+
+	:global(.category-name) {
+		font-size: 2rem;
+		margin-bottom: 1rem;
+	}
+
+	:global(.element-name) {
+		font-size: 1.5em;
+	}
+</style>

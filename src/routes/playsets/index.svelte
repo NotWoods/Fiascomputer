@@ -70,11 +70,105 @@
 	</ul>
 </div>
 
-<style>
-	:global(.playset-link) {
+<style lang="scss">
+	@use '../../css/defs';
+
+	.playsets-page {
+		flex: 1;
+		@include defs.flex(column, $horizontal: center);
+		overflow: auto;
+
+		h2 {
+			@include defs.page-heading;
+			margin-top: 2rem;
+			margin-bottom: 1.25rem;
+		}
+
+		.playsets {
+			@include defs.flex(
+				row,
+				$horizontal: center,
+				$vertical: stretch,
+				$horizontal-spacing: 1.5rem,
+				$vertical-spacing: 1.5rem,
+				$multiline: true
+			);
+		}
+
+		.playset,
+		.add-playset {
+			@include defs.flex(row, $vertical: stretch);
+			overflow: visible;
+			position: relative;
+		}
+
+		.playset.deleted .playset-link {
+			opacity: 0.25;
+		}
+
+		.playset.deleted:hover:after {
+			content: 'Recover';
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			@include defs.flex(column, $horizontal: center, $vertical: center);
+			font-family: defs.$heading-font;
+			color: defs.$white;
+			pointer-events: none;
+		}
+
+		.playset-link,
+		.add-playset-link {
+			flex: 1;
+			@include defs.flex(column, $horizontal: center);
+			@include defs.button($border: true);
+			text-align: center;
+		}
+
+		.add-playset-link {
+			&:before {
+				display: flex;
+				width: 8rem;
+				height: 12rem;
+				align-items: center;
+				justify-content: center;
+				content: '+';
+				font-size: 8rem;
+			}
+		}
+
+		.playset-thumbnail {
+			display: block;
+			height: 12rem;
+		}
+
+		.playset-name,
+		.add-playset-label {
+			flex: 1;
+			@include defs.flex(column, $horizontal: center, $vertical: center);
+			width: 8rem;
+			padding: 0.5rem;
+			font-size: 0.75rem;
+			font-family: defs.$heading-font;
+			line-height: 1.5;
+		}
+	}
+
+	.playsets-page.loading {
+		.add-playset:before {
+			@include defs.loading-indicator;
+			display: block;
+			align-self: center;
+			margin-right: 1.5rem;
+		}
+	}
+
+	.playset-link {
 		background-color: var(--playset-background, var(--dark-background-color));
 	}
-	:global(.playset-thumbnail) {
+	.playset-thumbnail {
 		object-fit: contain;
 		background-color: var(--playset-background);
 	}
