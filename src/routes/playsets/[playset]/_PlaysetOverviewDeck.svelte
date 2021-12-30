@@ -7,7 +7,9 @@
 </script>
 
 <div class="overview">
-	<DeckBox {title} {cover} />
+	<div class="overview-deck">
+		<DeckBox {title} {cover} />
+	</div>
 	<div class="score font-sans">
 		<h3>The Score</h3>
 		<p class="score-p">{score}</p>
@@ -15,9 +17,10 @@
 </div>
 
 <style>
-	.overview :global(.deck) {
+	.overview-deck {
 		float: left;
-		margin: 1rem;
+		margin: 2rem;
+		margin-left: 5rem;
 	}
 	.score {
 		background: white;

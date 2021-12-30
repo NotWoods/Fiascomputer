@@ -8,31 +8,39 @@
 </script>
 
 <div class="deck font-hitchcock">
-	<div class="deck-cover">
-		<BlobUrl src={cover ?? BLANK_PAGE} let:url>
-			<img class="deck-cover-icon" src={url} alt="{title} Cover" width={562} height={785} />
-		</BlobUrl>
-		<h3 class="deck-cover-playset">Playset</h3>
-		<p class="deck-title">
-			{title}
-		</p>
-	</div>
-	<div class="deck-side" aria-hidden="true">
-		<p class="deck-title">{title}</p>
-		<div class="deck-icon" />
+	<div class="deck-box">
+		<div class="deck-cover">
+			<BlobUrl src={cover ?? BLANK_PAGE} let:url>
+				<img class="deck-cover-icon" src={url} alt="{title} Cover" width={562} height={785} />
+			</BlobUrl>
+			<h3 class="deck-cover-playset">Playset</h3>
+			<p class="deck-title">
+				{title}
+			</p>
+		</div>
+		<div class="deck-side" aria-hidden="true">
+			<p class="deck-title">{title}</p>
+			<div class="deck-icon" />
+		</div>
 	</div>
 </div>
 
 <style>
 	:root {
-		--deck-angle: 30deg;
+		--deck-angle: 30;
 	}
 
 	.deck {
 		perspective: 500px;
+	}
+	.deck-box {
 		transform-style: preserve-3d;
 		display: inline-flex;
 		flex-direction: row-reverse;
+		transform: rotateY(calc(var(--deck-angle) * 1deg));
+		transform-origin: 75% center;
+		transition: transform ease-in-out 0.2s;
+		margin-left: -5em;
 	}
 	.deck-cover,
 	.deck-side {
@@ -40,7 +48,6 @@
 		border: 2px solid rgba(255, 255, 255, 0.5);
 		color: white;
 		height: 28em;
-		transition: transform ease-in-out 0.2s;
 	}
 	.deck-title {
 		text-align: center;
@@ -51,7 +58,6 @@
 	.deck-cover {
 		position: relative;
 		width: 20em;
-		transform: rotateY(var(--deck-angle));
 		transform-origin: left;
 		border-bottom-color: rgba(0, 0, 0, 0.5);
 		border-right-color: rgba(0, 0, 0, 0.5);
@@ -74,6 +80,7 @@
 		width: 100%;
 		height: auto;
 		top: 1em;
+		left: 0;
 		bottom: 0;
 		margin: auto;
 	}
@@ -85,7 +92,7 @@
 
 	.deck-side {
 		width: 5em;
-		transform: rotateY(calc(-90deg + var(--deck-angle)));
+		transform: rotateY(-90deg);
 		transform-origin: right;
 		display: flex;
 		flex-direction: column;

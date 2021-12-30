@@ -11,7 +11,8 @@
 </script>
 
 <script lang="ts">
-	import BlobbyImage from '$lib/components/BlobbyImage.svelte';
+	import BlobUrl from '$lib/components/BlobUrl.svelte';
+	import DeckBox from '$lib/components/DeckBox.svelte';
 	import Title from '$lib/components/Title.svelte';
 	import { BUNDLED_PLAYSETS, loadBundledPlayset, PlaysetData } from '$lib/playset';
 	import { playsetLink } from '$lib/playset';
@@ -43,17 +44,16 @@
 					style="--playset-background: {playset.backgroundColor ?? ''}"
 				>
 					{#if playset.thumbnail != undefined}
-						<BlobbyImage
-							aClass="playset-link"
-							imgClass="playset-thumbnail"
-							href={playsetLink(playset)}
-							src={playset.thumbnail}
-							alt=""
-							width={128}
-							height={192}
-						>
-							<h3 class="playset-name">{playset.title}</h3>
-						</BlobbyImage>
+						<a class="playset-link" href={playsetLink(playset)} class:playset-deck={playset.score}>
+							{#if playset.score}
+								<DeckBox title={playset.title} cover={playset.thumbnail} />
+							{:else}
+								<BlobUrl src={playset.thumbnail} let:url>
+									<img class="playset-thumbnail" src={url} alt="" width={128} height={192} />
+								</BlobUrl>
+								<h3 class="playset-name">{playset.title}</h3>
+							{/if}
+						</a>
 					{:else}
 						<h3 class="playset-name">{playset.title}</h3>
 					{/if}
@@ -75,5 +75,14 @@
 	:global(.playset-thumbnail) {
 		object-fit: contain;
 		background-color: var(--playset-background);
+	}
+
+	.playset-deck {
+		font-size: 0.6rem;
+		--deck-angle: 0;
+	}
+	.playset-deck:hover,
+	.playset-deck:focus {
+		--deck-angle: 30;
 	}
 </style>

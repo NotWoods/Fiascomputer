@@ -1,6 +1,8 @@
 {
 	"title": "Dragon Slayers",
 	"subtitle": "...IN A LAND OF MYTH",
+	"backgroundColor": "#BC272D",
+	"score": "So yeah, we rode into town, a bunch of outsiders ready to solve their problems. Solve a motherfucking dragon. And yes, we're fucking heros. These yokels should worship at our feet.",
 	"tables": {
 		"relationship": {
 			"categories": [

@@ -31,7 +31,6 @@
 	import PlaysetOverviewLegacy from './_PlaysetOverviewLegacy.svelte';
 	import PlaysetOverviewDeck from './_PlaysetOverviewDeck.svelte';
 	import PlaysetToolbar from '$lib/components/PlaysetToolbar/PlaysetToolbar.svelte';
-	import DeckBox from '$lib/components/DeckBox.svelte';
 
 	const { playset } = getStoreContext();
 
