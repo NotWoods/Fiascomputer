@@ -1037,8 +1037,6 @@ h6 {
 
 @media (max-width: 40em) {
 	.playset-preview-page {
-		padding-top: 1rem;
-
 		@include defs.flex(column, $vertical-spacing: 1rem, $horizontal: stretch);
 
 		.playset-page {
@@ -1069,8 +1067,6 @@ h6 {
 
 @media (min-width: 40em) {
 	.playset-preview-page {
-		padding: 2rem;
-
 		@include defs.flex(column, $horizontal: stretch, $vertical-spacing: 1rem);
 
 		.pages-outer {
@@ -1102,6 +1098,10 @@ h6 {
 			display: inline-block;
 			width: auto;
 			height: 100%;
+		}
+
+		.links {
+			padding-bottom: 2rem;
 		}
 
 		.credits-link,

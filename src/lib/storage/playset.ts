@@ -16,6 +16,7 @@ export interface PlaysetData {
 	title: string;
 	subtitle: string;
 	backgroundColor?: string;
+	score?: string;
 	tables: Readonly<Record<string, PlaysetTable>>;
 }
 
@@ -37,6 +38,7 @@ export interface Playset extends PlaysetDataWithThumbnail {
 }
 
 export const BUNDLED_PLAYSETS: readonly string[] = [
+	'core_tales_from_suburbia',
 	'ak02_heroes_of_pinnacle_city',
 	'br01_de_medici',
 	'bt01_jersey_side',

@@ -86,7 +86,7 @@
 	.hand {
 		display: grid;
 		align-items: stretch;
-		grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
 		margin: 1rem;
 		gap: 1rem;
 		align-content: stretch;

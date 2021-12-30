@@ -2,7 +2,6 @@
 	import type { PlaysetTable } from '$lib/playset';
 	import type { TableIndex } from '$lib/storage/playset';
 	import Editable from '$lib/components/Editable.svelte';
-	import { has } from 'ramda';
 
 	export let category: TableIndex;
 	export let table: PlaysetTable;
@@ -11,17 +10,17 @@
 	export let onChangeCategory: ((text: string) => void) | undefined = undefined;
 	export let onChangeElement: ((element: number, text: string) => void) | undefined = undefined;
 
-	let faded: ReadonlySet<number> = new Set();
+	let bolded: ReadonlySet<number> = new Set();
 
 	$: categoryData = table.categories[category];
 
-	function toggleFade(element: number) {
-		if (faded.has(element)) {
-			const newSet = new Set(faded);
+	function toggleBold(element: number) {
+		if (bolded.has(element)) {
+			const newSet = new Set(bolded);
 			newSet.delete(element);
-			faded = newSet;
+			bolded = newSet;
 		} else {
-			faded = new Set(faded).add(element);
+			bolded = new Set(bolded).add(element);
 		}
 	}
 </script>
@@ -40,8 +39,8 @@
 	</h3>
 	<ol class="elements">
 		{#each categoryData.elements as elementData, element}
-			<li class="element-name font-sans" value={element + 1} class:faded={faded.has(element)}>
-				<button type="button" class="fade-button" on:click={() => toggleFade(element)}>
+			<li class="element-name font-sans" value={element + 1} class:faded={!bolded.has(element)}>
+				<button type="button" class="fade-button" on:click={() => toggleBold(element)}>
 					<img
 						class="die"
 						src="/die/{element + 1}.svg"

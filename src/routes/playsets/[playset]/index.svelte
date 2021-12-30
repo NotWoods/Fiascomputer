@@ -1,6 +1,7 @@
 <script lang="ts" context="module">
 	import { loadKnownPages, Playset } from '$lib/playset';
 	import { dbReady } from '$lib/storage/db';
+	import { sessionStarted } from '$lib/storage/session';
 	import { hasTrailingSlash, redirectToAlwaysTrailingSlash } from '$lib/trailing-slash';
 
 	export const load: import('@sveltejs/kit').Load = async ({ page, fetch }) => {
@@ -24,14 +25,13 @@
 </script>
 
 <script lang="ts">
-	import BlobbyImage from '$lib/components/BlobbyImage.svelte';
-	import PlaysetName from '$lib/components/PlaysetToolbar/PlaysetName.svelte';
 	import Title from '$lib/components/Title.svelte';
 	import { getStoreContext } from '$lib/store';
-	import { sessionStarted } from '$lib/storage/session';
 	import { goto } from '$app/navigation';
-
-	const BLANK_PAGE = '/images/blank-page.svg';
+	import PlaysetOverviewLegacy from './_PlaysetOverviewLegacy.svelte';
+	import PlaysetOverviewDeck from './_PlaysetOverviewDeck.svelte';
+	import PlaysetToolbar from '$lib/components/PlaysetToolbar/PlaysetToolbar.svelte';
+	import DeckBox from '$lib/components/DeckBox.svelte';
 
 	const { playset } = getStoreContext();
 
@@ -40,7 +40,6 @@
 
 	$: cover = pages?.cover;
 	$: credits = pages?.credits;
-	$: score = pages?.score;
 
 	async function newGame(event: MouseEvent) {
 		event.preventDefault();
@@ -63,32 +62,14 @@
 	class="page playset-preview-page"
 	style="--playset-background: {$playset.backgroundColor ?? ''}"
 >
-	<PlaysetName />
-	<!-- We use both `inner` and `outer` below to properly achieve 100% image height with proper aspect ratio. -->
-	<div class="pages-outer">
-		<div class="pages-inner">
-			<BlobbyImage
-				aClass="playset-page-link playset-cover-page-link"
-				imgClass="playset-page playset-cover-page"
-				target="_blank"
-				src={cover ?? BLANK_PAGE}
-				alt="{$playset.title} Cover"
-				width={600}
-				height={900}
-			/>
-			{#if score}
-				<BlobbyImage
-					aClass="playset-page-link "
-					imgClass="playset-page"
-					target="_blank"
-					src={score}
-					alt="{$playset.title} Score"
-					width={600}
-					height={900}
-				/>
-			{/if}
-		</div>
-	</div>
+	<PlaysetToolbar>
+		<a slot="start" href="/playsets" class="back">Back</a>
+	</PlaysetToolbar>
+	{#if $playset.score}
+		<PlaysetOverviewDeck title={$playset.title} {cover} score={$playset.score} />
+	{:else}
+		<PlaysetOverviewLegacy playsetTitle={$playset.title} {cover} score={pages?.score} />
+	{/if}
 	<div class="links">
 		<a
 			sveltekit:prefetch
@@ -113,20 +94,14 @@
 			>Delete playset</a
 		>
 	</div>
-	<a href="/playsets" class="back">Back</a>
 </div>
 
 <style>
-	:global(.playset-page) {
-		aspect-ratio: 600 / 900;
-		background-color: white;
-		object-fit: contain;
-	}
-	:global(.playset-cover-page) {
-		background-color: var(--playset-background, white);
-	}
-
 	.resume-link {
 		margin-top: 1rem;
+	}
+
+	.links {
+		margin-top: auto;
 	}
 </style>
