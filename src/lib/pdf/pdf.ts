@@ -1,19 +1,22 @@
 import type { PageImages } from '$lib/storage/pages';
-import PDF from 'pdfjs-dist';
+import * as pdfjs from 'pdfjs-dist';
+import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.js?url';
 import type { PDFDocumentProxy } from 'pdfjs-dist/types/src/display/api';
 import equivalenceParsePlayset from './equivalence-playset-parser';
-import { Pages, processPages } from './pages';
+import { type Pages, processPages } from './pages';
 import sequentialParsePlayset from './sequential-playset-parser';
 import validatePlayset from './validate-playset';
+
+pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker;
 
 export async function loadDocument(someFile: string | URL | Uint8Array | ArrayBuffer | Blob) {
 	if (someFile instanceof Blob) {
 		someFile = await someFile.arrayBuffer();
 	}
 	if (someFile instanceof ArrayBuffer || someFile instanceof Uint8Array) {
-		return PDF.getDocument(new Uint8Array(someFile)).promise;
+		return pdfjs.getDocument(new Uint8Array(someFile)).promise;
 	} else {
-		return PDF.getDocument(someFile).promise;
+		return pdfjs.getDocument(someFile).promise;
 	}
 }
 
@@ -50,7 +53,7 @@ function matchCompilation(pdf: { numPages: number }) {
 export function pageNumbers(pdf: PDFDocumentProxy): Pages<number>[] {
 	const compilationPlaysets = matchCompilation(pdf);
 	const firstPages = compilationPlaysets
-		? Object.keys(compilations.fiasco.playsets).map((s) => Number(s))
+		? Object.keys(compilationPlaysets).map((s) => Number(s))
 		: [1];
 
 	return firstPages.map((firstPage) => {
@@ -78,8 +81,10 @@ export function pageNumbers(pdf: PDFDocumentProxy): Pages<number>[] {
 }
 
 export async function loadPlaysets(pdf: PDFDocumentProxy, filename: string) {
+	const numbers = pageNumbers(pdf);
+	console.log(numbers);
 	const playsets = await Promise.all(
-		pageNumbers(pdf).map(async (pageNums) => {
+		numbers.map(async (pageNums) => {
 			const pages = await processPages(pageNums, (num) => pdf.getPage(num));
 
 			// Call the parsers.
@@ -175,6 +180,7 @@ export async function loadPage(
 
 export const loadPlaysetPagesFromPdf = async (pdf: PDFDocumentProxy, filename: string) => {
 	const playsets = await loadPlaysets(pdf, filename);
+	console.log('playsets', playsets);
 
 	return await Promise.all(
 		playsets.map(async (playset, index) => {

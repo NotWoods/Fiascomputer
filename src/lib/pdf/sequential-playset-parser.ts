@@ -1,7 +1,7 @@
 import type { PlaysetData } from '$lib/storage/playset';
 import type { PDFPageProxy, TextItem } from 'pdfjs-dist/types/src/display/api';
 import * as R from 'ramda';
-import { Pages, PartialPlaysetTable, processPages } from './pages';
+import { type Pages, type PartialPlaysetTable, processPages } from './pages';
 
 export default async function parsePlayset(pdfPages: Pages<PDFPageProxy>) {
 	const pages = await processPages(pdfPages, loadPageTokens);

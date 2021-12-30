@@ -6,7 +6,7 @@ import type {
 	TextStyle
 } from 'pdfjs-dist/types/src/display/api';
 import * as R from 'ramda';
-import { Pages, PartialPlaysetTable, processPages } from './pages';
+import { type Pages, type PartialPlaysetTable, processPages } from './pages';
 
 function even(number: number) {
 	return number % 2 === 0;
@@ -152,6 +152,7 @@ export default async function parsePlayset(pdfPages: Pages<PDFPageProxy>) {
 		const title = titleClasses.length === 1 ? titleClasses[0][0].str : '';
 		const subtitle = titleClasses.length === 1 ? titleClasses[0][1].str : '';
 
+		console.log(itemsByClass);
 		const categoryClass = R.find((c) => c.length === 6, itemsByClass);
 		if (!categoryClass) {
 			error('NOT_6_CATEGORIES');
