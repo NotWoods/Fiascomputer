@@ -3,6 +3,7 @@
 	import type { CardDetails } from '$lib/storage/session';
 	import type { CardOrEngineType } from './card-type';
 	import CardRow, { type DescriptionType } from './_CardRow.svelte';
+	import Item from './Item.svelte';
 
 	export let label: string;
 	export let cardDetails: CardDetails<CardOrEngineType>;
@@ -13,7 +14,7 @@
 	export let onRemoveRow: ((descriptionType: DescriptionType) => void) | undefined = undefined;
 </script>
 
-<div class="item {cardDetails.table}">
+<Item class={cardDetails.table}>
 	<h3 aria-label={label}>
 		<slot />
 	</h3>
@@ -42,17 +43,11 @@
 		href={buildHref('element')}
 		onRemove={onRemoveRow}
 	/>
-</div>
+</Item>
 
 <style lang="scss">
 	@use '../../../css/defs';
 
-	.item {
-		position: relative;
-		padding: 1rem;
-		background-color: defs.$yellow-card-background-color;
-		@include defs.shadow;
-	}
 	:global(.card-graphic) {
 		margin: -1em;
 		margin-bottom: 0;

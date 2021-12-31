@@ -20,7 +20,6 @@
 	.overview-deck {
 		float: left;
 		margin: 2rem;
-		margin-left: 5rem;
 	}
 	.score {
 		background: white;
@@ -33,5 +32,17 @@
 	}
 	.score-p {
 		max-width: 50rem;
+	}
+
+	@media (min-width: 40em) {
+		.overview-deck {
+			margin-left: 5rem;
+			margin-top: 3rem;
+		}
+	}
+	@media (max-width: 40em) {
+		.overview-deck {
+			font-size: 0.5rem;
+		}
 	}
 </style>

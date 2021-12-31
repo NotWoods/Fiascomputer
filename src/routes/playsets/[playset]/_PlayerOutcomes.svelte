@@ -33,4 +33,10 @@
 		justify-content: center;
 		align-items: center;
 	}
+
+	@media (max-width: 40em) {
+		.player-outcomes {
+			padding-bottom: 1rem;
+		}
+	}
 </style>

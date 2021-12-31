@@ -25,17 +25,17 @@ export const cardColors: Record<CardType | OutcomeType, FiascoCardColors> = {
 		bottom: '#913821'
 	},
 	location: {
-		top: '#39AE68',
+		top: '#39ae68',
 		left: '#D7DF23',
 		bottom: '#8CC63F'
 	},
 	need: {
-		top: '#F47541',
+		top: '#f47541',
 		left: '#D3B92A',
 		bottom: '#FFCD04'
 	},
 	object: {
-		top: '#51908E',
+		top: '#51908e',
 		left: '#2A4D60',
 		bottom: '#88A59B'
 	},

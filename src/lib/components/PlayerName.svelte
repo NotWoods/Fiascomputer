@@ -11,7 +11,7 @@
 	$: player = $session.players[playerIndex];
 
 	function changeName(name: string) {
-		renamePlayer(playerIndex, name);
+		session.dispatch(renamePlayer(playerIndex, name));
 	}
 </script>
 

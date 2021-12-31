@@ -53,8 +53,21 @@
 		@include defs.plain-button;
 		grid-area: icon;
 	}
+	.player-image {
+		width: auto;
+		height: 6rem;
+		border: 1rem solid defs.$background-color;
+		background-color: defs.$background-color;
+	}
 	.player-name-outer {
 		grid-area: name;
+
+		background-color: defs.$background-color;
+		border: 1rem solid defs.$background-color;
+		border-top: 0;
+		font-size: 1.5rem;
+
+		position: relative;
 	}
 
 	@media (max-width: 40em) {

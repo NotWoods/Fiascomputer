@@ -138,8 +138,7 @@ $outcome-negative-color: #b72026;
 		outline: none;
 	}
 
-	&[type='button']:active,
-	&[href]:active {
+	&:active {
 		transform: translate(0.125rem, 0.125rem);
 		@include shadow(0.25rem);
 	}
@@ -296,7 +295,7 @@ $shadow-color: hsla(0, 0%, 0%, 0.25);
 
 	@if $position == outside {
 		left: 100%;
-		margin-left: 0.5em;
+		padding-left: 0.5em;
 	} @else {
 		right: 0;
 	}

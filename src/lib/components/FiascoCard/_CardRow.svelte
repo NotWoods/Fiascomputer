@@ -85,4 +85,9 @@
 	.card-description-line:hover .remove {
 		opacity: 1;
 	}
+	@media (max-width: 40em) {
+		.remove {
+			opacity: 0.75;
+		}
+	}
 </style>

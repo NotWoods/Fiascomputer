@@ -98,15 +98,6 @@
 			padding: 1rem;
 		}
 
-		.version {
-			margin-top: 2rem;
-			margin-bottom: 2rem;
-		}
-
-		.version:not(.current) {
-			display: none;
-		}
-
 		iframe {
 			display: block;
 			@include defs.horizontal-margin(auto);

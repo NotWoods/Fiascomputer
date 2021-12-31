@@ -31,4 +31,29 @@
 		text-align: center;
 		margin-top: 1rem;
 	}
+
+	.toolbar-buttons {
+		display: flex;
+		align-items: flex-start;
+	}
+	.buttons-start {
+		justify-content: flex-start;
+	}
+	.buttons-end {
+		justify-content: flex-end;
+	}
+
+	@media (max-width: 40em) {
+		.playset-toolbar {
+			grid-template:
+				'start' auto
+				'title' 1fr
+				'end' auto
+				/ 1fr;
+		}
+		.buttons-start,
+		.buttons-end {
+			justify-content: center;
+		}
+	}
 </style>

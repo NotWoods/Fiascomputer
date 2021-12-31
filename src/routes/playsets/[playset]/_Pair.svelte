@@ -1,7 +1,13 @@
 <script lang="ts">
 	import { changeDetailType, clearDetailType } from '$lib/actions';
 
-	import { cardName, DetailType, detailTypes } from '$lib/components/FiascoCard/card-colors';
+	import {
+		cardColors,
+		cardName,
+		DetailType,
+		detailTypes
+	} from '$lib/components/FiascoCard/card-colors';
+	import Item from '$lib/components/FiascoCard/Item.svelte';
 	import SelectCard from '$lib/components/FiascoCard/SelectCard.svelte';
 	import { cardDetailsTableDefined } from '$lib/deck';
 	import { getStoreContext } from '$lib/store';
@@ -34,12 +40,13 @@
 			onRemove={editable ? removeDetail : undefined}
 		/>
 	{:else}
-		<div class="item detail" data-detail>
+		<Item class="detail">
 			{#if editable}
 				<div class="unspecified-detail">
 					{#each detailTypes as detailItem}
 						<button
-							class={`detail-control ${detailItem}-control`}
+							class="detail-control ${detailItem}-control"
+							style="background-color: {cardColors[detailItem].top}"
 							on:click={() => setDetail(detailItem)}
 						>
 							{cardName(detailItem)}
@@ -47,18 +54,21 @@
 					{/each}
 				</div>
 			{/if}
-		</div>
+		</Item>
 	{/if}
 </div>
 
-<style>
-	.need-control {
-		background-color: #f47541 !important;
-	}
-	.location-control {
-		background-color: #39ae68 !important;
-	}
-	.object-control {
-		background-color: #51908e !important;
+<style lang="scss">
+	@use '../../../css/defs';
+
+	.unspecified-detail {
+		@include defs.flex(column, $horizontal: stretch, $vertical-spacing: 1rem);
+
+		.detail-control {
+			flex: 1;
+			@include defs.plain-button;
+			@include defs.button;
+			padding: 0.5rem;
+		}
 	}
 </style>
