@@ -10,19 +10,7 @@
 	export let onChangeCategory: ((text: string) => void) | undefined = undefined;
 	export let onChangeElement: ((element: number, text: string) => void) | undefined = undefined;
 
-	let bolded: ReadonlySet<number> = new Set();
-
 	$: categoryData = table.categories[category];
-
-	function toggleBold(element: number) {
-		if (bolded.has(element)) {
-			const newSet = new Set(bolded);
-			newSet.delete(element);
-			bolded = newSet;
-		} else {
-			bolded = new Set(bolded).add(element);
-		}
-	}
 </script>
 
 <li class="category" value={category + 1}>
@@ -30,34 +18,34 @@
 		<Editable
 			tag="a"
 			href="../setup"
-			class="category-link"
+			class="category-link w-full"
 			value={categoryData.name}
 			editable={onChangeCategory != undefined}
 			onClick={() => onClick()}
-			onChange={(text) => onChangeCategory?.(text)}
+			on:change={(event) => onChangeCategory?.(event.detail.value)}
 		/>
 	</h3>
 	<ol class="elements">
 		{#each categoryData.elements as elementData, element}
-			<li class="element-name font-sans" value={element + 1} class:faded={!bolded.has(element)}>
-				<button type="button" class="fade-button" on:click={() => toggleBold(element)}>
-					<img
-						class="die"
-						src="/die/{element + 1}.svg"
-						alt={(element + 1).toString()}
-						width="16"
-						height="16"
+			<li class="element-name font-sans" value={element + 1}>
+				<label class="element-name-label">
+					<input
+						type="radio"
+						class="category-radio"
+						name="category-{table.title}"
+						value={elementData}
+						aria-label={elementData}
+						on:change={() => onClick(element)}
 					/>
-				</button>
-				<Editable
-					tag="a"
-					href="../setup"
-					class="element-link"
-					value={elementData}
-					editable={onChangeElement != undefined}
-					onClick={() => onClick(element)}
-					onChange={(text) => onChangeElement?.(element, text)}
-				/>
+					<Editable
+						tag="a"
+						href="../setup"
+						class="element-link"
+						value={elementData}
+						editable={onChangeElement != undefined}
+						on:change={(event) => onChangeElement?.(element, event.detail.value)}
+					/>
+				</label>
 			</li>
 		{/each}
 	</ol>
@@ -66,9 +54,7 @@
 <style lang="scss">
 	@use '../../../css/defs';
 
-	.die {
-		display: inline-block;
-		vertical-align: sub;
+	.category-radio {
 		margin-right: 0.5rem;
 	}
 
@@ -78,5 +64,17 @@
 
 	.faded {
 		opacity: 0.5;
+	}
+
+	.element-name {
+		padding: 0;
+	}
+	.element-name-label {
+		display: flex;
+		cursor: pointer;
+	}
+	:global(.element-link) {
+		flex: 1;
+		text-align: left !important;
 	}
 </style>

@@ -25,9 +25,9 @@
 			height="96"
 		/>
 	</button>
-	<div class="player-name-outer">
+	<h3 class="player-name-outer">
 		<PlayerName {playerIndex} {editable} />
-	</div>
+	</h3>
 	{#if outcomes}
 		<PlayerOutcomes {playerIndex} editable>
 			<Outcome outcome={undefined} {playerIndex} />
@@ -46,7 +46,7 @@
 			'icon' 6rem
 			'name' min-content
 			'outcomes' auto
-			/ 1fr;
+			/ 100%;
 		justify-items: center;
 	}
 	.player-image-outer {
@@ -61,8 +61,11 @@
 	}
 	.player-name-outer {
 		grid-area: name;
+		justify-self: stretch;
 
 		background-color: defs.$background-color;
+		margin-left: -1rem;
+		margin-right: -1rem;
 		border: 1rem solid defs.$background-color;
 		border-top: 0;
 		font-size: 1.5rem;
@@ -76,7 +79,7 @@
 				'icon' 6rem
 				'name' min-content
 				'outcomes' auto
-				/ 1fr;
+				/ 100%;
 		}
 	}
 </style>

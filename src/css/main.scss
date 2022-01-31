@@ -36,7 +36,7 @@ h3,
 h4,
 h5,
 h6 {
-	font-family: Hitchcock, serif;
+	font-family: Hitchcock, serif !important;
 	text-underline-offset: 30%;
 }
 .font-sans {
@@ -45,6 +45,10 @@ h6 {
 
 .fill-current {
 	fill: currentColor;
+}
+
+.w-full {
+	width: 100%;
 }
 
 .document,
@@ -98,7 +102,7 @@ h6 {
 	}
 
 	.player-name {
-		color: defs.$heading-color;
+		color: defs.$heading-color !important;
 	}
 
 	.remove {
@@ -186,15 +190,9 @@ h6 {
 			display: inline;
 
 			text-align: left;
-			border-bottom: 1px solid transparent;
 
 			&:before {
 				content: counter(category) ' ';
-			}
-
-			&[href]:hover,
-			&[href]:focus {
-				border-bottom-color: defs.$black;
 			}
 		}
 
@@ -218,11 +216,6 @@ h6 {
 
 		.element-link {
 			display: inline;
-
-			&[href]:hover,
-			&[href]:focus {
-				text-decoration: underline;
-			}
 		}
 
 		position: relative;

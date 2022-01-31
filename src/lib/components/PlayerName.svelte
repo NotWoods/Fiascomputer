@@ -10,7 +10,8 @@
 
 	$: player = $session.players[playerIndex];
 
-	function changeName(name: string) {
+	function changeName(event: Event) {
+		const name = (event.currentTarget as HTMLInputElement).value;
 		session.dispatch(renamePlayer(playerIndex, name));
 	}
 </script>
@@ -19,5 +20,5 @@
 	class="player-name font-hitchcock"
 	value={player?.name ?? `Player ${playerIndex + 1}`}
 	{editable}
-	onChange={changeName}
+	on:change={changeName}
 />

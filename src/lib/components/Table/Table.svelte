@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Editable from '$lib/components/Editable.svelte';
 	import type { PlaysetTable } from '$lib/playset';
-	import { bindDispatch, getStoreContext } from '$lib/store';
+	import { getStoreContext } from '$lib/store';
 	import { renameSubtitle } from '$lib/actions';
 	import { CardOrEngineType, tableName } from '../FiascoCard/card-type';
 
@@ -12,17 +12,18 @@
 	export let onClose: (event: MouseEvent) => void = () => {};
 
 	const { playset } = getStoreContext();
+
+	function handleChange(event: Event) {
+		const subtitle = (event.currentTarget as HTMLInputElement).value;
+		playset.dispatch(renameSubtitle(subtitle));
+	}
 </script>
 
 <div class="table">
 	<h2 class="table-title">{tableName(table, cardType)}</h2>
 	{#if subtitle != undefined}
-		<p class="table-subtitle">
-			<Editable
-				class="table-subtitle-text"
-				value={subtitle}
-				onChange={bindDispatch(playset, renameSubtitle)}
-			/>
+		<p class="table-subtitle w-full">
+			<Editable class="table-subtitle-text w-full" value={subtitle} on:change={handleChange} />
 		</p>
 	{/if}
 	<slot />

@@ -1,122 +1,37 @@
 <script lang="ts">
-	export let value: string = '';
+	export let value: string;
 	export let editable = true;
-	export let tag: 'span' | 'a' = 'span';
-	export let onChange: (value: string) => void;
-	export let onClick: ((event: MouseEvent) => void) | undefined = undefined;
-
-	let editing = false;
-
-	let editableNode: HTMLElement;
 
 	$: text = value.trim() === '' ? '\u00a0' : value;
-
-	function onTrigger() {
-		if (!editing) {
-			editableNode.focus();
-
-			requestAnimationFrame(() => {
-				const selection = window.getSelection();
-				if (selection) {
-					const range = document.createRange();
-					range.selectNodeContents(editableNode);
-					selection.removeAllRanges();
-					selection.addRange(range);
-				}
-			});
-		}
-		editing = !editing;
-	}
-
-	function onPaste(event: ClipboardEvent) {
-		event.preventDefault();
-		onChange(event.clipboardData!.getData('text/plain'));
-	}
-
-	function onKeyDown(event: KeyboardEvent) {
-		if (event.key === 'Escape' || event.key === 'Enter') {
-			event.preventDefault();
-			editableNode.blur();
-		}
-	}
-
-	function onBlur() {
-		const newValue = editableNode?.textContent ?? '';
-		if (newValue !== value) {
-			onChange(newValue);
-		}
-		editing = false;
-	}
-
-	function handleClick(event: MouseEvent) {
-		if (editing) {
-			event.preventDefault();
-		} else {
-			onClick?.(event);
-		}
-	}
-
-	function handleChange() {
-		onChange(editableNode?.textContent ?? '');
-	}
 </script>
 
-{#if editable}
-	{#if tag === 'a'}
-		<a
-			href="/"
-			{...$$restProps}
-			class="editable {$$restProps.class}"
-			contentEditable={editing}
-			on:change={handleChange}
-			on:paste={onPaste}
-			on:keydown={onKeyDown}
-			on:blur={onBlur}
-			on:click={handleClick}
-			bind:this={editableNode}
-		>
-			{text}
-		</a>
-	{:else}
-		<span
-			{...$$restProps}
-			class="editable {$$restProps.class}"
-			contentEditable={editing}
-			on:change={handleChange}
-			on:paste={onPaste}
-			on:keydown={onKeyDown}
-			on:blur={onBlur}
-			on:click={onClick}
-			bind:this={editableNode}
-		>
-			{text}
-		</span>
-	{/if}
-	<button type="button" class="edit" on:click={onTrigger}>
-		<img src="/images/pencil-white.svg" alt="Edit" />
-	</button>
-{:else if tag === 'a'}
-	<a href="/" {...$$restProps} on:click={onClick}>
-		{text}
-	</a>
-{:else}
-	<span {...$$restProps} on:click={onClick}>
-		{text}
-	</span>
-{/if}
+<input
+	{...$$restProps}
+	class="editable {$$restProps.class}"
+	value={text}
+	disabled={!editable}
+	on:change
+/>
 
 <style lang="scss">
 	@use '../../css/defs';
 
-	.edit {
-		@include defs.edit-button;
-		top: auto;
-		left: auto;
-		right: auto;
+	.editable {
+		font: inherit;
+		color: inherit;
+		background: transparent;
+		border: 0;
+		text-align: center;
+		max-width: 100%;
+		transition: outline 0.1s ease-in;
+		outline: 0.15em dashed transparent;
+		outline-offset: 0.25em;
 	}
-	.edit:hover,
-	.edit:focus,
-	.editable:hover + .edit {
-		opacity: 1;
+	.editable:not(:disabled):hover {
+		outline-color: currentColor;
+	}
+	.editable:focus {
+		outline-color: currentColor;
+		outline-width: 0.2em;
 	}
 </style>
