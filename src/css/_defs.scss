@@ -135,7 +135,6 @@ $outcome-negative-color: #b72026;
 	&:focus {
 		background-color: $black;
 		border-color: $black;
-		outline: none;
 	}
 
 	&:active {
@@ -258,23 +257,6 @@ $shadow-color: var(--shadow-color);
 			linear-gradient(to right, $color, $color);
 		background-size: 50% $width, $width 50%;
 		background-position: left $y-position, center bottom;
-	}
-}
-
-@mixin editable($background-color) {
-	&[contenteditable='true'] {
-		min-width: 1rem;
-		color: $black;
-		outline: 0.25rem solid $background-color;
-		background-color: $background-color;
-	}
-}
-
-@mixin editable-parent {
-	&:hover {
-		.edit {
-			opacity: 1;
-		}
 	}
 }
 

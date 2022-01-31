@@ -24,40 +24,30 @@
 <div id="pairs" class="pairs" class:pairs-with-tilt={showTilt}>
 	{#if showTilt}
 		<div class="pair tilts">
+			<h3 class="sr-only">Tilts</h3>
 			<TiltCard {engine} outcomeType={OutcomeType.POSITIVE} editable />
 			<TiltCard {engine} outcomeType={OutcomeType.NEGATIVE} editable />
 			<AftermathButton />
 		</div>
 	{/if}
 	<Player playerIndex={0} editable outcomes selected={selectedPlayer === 0} {onSelect} />
-	<Pair pairIndex={0} playerIndex={selectedPlayer} editable />
+	<Pair pairIndex={0} playerIndex={selectedPlayer} {activePlayers} editable />
 	<Player playerIndex={1} editable outcomes selected={selectedPlayer === 1} {onSelect} />
-	<Pair pairIndex={1} playerIndex={selectedPlayer} editable />
+	<Pair pairIndex={1} playerIndex={selectedPlayer} {activePlayers} editable />
 	<Player playerIndex={2} editable outcomes selected={selectedPlayer === 2} {onSelect} />
-	<Pair pairIndex={2} playerIndex={selectedPlayer} editable />
+	<Pair pairIndex={2} playerIndex={selectedPlayer} {activePlayers} editable />
 	{#if activePlayers >= 4}
 		<Player playerIndex={3} editable outcomes selected={selectedPlayer === 3} {onSelect} />
-		<Pair pairIndex={3} playerIndex={selectedPlayer} editable />
+		<Pair pairIndex={3} playerIndex={selectedPlayer} {activePlayers} editable />
 	{/if}
 	{#if activePlayers >= 5}
 		<Player playerIndex={4} editable outcomes selected={selectedPlayer === 4} {onSelect} />
-		<Pair pairIndex={4} playerIndex={selectedPlayer} editable />
+		<Pair pairIndex={4} playerIndex={selectedPlayer} {activePlayers} editable />
 	{/if}
 </div>
 
 <style lang="scss">
 	@use '../../../css/defs';
-
-	@mixin connector($top: false, $right: false, $bottom: false, $left: false) {
-		@include defs.line-through(
-			$top: $top,
-			$right: $right,
-			$bottom: $bottom,
-			$left: $left,
-			$color: defs.$shadow-color,
-			$width: 1rem
-		);
-	}
 
 	@media (min-width: 40rem) {
 		.pairs {

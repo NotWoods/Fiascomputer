@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { changeDetailType, clearDetailType } from '$lib/actions';
+	import { changeDetailType, clearDetailType, changeCard } from '$lib/actions';
 
 	import {
 		cardColors,
@@ -15,29 +15,50 @@
 	const { session } = getStoreContext();
 
 	export let pairIndex: number;
+	export let activePlayers: number;
 	export let playerIndex: number | undefined = undefined;
 	export let editable = false;
 
 	$: pair = $session.pairs[pairIndex];
+	$: pairPlayer1 = pairIndex + 1;
+	$: pairPlayer2 = pairIndex + 2 > activePlayers ? 1 : pairIndex + 2;
+
+	function resetRelationship() {
+		if (!editable) return;
+		session.dispatch(
+			changeCard('relationship', pairIndex, {
+				category: undefined,
+				element: undefined
+			})
+		);
+	}
 
 	function setDetail(type: DetailType) {
 		session.dispatch(changeDetailType(type, pairIndex));
 	}
 
 	function removeDetail() {
+		if (!editable) return;
 		session.dispatch(clearDetailType(pairIndex));
 	}
 </script>
 
 <div id="pair-{pairIndex + 1}" class="pair">
-	<SelectCard cardDetails={pair.relationship} {pairIndex} {playerIndex} {editable} />
+	<h3 class="sr-only">Between Player {pairPlayer1} and Player {pairPlayer2}</h3>
+	<SelectCard
+		cardDetails={pair.relationship}
+		{pairIndex}
+		{playerIndex}
+		{editable}
+		on:remove={resetRelationship}
+	/>
 	{#if cardDetailsTableDefined(pair.detail)}
 		<SelectCard
 			cardDetails={pair.detail}
 			{pairIndex}
 			{playerIndex}
 			{editable}
-			onRemove={editable ? removeDetail : undefined}
+			on:remove={removeDetail}
 		/>
 	{:else}
 		<Item class="detail">

@@ -18,7 +18,7 @@
 </script>
 
 <Editable
-	class="player-name font-hitchcock"
+	class="player-name font-hitchcock w-full"
 	value={player?.name ?? `Player ${playerIndex + 1}`}
 	{multiline}
 	{editable}

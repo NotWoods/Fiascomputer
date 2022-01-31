@@ -13,7 +13,6 @@
 	export let pairIndex: number;
 	export let playerIndex: number | undefined = undefined;
 	export let editable = false;
-	export let onRemove: (() => void) | undefined = undefined;
 
 	$: type = cardDetails.table;
 	$: colors = cardColors[type];
@@ -33,15 +32,6 @@
 			return link;
 		}
 	};
-
-	function resetCardDetails(event: CustomEvent<{ descriptionType: DescriptionType }>) {
-		session.dispatch(
-			changeCard(cardDetails.table, pairIndex, {
-				category: event.detail.descriptionType === 'category' ? undefined : cardDetails.category,
-				element: undefined
-			})
-		);
-	}
 </script>
 
 <BaseCard
@@ -50,8 +40,7 @@
 	{categories}
 	{editable}
 	buildHref={cardRowLink}
-	onRemoveCard={onRemove}
-	on:removerow={resetCardDetails}
+	on:remove
 >
 	<svg
 		xmlns="http://www.w3.org/2000/svg"

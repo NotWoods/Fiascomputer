@@ -7,11 +7,8 @@
 </script>
 
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
 	import type { Category } from '$lib/storage/playset';
 	import type { CardDetails } from '$lib/storage/session';
-
-	const dispatch = createEventDispatcher<{ removerow: { descriptionType: DescriptionType } }>();
 
 	export let categories: readonly Category[] | undefined;
 	export let cardDetails: Omit<CardDetails, 'table'>;
@@ -19,10 +16,6 @@
 	export let descriptionType: DescriptionType;
 	export let href: string | undefined = undefined;
 	export let editable: boolean;
-
-	function handleRemove() {
-		dispatch('removerow', { descriptionType });
-	}
 
 	$: category =
 		categories != undefined && cardDetails.category != undefined
@@ -42,6 +35,7 @@
 			class="name {descriptionType}-name"
 			class:font-hitchcock={descriptionType === 'category'}
 			class:font-sans={descriptionType === 'element'}
+			class:unset={value == undefined}
 		>
 			{#if value != undefined}
 				{value}
@@ -51,16 +45,12 @@
 				{BLANK_SPACE}
 			{/if}
 		</a>
-		{#if editable}
-			<button type="button" class="remove close-button" on:click={handleRemove}>
-				<img src="/images/cross-black.svg" alt="Remove" />
-			</button>
-		{/if}
 	{:else}
 		<span
 			class="name {descriptionType}-name"
 			class:font-hitchcock={descriptionType === 'category'}
 			class:font-sans={descriptionType === 'element'}
+			class:unset={value == undefined}
 		>
 			{#if value != undefined}
 				{value}
@@ -74,6 +64,12 @@
 <style>
 	.element-name {
 		font-size: 1.2rem;
+	}
+
+	.unset,
+	.name:hover,
+	.name:focus {
+		text-decoration: underline;
 	}
 
 	.card-description-line {

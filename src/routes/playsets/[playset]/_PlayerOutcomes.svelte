@@ -31,7 +31,7 @@
 		gap: 1rem;
 		flex-wrap: wrap;
 		justify-content: center;
-		align-items: center;
+		align-items: flex-start;
 	}
 
 	@media (max-width: 40em) {

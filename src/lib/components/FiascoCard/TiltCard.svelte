@@ -12,7 +12,6 @@
 	export let engine: Engine | undefined;
 	export let outcomeType: OutcomeType;
 	export let editable = false;
-	export let onRemove: (() => void) | undefined = undefined;
 
 	$: colors = cardColors[outcomeType];
 	$: categories = engine?.tilt?.categories ?? [];
@@ -26,25 +25,17 @@
 		return `./tilt/${category}?outcome=${outcomeType}`;
 	};
 
-	function resetCardDetails(event: CustomEvent<{ descriptionType: DescriptionType }>) {
+	function resetCard() {
 		session.dispatch(
 			changeTilt(outcomeType, {
-				category: event.detail.descriptionType === 'category' ? undefined : cardDetails.category,
+				category: undefined,
 				element: undefined
 			})
 		);
 	}
 </script>
 
-<BaseCard
-	label="Tilt"
-	{cardDetails}
-	{categories}
-	{editable}
-	{buildHref}
-	onRemoveCard={onRemove}
-	on:removerow={resetCardDetails}
->
+<BaseCard label="Tilt" {cardDetails} {categories} {editable} {buildHref} on:remove={resetCard}>
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 786 187"
