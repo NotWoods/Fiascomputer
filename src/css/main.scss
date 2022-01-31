@@ -64,7 +64,7 @@ h6 {
 
 .close-button {
 	@include defs.plain-button;
-	@include defs.close-button;
+	@include defs.icon-button($transform: rotate(8deg));
 }
 .table-page .close-button,
 .help-page .close-button,

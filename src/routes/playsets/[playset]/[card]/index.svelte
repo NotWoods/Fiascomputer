@@ -29,8 +29,8 @@
 	$: table = getTable($playset, tableType);
 </script>
 
-<Table subtitle={$playset.subtitle} {table} cardType={tableType}>
+<Table subtitle={$playset.subtitle} {table} cardType={tableType} let:editing>
 	<Categories {table} let:category>
-		<CardCategory {tableType} {table} {category} {pairIndex} />
+		<CardCategory {tableType} {table} {category} {pairIndex} editable={editing} />
 	</Categories>
 </Table>

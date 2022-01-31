@@ -35,23 +35,6 @@
 	$: table = getTable($playset, tableType);
 </script>
 
-<Table subtitle={$playset.subtitle} {table} cardType={tableType}>
-	<CardCategory {tableType} {table} {category} {pairIndex} />
+<Table subtitle={$playset.subtitle} {table} cardType={tableType} let:editing>
+	<CardCategory {tableType} {table} {category} {pairIndex} editable={editing} />
 </Table>
-
-<style lang="scss">
-	@use '../../../../css/defs';
-
-	:global(.categories) {
-		@include defs.columns(1);
-	}
-
-	:global(.category-name) {
-		font-size: 2rem;
-		margin-bottom: 1rem;
-	}
-
-	:global(.element-name) {
-		font-size: 1.5em;
-	}
-</style>

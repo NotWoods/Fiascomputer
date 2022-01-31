@@ -41,7 +41,7 @@
 <Title text="Tilt" playsetTitle={$playset.title} />
 
 <div id="table" class="page table-page">
-	<Table subtitle={undefined} {table} cardType="tilt">
-		<TiltCategory {table} {category} {outcomeType} />
+	<Table subtitle={undefined} {table} cardType="tilt" let:editing>
+		<TiltCategory {table} {category} {outcomeType} editable={editing} />
 	</Table>
 </div>

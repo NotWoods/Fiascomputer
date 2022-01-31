@@ -213,7 +213,7 @@ $shadow-color: var(--shadow-color);
 	}
 }
 
-@mixin close-button {
+@mixin icon-button($transform) {
 	img {
 		width: auto;
 		height: 2rem;
@@ -223,7 +223,7 @@ $shadow-color: var(--shadow-color);
 
 	&:focus img,
 	&:hover img {
-		transform: rotate(8deg);
+		transform: $transform;
 	}
 }
 

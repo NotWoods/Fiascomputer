@@ -1,6 +1,6 @@
-import type { CardOrEngineType, DetailType } from '$lib/components/FiascoCard/card-type';
+import type { CardOrEngineType, CardType, DetailType } from '$lib/components/FiascoCard/card-type';
 import type { CardDetails } from '$lib/deck';
-import type { OutcomeDetails } from '$lib/outcome';
+import type { OutcomeDetails, OutcomeType } from '$lib/outcome';
 import { dbReady } from './db';
 
 export function range<T>(length: number, map: (index: number) => T): T[] {
@@ -109,4 +109,34 @@ export function usedCards(pairs: Session['pairs'], tilts?: Session['tilts']) {
 			category != undefined && element != undefined && used[table].has(`${category}-${element}`)
 		);
 	};
+}
+
+export function selectedCardDetails<Type extends CardType>(
+	session: Session,
+	pairIndex: number | undefined,
+	type: Type
+): CardDetails<Type> | undefined {
+	if (pairIndex == undefined) {
+		return undefined;
+	}
+
+	const pair = session.pairs[pairIndex];
+	if (type === 'relationship') {
+		return pair.relationship as CardDetails<Type>;
+	} else if (type === pair.detail.table) {
+		return pair.detail as CardDetails<Type>;
+	} else {
+		return undefined;
+	}
+}
+
+export function selectedTiltDetails(
+	session: Session,
+	outcomeType: OutcomeType | undefined
+): CardDetails<'tilt'> | undefined {
+	if (outcomeType == undefined) {
+		return undefined;
+	}
+
+	return session.tilts[outcomeType];
 }

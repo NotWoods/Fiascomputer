@@ -1,14 +1,18 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
 	import type { PlaysetTable } from '$lib/playset';
 	import type { TableIndex } from '$lib/storage/playset';
 	import Editable from '$lib/components/Editable.svelte';
 
+	const dispatch = createEventDispatcher<{
+		select: { element: number };
+		rename: { text: string; element?: number };
+	}>();
+
 	export let category: TableIndex;
 	export let table: PlaysetTable;
-
-	export let onClick: (element?: number) => void;
-	export let onChangeCategory: ((text: string) => void) | undefined = undefined;
-	export let onChangeElement: ((element: number, text: string) => void) | undefined = undefined;
+	export let editable = true;
+	export let selected: { category?: number; element?: number } | undefined = undefined;
 
 	$: categoryData = table.categories[category];
 </script>
@@ -18,8 +22,8 @@
 		<Editable
 			class="category-link w-full"
 			value={categoryData.name}
-			editable={onChangeCategory != undefined}
-			on:change={(event) => onChangeCategory?.(event.detail.value)}
+			{editable}
+			on:change={(event) => dispatch('rename', { text: event.detail.value })}
 		/>
 	</h3>
 	<ol class="elements">
@@ -32,13 +36,14 @@
 						name="category-{table.title}"
 						value={elementData}
 						aria-label={elementData}
-						on:change={() => onClick(element)}
+						checked={selected?.category === category && selected?.element === element}
+						on:change={() => dispatch('select', { element })}
 					/>
 					<Editable
 						class="element-link"
 						value={elementData}
-						editable={onChangeElement != undefined}
-						on:change={(event) => onChangeElement?.(element, event.detail.value)}
+						{editable}
+						on:change={(event) => dispatch('rename', { text: event.detail.value, element })}
 					/>
 				</label>
 			</li>

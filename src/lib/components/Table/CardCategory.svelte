@@ -1,8 +1,10 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { changeCard, renameCategory, renameElement } from '$lib/actions';
 	import type { PlaysetTable } from '$lib/playset';
 	import type { TableIndex } from '$lib/storage/playset';
-	import { bindDispatch, getStoreContext } from '$lib/store';
+	import { selectedCardDetails } from '$lib/storage/session';
+	import { getStoreContext } from '$lib/store';
 	import type { CardType } from '../FiascoCard/card-type';
 	import Category from './Category.svelte';
 
@@ -10,24 +12,30 @@
 	export let category: TableIndex;
 	export let table: PlaysetTable;
 	export let pairIndex: number | undefined = undefined;
+	export let editable = false;
 
 	const { playset, session } = getStoreContext();
-	const changeCategory = bindDispatch(playset, renameCategory);
-	const changeElement = bindDispatch(playset, renameElement);
 
-	function changeCardDetails(element?: number) {
+	$: selected = selectedCardDetails($session, pairIndex, tableType);
+
+	async function selectCard(event: CustomEvent<{ element: number }>) {
 		if (pairIndex == undefined) return;
 
-		session.dispatch(
-			changeCard(tableType, pairIndex, { category, element: element as TableIndex | undefined })
+		await session.dispatch(
+			changeCard(tableType, pairIndex, { category, element: event.detail.element as TableIndex })
 		);
+
+		goto('../setup');
+	}
+
+	function renameCard(event: CustomEvent<{ text: string; element?: number }>) {
+		const { text, element } = event.detail;
+		if (element != undefined) {
+			playset.dispatch(renameElement(tableType, category, element, text));
+		} else {
+			playset.dispatch(renameCategory(tableType, category, text));
+		}
 	}
 </script>
 
-<Category
-	{category}
-	{table}
-	onClick={changeCardDetails}
-	onChangeCategory={(text) => changeCategory(tableType, category, text)}
-	onChangeElement={(element, text) => changeElement(tableType, category, element, text)}
-/>
+<Category {category} {table} {selected} {editable} on:select={selectCard} on:rename={renameCard} />

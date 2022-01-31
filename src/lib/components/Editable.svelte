@@ -41,6 +41,9 @@
 		outline-offset: 0.25em;
 		scrollbar-color: var(--dark-background-color) var(--background-color);
 	}
+	.editable:disabled {
+		cursor: inherit;
+	}
 	.editable:not(:disabled):hover {
 		outline-color: currentColor;
 	}

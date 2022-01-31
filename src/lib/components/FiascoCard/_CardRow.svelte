@@ -76,20 +76,4 @@
 		margin-top: 1rem;
 		text-align: left;
 	}
-
-	.remove {
-		opacity: 0;
-		margin-left: auto;
-	}
-	.die:focus ~ .remove,
-	.name:focus ~ .remove,
-	.remove:focus,
-	.card-description-line:hover .remove {
-		opacity: 1;
-	}
-	@media (max-width: 40em) {
-		.remove {
-			opacity: 0.75;
-		}
-	}
 </style>
