@@ -13,8 +13,8 @@
 
 	const { playset } = getStoreContext();
 
-	function handleChange(event: Event) {
-		const subtitle = (event.currentTarget as HTMLInputElement).value;
+	function handleChange(event: CustomEvent<{ value: string }>) {
+		const subtitle = event.detail.value;
 		playset.dispatch(renameSubtitle(subtitle));
 	}
 </script>

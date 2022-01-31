@@ -16,12 +16,9 @@
 <li class="category" value={category + 1}>
 	<h3 class="category-name font-hitchcock">
 		<Editable
-			tag="a"
-			href="../setup"
 			class="category-link w-full"
 			value={categoryData.name}
 			editable={onChangeCategory != undefined}
-			onClick={() => onClick()}
 			on:change={(event) => onChangeCategory?.(event.detail.value)}
 		/>
 	</h3>
@@ -38,8 +35,6 @@
 						on:change={() => onClick(element)}
 					/>
 					<Editable
-						tag="a"
-						href="../setup"
 						class="element-link"
 						value={elementData}
 						editable={onChangeElement != undefined}
@@ -51,19 +46,9 @@
 	</ol>
 </li>
 
-<style lang="scss">
-	@use '../../../css/defs';
-
+<style>
 	.category-radio {
 		margin-right: 0.5rem;
-	}
-
-	.fade-button {
-		@include defs.plain-button;
-	}
-
-	.faded {
-		opacity: 0.5;
 	}
 
 	.element-name {

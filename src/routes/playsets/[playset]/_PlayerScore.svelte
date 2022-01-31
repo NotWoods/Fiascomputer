@@ -22,7 +22,7 @@
 		height="60"
 	/>
 	<h4 class="player-name">
-		<PlayerName {playerIndex} />
+		<PlayerName {playerIndex} editable={false} multiline={0} />
 	</h4>
 	<PlayerOutcomes {playerIndex} editable={false}>
 		<span class="result font-sans">⇒</span>

@@ -42,7 +42,7 @@
 		padding: 0.5rem;
 		display: grid;
 		grid-template:
-			'.' calc(50% - 4.5rem)
+			'.' calc(50% - 8rem)
 			'icon' 6rem
 			'name' min-content
 			'outcomes' auto

@@ -1,17 +1,30 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
+
+	const dispatch = createEventDispatcher<{ change: { value: string } }>();
+
 	export let value: string;
 	export let editable = true;
+	export let multiline = 0;
+	let className = '';
+	export { className as class };
 
-	$: text = value.trim() === '' ? '\u00a0' : value;
+	function handleChange(event: Event & { currentTarget: HTMLInputElement | HTMLTextAreaElement }) {
+		dispatch('change', { value: event.currentTarget.value });
+	}
 </script>
 
-<input
-	{...$$restProps}
-	class="editable {$$restProps.class}"
-	value={text}
-	disabled={!editable}
-	on:change
-/>
+{#if multiline > 0}
+	<textarea
+		class="editable {className}"
+		rows={multiline}
+		{value}
+		disabled={!editable}
+		on:change={handleChange}
+	/>
+{:else}
+	<input class="editable {className}" {value} disabled={!editable} on:change={handleChange} />
+{/if}
 
 <style lang="scss">
 	@use '../../css/defs';
@@ -26,6 +39,7 @@
 		transition: outline 0.1s ease-in;
 		outline: 0.15em dashed transparent;
 		outline-offset: 0.25em;
+		scrollbar-color: var(--dark-background-color) var(--background-color);
 	}
 	.editable:not(:disabled):hover {
 		outline-color: currentColor;

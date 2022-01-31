@@ -6,12 +6,13 @@
 	const { session } = getStoreContext();
 
 	export let playerIndex: number;
-	export let editable = false;
+	export let editable: boolean;
+	export let multiline = 2;
 
 	$: player = $session.players[playerIndex];
 
-	function changeName(event: Event) {
-		const name = (event.currentTarget as HTMLInputElement).value;
+	function changeName(event: CustomEvent<{ value: string }>) {
+		const name = event.detail.value;
 		session.dispatch(renamePlayer(playerIndex, name));
 	}
 </script>
@@ -19,6 +20,7 @@
 <Editable
 	class="player-name font-hitchcock"
 	value={player?.name ?? `Player ${playerIndex + 1}`}
+	{multiline}
 	{editable}
 	on:change={changeName}
 />
