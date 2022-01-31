@@ -8,6 +8,7 @@ export interface PartialPlaysetTable {
 
 export interface Pages<Value> {
 	cover: Value;
+	/** First page and last page */
 	relationship: [Value, Value];
 	need: [Value, Value];
 	location: [Value, Value];

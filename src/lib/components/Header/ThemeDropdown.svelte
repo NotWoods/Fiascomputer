@@ -2,7 +2,6 @@
 	import MenuItem from './MenuItem.svelte';
 
 	export let menuItems: Set<string>;
-	export let onChange: () => void;
 
 	let selected = 'red';
 </script>
@@ -35,7 +34,7 @@
 </svelte:head>
 
 <MenuItem {menuItems} id="theme">
-	<select id="theme-control" bind:value={selected} on:change={onChange}>
+	<select id="theme-control" bind:value={selected} on:change>
 		<option value="red">Fiasco Red</option>
 		<option value="blue">Companion Blue</option>
 		<option value="green">Town Green</option>

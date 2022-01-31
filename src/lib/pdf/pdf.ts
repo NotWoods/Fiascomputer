@@ -20,41 +20,38 @@ export async function loadDocument(someFile: string | URL | Uint8Array | ArrayBu
 	}
 }
 
-const compilations: Record<string, { pages: number; playsets: Record<number, string> }> = {
+const compilations: Record<string, { pages: number; playsets: ReadonlyMap<number, string> }> = {
 	fiasco: {
 		pages: 134,
-		playsets: {
-			61: 'Main Street',
-			71: 'Boomtown',
-			81: 'Suburbia',
-			91: 'The Ice'
-		}
+		playsets: new Map()
+			.set(61, 'Main Street')
+			.set(71, 'Boomtown')
+			.set(81, 'Suburbia')
+			.set(91, 'The Ice')
 	},
 	companion: {
 		pages: 170,
-		playsets: {
-			95: 'Fiasco High',
-			105: "Regina's Wedding",
-			115: 'Vegas',
-			125: 'Mission to Mercury'
-		}
+		playsets: new Map()
+			.set(95, 'Fiasco High')
+			.set(105, "Regina's Wedding")
+			.set(115, 'Vegas')
+			.set(125, 'Mission to Mercury')
 	}
 };
 
-function matchCompilation(pdf: { numPages: number }) {
-	for (const compilation of Object.values(compilations)) {
-		if (pdf.numPages === compilation.pages) {
-			return compilation.playsets;
-		}
-	}
-	return undefined;
+/**
+ * Match the PDF to one of the known `compilations`.
+ * @see compilations
+ * @returns Map of playset cover pages in the PDF to the name of the playset.
+ */
+function matchCompilation(pdf: { numPages: number }): ReadonlyMap<number, string> | undefined {
+	return Object.values(compilations).find((compilation) => pdf.numPages === compilation.pages)
+		?.playsets;
 }
 
 export function pageNumbers(pdf: PDFDocumentProxy): Pages<number>[] {
 	const compilationPlaysets = matchCompilation(pdf);
-	const firstPages = compilationPlaysets
-		? Object.keys(compilationPlaysets).map((s) => Number(s))
-		: [1];
+	const firstPages = compilationPlaysets ? Array.from(compilationPlaysets.keys()) : [1];
 
 	return firstPages.map((firstPage) => {
 		const isCompilation = firstPage !== 1;
@@ -69,22 +66,20 @@ export function pageNumbers(pdf: PDFDocumentProxy): Pages<number>[] {
 		} else {
 			return {
 				cover: 1,
+				title: 2,
+				score: 3,
 				relationship: [4, 5],
 				need: [6, 7],
 				location: [8, 9],
-				object: [10, 11],
-				title: 2,
-				score: 3
+				object: [10, 11]
 			};
 		}
 	});
 }
 
 export async function loadPlaysets(pdf: PDFDocumentProxy, filename: string) {
-	const numbers = pageNumbers(pdf);
-	console.log(numbers);
 	const playsets = await Promise.all(
-		numbers.map(async (pageNums) => {
+		pageNumbers(pdf).map(async (pageNums) => {
 			const pages = await processPages(pageNums, (num) => pdf.getPage(num));
 
 			// Call the parsers.
@@ -110,7 +105,7 @@ export async function loadPlaysets(pdf: PDFDocumentProxy, filename: string) {
 				.then((playset) => {
 					const compilationPlaysets = matchCompilation(pdf);
 					if (compilationPlaysets) {
-						playset.title = compilationPlaysets[pageNums.cover];
+						playset.title = compilationPlaysets.get(pageNums.cover)!;
 					}
 					if (!playset.subtitle || playset.subtitle.trim() === '') {
 						playset.subtitle = '...somewhere';
@@ -180,7 +175,6 @@ export async function loadPage(
 
 export const loadPlaysetPagesFromPdf = async (pdf: PDFDocumentProxy, filename: string) => {
 	const playsets = await loadPlaysets(pdf, filename);
-	console.log('playsets', playsets);
 
 	return await Promise.all(
 		playsets.map(async (playset, index) => {

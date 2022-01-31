@@ -34,10 +34,10 @@
 		}
 	};
 
-	function resetCardDetails(descriptionType: DescriptionType) {
+	function resetCardDetails(event: CustomEvent<{ descriptionType: DescriptionType }>) {
 		session.dispatch(
 			changeCard(cardDetails.table, pairIndex, {
-				category: descriptionType === 'category' ? undefined : cardDetails.category,
+				category: event.detail.descriptionType === 'category' ? undefined : cardDetails.category,
 				element: undefined
 			})
 		);
@@ -51,7 +51,7 @@
 	{editable}
 	buildHref={cardRowLink}
 	onRemoveCard={onRemove}
-	onRemoveRow={resetCardDetails}
+	on:removerow={resetCardDetails}
 >
 	<svg
 		xmlns="http://www.w3.org/2000/svg"

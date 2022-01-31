@@ -11,7 +11,6 @@
 	export let editable = false;
 	export let buildHref: (descriptionType: DescriptionType) => string | undefined;
 	export let onRemoveCard: (() => void) | undefined = undefined;
-	export let onRemoveRow: ((descriptionType: DescriptionType) => void) | undefined = undefined;
 </script>
 
 <Item class={cardDetails.table}>
@@ -33,7 +32,7 @@
 		descriptionType="category"
 		{editable}
 		href={buildHref('category')}
-		onRemove={onRemoveRow}
+		on:removerow
 	/>
 	<CardRow
 		{categories}
@@ -41,7 +40,7 @@
 		descriptionType="element"
 		{editable}
 		href={buildHref('element')}
-		onRemove={onRemoveRow}
+		on:removerow
 	/>
 </Item>
 

@@ -50,7 +50,7 @@
 		<FullscreenButtons {menuItems} />
 		<ThemeDropdown
 			{menuItems}
-			onChange={() => {
+			on:change={() => {
 				menuOpen = false;
 			}}
 		/>

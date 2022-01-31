@@ -5,15 +5,13 @@ import { type Pages, type PartialPlaysetTable, processPages } from './pages';
 
 export default async function parsePlayset(pdfPages: Pages<PDFPageProxy>) {
 	const pages = await processPages(pdfPages, loadPageTokens);
-	const playset = {
+	const playset: Partial<PlaysetData> & { tables: Record<string, PartialPlaysetTable> } = {
 		tables: {
 			relationship: parseSpread(pages.relationship[0], pages.relationship[1]),
 			need: parseSpread(pages.need[0], pages.need[1]),
 			location: parseSpread(pages.location[0], pages.location[1]),
 			object: parseSpread(pages.object[0], pages.object[1])
-		},
-		title: undefined as string | undefined,
-		subtitle: undefined as string | undefined
+		}
 	};
 
 	if ('title' in pages) {

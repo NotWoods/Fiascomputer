@@ -152,7 +152,6 @@ export default async function parsePlayset(pdfPages: Pages<PDFPageProxy>) {
 		const title = titleClasses.length === 1 ? titleClasses[0][0].str : '';
 		const subtitle = titleClasses.length === 1 ? titleClasses[0][1].str : '';
 
-		console.log(itemsByClass);
 		const categoryClass = R.find((c) => c.length === 6, itemsByClass);
 		if (!categoryClass) {
 			error('NOT_6_CATEGORIES');

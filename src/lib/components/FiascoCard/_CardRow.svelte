@@ -7,8 +7,11 @@
 </script>
 
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
 	import type { Category } from '$lib/storage/playset';
 	import type { CardDetails } from '$lib/storage/session';
+
+	const dispatch = createEventDispatcher<{ removerow: { descriptionType: DescriptionType } }>();
 
 	export let categories: readonly Category[] | undefined;
 	export let cardDetails: Omit<CardDetails, 'table'>;
@@ -16,7 +19,10 @@
 	export let descriptionType: DescriptionType;
 	export let href: string | undefined = undefined;
 	export let editable: boolean;
-	export let onRemove: (descriptionType: DescriptionType) => void = () => {};
+
+	function handleRemove() {
+		dispatch('removerow', { descriptionType });
+	}
 
 	$: category =
 		categories != undefined && cardDetails.category != undefined
@@ -46,7 +52,7 @@
 			{/if}
 		</a>
 		{#if editable}
-			<button type="button" class="remove close-button" on:click={() => onRemove(descriptionType)}>
+			<button type="button" class="remove close-button" on:click={handleRemove}>
 				<img src="/images/cross-black.svg" alt="Remove" />
 			</button>
 		{/if}

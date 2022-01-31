@@ -26,10 +26,10 @@
 		return `./tilt/${category}?outcome=${outcomeType}`;
 	};
 
-	function resetCardDetails(descriptionType: DescriptionType) {
+	function resetCardDetails(event: CustomEvent<{ descriptionType: DescriptionType }>) {
 		session.dispatch(
 			changeTilt(outcomeType, {
-				category: descriptionType === 'category' ? undefined : cardDetails.category,
+				category: event.detail.descriptionType === 'category' ? undefined : cardDetails.category,
 				element: undefined
 			})
 		);
@@ -43,7 +43,7 @@
 	{editable}
 	{buildHref}
 	onRemoveCard={onRemove}
-	onRemoveRow={resetCardDetails}
+	on:removerow={resetCardDetails}
 >
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
