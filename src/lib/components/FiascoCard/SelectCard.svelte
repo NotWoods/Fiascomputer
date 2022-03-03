@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { changeCard } from '$lib/actions';
 	import { getTable } from '$lib/playset';
 	import type { CardDetails } from '$lib/storage/session';
 	import { getStoreContext } from '$lib/store';
@@ -7,11 +6,10 @@
 	import BaseCard from './_BaseCard.svelte';
 	import type { DescriptionType } from './_CardRow.svelte';
 
-	const { playset, session } = getStoreContext();
+	const { playset } = getStoreContext();
 
 	export let cardDetails: CardDetails;
 	export let pairIndex: number;
-	export let playerIndex: number | undefined = undefined;
 	export let editable = false;
 
 	$: type = cardDetails.table;
@@ -21,8 +19,6 @@
 	$: cardRowLink = (descriptionType: DescriptionType) => {
 		if (!editable) {
 			return undefined;
-		} else if (playerIndex != undefined) {
-			return `./hand?player=${playerIndex}&pair=${pairIndex}&wanted=${type}`;
 		} else {
 			const category = descriptionType === 'category' ? undefined : cardDetails.category;
 			let link = `./${cardDetails.table}/${category || ''}`;

@@ -62,7 +62,7 @@
 				</li>
 			{/each}
 		{/await}
-		<li class="add-playset">
+		<li class="add-playset" hidden>
 			<a href="/add-playset" class="add-playset-link">
 				<span class="add-playset-label">Add Playset</span>
 			</a>
@@ -125,6 +125,7 @@
 			@include defs.flex(column, $horizontal: center);
 			@include defs.button($border: true);
 			text-align: center;
+			overflow: hidden;
 		}
 
 		.add-playset-link {
@@ -153,6 +154,9 @@
 			font-size: 0.75rem;
 			font-family: defs.$heading-font;
 			line-height: 1.5;
+			overflow-wrap: break-word;
+			hyphens: auto;
+			text-overflow: ellipsis;
 		}
 	}
 
@@ -176,9 +180,5 @@
 	.playset-deck {
 		font-size: 0.6rem;
 		--deck-angle: 0;
-	}
-	.playset-deck:hover,
-	.playset-deck:focus {
-		--deck-angle: 30;
 	}
 </style>

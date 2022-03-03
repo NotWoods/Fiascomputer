@@ -1,37 +1,10 @@
 <script lang="ts">
 	import MenuItem from './MenuItem.svelte';
+	import type { ThemeName } from './ThemeStylesheet.svelte';
 
 	export let menuItems: Set<string>;
-
-	let selected = 'red';
+	export let selected: ThemeName;
 </script>
-
-<svelte:head>
-	<link
-		rel="stylesheet"
-		disabled={selected !== 'red' || undefined}
-		href="/css/red.css"
-		title="Fiasco Red"
-	/>
-	<link
-		rel="alternate stylesheet"
-		disabled={selected !== 'blue' || undefined}
-		href="/css/blue.css"
-		title="Companion Blue"
-	/>
-	<link
-		rel="alternate stylesheet"
-		disabled={selected !== 'green' || undefined}
-		href="/css/green.css"
-		title="Town Green"
-	/>
-	<link
-		rel="alternate stylesheet"
-		disabled={selected !== 'gray' || undefined}
-		href="/css/gray.css"
-		title="Plain Gray"
-	/>
-</svelte:head>
 
 <MenuItem {menuItems} id="theme">
 	<select id="theme-control" bind:value={selected} on:change>

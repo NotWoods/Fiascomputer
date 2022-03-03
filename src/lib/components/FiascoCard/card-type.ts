@@ -17,12 +17,3 @@ export const cardTypes: ReadonlySet<CardType> = new Set<CardType>(detailTypes).a
 export const cardAndEngineTypes: ReadonlySet<CardOrEngineType> = new Set<CardOrEngineType>(
 	cardTypes
 ).add('tilt');
-
-export function assertInSet<Item, SetItem extends Item>(
-	item: Item,
-	set: ReadonlySet<SetItem>
-): asserts item is SetItem {
-	if (!set.has(item as SetItem)) {
-		throw new Error(`Invalid item ${item}`);
-	}
-}

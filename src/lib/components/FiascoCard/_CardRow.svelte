@@ -32,7 +32,7 @@
 	{#if href != undefined}
 		<a
 			{href}
-			class="name {descriptionType}-name"
+			class="name name--link {descriptionType}-name"
 			class:font-hitchcock={descriptionType === 'category'}
 			class:font-sans={descriptionType === 'element'}
 			class:unset={value == undefined}
@@ -67,8 +67,8 @@
 	}
 
 	.unset,
-	.name:hover,
-	.name:focus {
+	.name--link:hover,
+	.name--link:focus {
 		text-decoration: underline;
 	}
 

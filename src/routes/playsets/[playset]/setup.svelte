@@ -23,10 +23,13 @@
 	import type { Engine } from '$lib/storage/engine';
 	import SetupPairs from './_SetupPairs.svelte';
 	import SetupToolbar from './_SetupToolbar.svelte';
+	import Hand from './_Hand.svelte';
 
 	const { playset, session } = getStoreContext();
 
 	export let engine: Engine;
+	/** Corresponds to a player index */
+	export let openHandPlayerIndex: number | undefined = undefined;
 
 	let showTilt = Boolean(
 		$session.tilts.positive.category != undefined || $session.tilts.negative.category != undefined
@@ -41,8 +44,17 @@
 <div id="setup" class="page setup-page players-{activePlayers}">
 	<SetupToolbar bind:showTilt />
 	<div class="pairs-outer">
-		<SetupPairs {engine} {activePlayers} {showTilt} />
+		<SetupPairs {engine} {activePlayers} {showTilt} bind:selectedPlayer={openHandPlayerIndex} />
 	</div>
+
+	{#if openHandPlayerIndex != undefined}
+		<Hand
+			playerIndex={openHandPlayerIndex}
+			on:click={() => {
+				openHandPlayerIndex = undefined;
+			}}
+		/>
+	{/if}
 </div>
 
 <style lang="scss">

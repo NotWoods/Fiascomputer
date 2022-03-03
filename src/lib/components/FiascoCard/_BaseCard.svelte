@@ -19,13 +19,15 @@
 	<h4 class="card-title" aria-label={label}>
 		<slot />
 	</h4>
-	<button
-		type="reset"
-		class="remove detail-remove close-button"
-		on:click|preventDefault={() => dispatch('remove')}
-	>
-		<img src="/images/cross-white.svg" alt="Reset" />
-	</button>
+	{#if editable}
+		<button
+			type="reset"
+			class="remove detail-remove close-button"
+			on:click|preventDefault={() => dispatch('remove')}
+		>
+			<img src="/images/cross-white.svg" alt="Reset" />
+		</button>
+	{/if}
 	<CardRow
 		{categories}
 		{cardDetails}

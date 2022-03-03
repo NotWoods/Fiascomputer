@@ -1,11 +1,14 @@
 <script lang="ts">
+	import { focusTrap } from '../../hooks/focusTrap';
 	import MenuItem from './MenuItem.svelte';
 	import FullscreenButtons from './FullscreenButtons.svelte';
 	import ThemeDropdown from './ThemeDropdown.svelte';
+	import ThemeStylesheet, { ThemeName } from './ThemeStylesheet.svelte';
 
 	export let menuItems: Set<string>;
 
 	let menuOpen = false;
+	let selectedTheme: ThemeName = 'red';
 
 	let menu: HTMLElement;
 	let button: HTMLButtonElement;
@@ -25,6 +28,8 @@
 
 <svelte:body on:click={handleDocumentClick} />
 
+<ThemeStylesheet selected={selectedTheme} />
+
 <header data-menu={menuOpen.toString()}>
 	<h1 id="app-title" class="font-hitchcock"><a href="/">Fiascomputer</a></h1>
 	<a class="header-button header-button-help" href="/help" id="help-button">Help</a>
@@ -37,24 +42,27 @@
 			menuOpen = !menuOpen;
 		}}>Menu</button
 	>
-	<ul id="menu" bind:this={menu} hidden={!menuOpen}>
-		<MenuItem {menuItems} id="invite-players">
-			<a href="/players">Invite players</a>
-		</MenuItem>
-		<MenuItem {menuItems} id="select-playset">
-			<a href="/playsets/">Select playset</a>
-		</MenuItem>
-		<MenuItem {menuItems} id="add-playset">
-			<a href="/add-playset">Add playset</a>
-		</MenuItem>
-		<FullscreenButtons {menuItems} />
-		<ThemeDropdown
-			{menuItems}
-			on:change={() => {
-				menuOpen = false;
-			}}
-		/>
-	</ul>
+	{#if menuOpen}
+		<ul id="menu" bind:this={menu} use:focusTrap>
+			<MenuItem {menuItems} id="invite-players">
+				<a href="/players">Invite players</a>
+			</MenuItem>
+			<MenuItem {menuItems} id="select-playset">
+				<a href="/playsets/">Select playset</a>
+			</MenuItem>
+			<MenuItem {menuItems} id="add-playset">
+				<a href="/add-playset">Add playset</a>
+			</MenuItem>
+			<FullscreenButtons {menuItems} />
+			<ThemeDropdown
+				{menuItems}
+				bind:selected={selectedTheme}
+				on:change={() => {
+					menuOpen = false;
+				}}
+			/>
+		</ul>
+	{/if}
 </header>
 
 <style lang="scss">
