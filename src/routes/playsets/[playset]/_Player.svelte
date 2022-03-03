@@ -64,8 +64,8 @@
 		justify-self: stretch;
 
 		background-color: defs.$background-color;
-		margin-left: -1rem;
-		margin-right: -1rem;
+		margin-left: -0.5rem;
+		margin-right: -0.5rem;
 		border: 1rem solid defs.$background-color;
 		border-top: 0;
 		font-size: 1.5rem;
