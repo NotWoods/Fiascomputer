@@ -6,6 +6,7 @@
 	export let used = false;
 
 	let dragging = false;
+	let pressed = false;
 
 	$: relationshipOrDetail = cardDetails.table === 'relationship' ? 'relationship' : 'detail';
 
@@ -22,6 +23,11 @@
 
 	function handleDragEnd() {
 		dragging = false;
+		pressed = false;
+	}
+
+	function handleClick() {
+		pressed = !pressed;
 	}
 </script>
 
@@ -31,6 +37,8 @@
 	class:used
 	class:dragging
 	draggable="true"
+	aria-pressed={pressed}
+	on:click={handleClick}
 	on:dragstart={handleDragStart}
 	on:dragend={handleDragEnd}
 >
@@ -42,7 +50,18 @@
 
 	.card-clickable {
 		@include defs.plain-button;
+		transition: transform 0.1s ease-out;
+		transform-origin: right bottom;
 		cursor: grab;
+	}
+	.card-clickable[aria-pressed='true'] {
+		transform: rotateZ(3deg);
+		outline: 0.5em solid var(--background-color);
+		outline-offset: 1px;
+	}
+	.card-clickable:hover,
+	.card-clickable:focus-visible {
+		transform: rotateZ(4deg);
 	}
 	.card-clickable :global(.item) {
 		height: 100%;

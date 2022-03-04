@@ -1,4 +1,10 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
+
+	const dispatch = createEventDispatcher<{
+		drop: string;
+	}>();
+
 	export let accept: string;
 
 	let dragOver = false;
@@ -13,12 +19,20 @@
 			dragOver = true;
 		}
 	}
+
+	function handleDrop(event: DragEvent) {
+		dragOver = false;
+		const data = event.dataTransfer?.getData(accept);
+		if (!data) return;
+
+		dispatch('drop', data);
+	}
 </script>
 
 <div
 	class="dropzone"
 	class:dragover={dragOver}
-	on:drop
+	on:drop={handleDrop}
 	on:dragover={handleDragOver}
 	on:dragleave={() => (dragOver = false)}
 >

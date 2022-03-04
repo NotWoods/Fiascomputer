@@ -42,11 +42,8 @@
 		session.dispatch(clearDetailType(pairIndex));
 	}
 
-	function handleDrop(event: DragEvent) {
-		const data = event.dataTransfer?.getData('application/x-fiasco-card');
-		if (!data) return;
-
-		const cardDetails = JSON.parse(data) as CardDetails;
+	function handleDrop(event: CustomEvent<string>) {
+		const cardDetails = JSON.parse(event.detail) as CardDetails;
 		session.dispatch(changeCard(cardDetails.table, pairIndex, cardDetails));
 	}
 </script>
