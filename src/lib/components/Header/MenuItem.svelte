@@ -4,7 +4,7 @@
 </script>
 
 {#if menuItems.has(id)}
-	<li class="menu-item" id="{id}-menu-item">
+	<li role="none" class="menu-item" id="{id}-menu-item">
 		<slot />
 	</li>
 {/if}

@@ -4,54 +4,59 @@
 	import FullscreenButtons from './FullscreenButtons.svelte';
 	import ThemeDropdown from './ThemeDropdown.svelte';
 	import ThemeStylesheet, { ThemeName } from './ThemeStylesheet.svelte';
+	import OutsideClick from '../A11y/OutsideClick.svelte';
 
 	export let menuItems: Set<string>;
 
 	let menuOpen = false;
 	let selectedTheme: ThemeName = 'red';
 
-	let menu: HTMLElement;
+	let menu: HTMLElement | undefined;
 	let button: HTMLButtonElement;
 
-	function handleDocumentClick(event: MouseEvent) {
-		const target = event.target as Element;
-		if (event.target !== button) {
-			const elementOutsideMenuWasClicked = !menu.contains(target);
-			const controlInsideMenuWasClicked =
-				!elementOutsideMenuWasClicked && (target.tagName === 'A' || target.tagName === 'BUTTON');
-			if (elementOutsideMenuWasClicked || controlInsideMenuWasClicked) {
-				menuOpen = false;
-			}
+	function handleMenuButtonClick() {
+		menuOpen = !menuOpen;
+	}
+
+	function handleEscapeKey(event: KeyboardEvent) {
+		if (event.key === 'Escape') {
+			menuOpen = false;
+			button.focus();
 		}
 	}
 </script>
 
-<svelte:body on:click={handleDocumentClick} />
-
+<OutsideClick
+	{menu}
+	trigger={button}
+	on:click={() => {
+		menuOpen = false;
+	}}
+/>
 <ThemeStylesheet selected={selectedTheme} />
 
-<header data-menu={menuOpen.toString()}>
-	<h1 id="app-title" class="font-hitchcock"><a href="/">Fiascomputer</a></h1>
-	<a class="header-button header-button-help" href="/help" id="help-button">Help</a>
+<header data-menu={menuOpen.toString()} role="menubar">
+	<h1 id="app-title" class="font-hitchcock"><a role="menuitem" href="/">Fiascomputer</a></h1>
+	<a role="menuitem" class="header-button header-button-help" href="/help" id="help-button">Help</a>
 	<button
 		class="header-button header-button-menu"
 		class:header-close-button={menuOpen}
 		id="menu-button"
+		aria-haspopup="true"
+		aria-expanded={menuOpen}
 		bind:this={button}
-		on:click={() => {
-			menuOpen = !menuOpen;
-		}}>Menu</button
+		on:click={handleMenuButtonClick}>Menu</button
 	>
 	{#if menuOpen}
-		<ul id="menu" bind:this={menu} use:focusTrap>
+		<ul id="menu" role="menu" bind:this={menu} use:focusTrap on:keydown={handleEscapeKey}>
 			<MenuItem {menuItems} id="invite-players">
-				<a href="/players">Invite players</a>
+				<a role="menuitem" href="/players">Invite players</a>
 			</MenuItem>
 			<MenuItem {menuItems} id="select-playset">
-				<a href="/playsets/">Select playset</a>
+				<a role="menuitem" href="/playsets/">Select playset</a>
 			</MenuItem>
 			<MenuItem {menuItems} id="add-playset">
-				<a href="/add-playset">Add playset</a>
+				<a role="menuitem" href="/add-playset">Add playset</a>
 			</MenuItem>
 			<FullscreenButtons {menuItems} />
 			<ThemeDropdown

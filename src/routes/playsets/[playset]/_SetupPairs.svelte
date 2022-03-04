@@ -5,6 +5,12 @@
 	import { OutcomeType } from '$lib/outcome';
 	import type { Engine } from '$lib/storage/engine';
 	import AftermathButton from './_AftermathButton.svelte';
+	import { createEventDispatcher } from 'svelte';
+
+	const dispatch = createEventDispatcher<{
+		select: { selectedPlayer: number };
+		deselect: undefined;
+	}>();
 
 	export let engine: Engine;
 	export let activePlayers: number;
@@ -13,9 +19,9 @@
 
 	function onSelect(playerIndex: number) {
 		if (selectedPlayer === playerIndex) {
-			selectedPlayer = undefined;
+			dispatch('deselect');
 		} else {
-			selectedPlayer = playerIndex;
+			dispatch('select', { selectedPlayer: playerIndex });
 		}
 	}
 </script>

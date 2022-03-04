@@ -12,6 +12,10 @@ body {
 	background-color: defs.$background-color;
 	scrollbar-color: var(--dark-background-color) var(--shadow-color);
 }
+body {
+	display: flex;
+	flex-direction: column;
+}
 
 #svelte {
 	min-height: 100%;

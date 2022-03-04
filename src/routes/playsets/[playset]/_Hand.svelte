@@ -1,14 +1,19 @@
 <script lang="ts">
+	import OutsideClick from '$lib/components/A11y/OutsideClick.svelte';
 	import type { CardDetails } from '$lib/deck';
 	import { focusTrap } from '$lib/hooks/focusTrap';
 	import { usedCards } from '$lib/storage/session';
 	import { getStoreContext } from '$lib/store';
+	import { createEventDispatcher } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import HandCard from './_HandCard.svelte';
 
 	const { session } = getStoreContext();
+	const dispatch = createEventDispatcher();
 
 	export let playerIndex: number;
+
+	let container: HTMLElement;
 
 	$: player = $session.players[playerIndex];
 	$: cards = Array.from(player.hand ?? []);
@@ -17,12 +22,24 @@
 	function cardKey(cardDetails: CardDetails) {
 		return `${cardDetails.table}-${cardDetails.category}:${cardDetails.element}`;
 	}
+
+	function emitClose() {
+		dispatch('close');
+	}
 </script>
 
-<aside id="hand" class="hand-container" transition:fly={{ duration: 300, x: -100 }} use:focusTrap>
+<OutsideClick menu={container} trigger={'.hand-trigger'} on:click={emitClose} />
+
+<aside
+	bind:this={container}
+	id="hand"
+	class="hand-container"
+	transition:fly={{ duration: 300, x: -100 }}
+	use:focusTrap
+>
 	<header class="hand-header">
 		<h3>Hand for {player.name}</h3>
-		<button type="button" class="remove close-button" on:click>
+		<button type="button" class="remove close-button" on:click={emitClose}>
 			<img src="/images/cross-white.svg" alt="Remove outcome" />
 		</button>
 	</header>

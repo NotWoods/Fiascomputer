@@ -13,7 +13,7 @@
 <div id="player-{playerIndex + 1}" class="player">
 	<button
 		type="button"
-		class="player-image-outer"
+		class="player-image-outer hand-trigger"
 		aria-pressed={selected}
 		on:click={() => onSelect(playerIndex)}
 	>

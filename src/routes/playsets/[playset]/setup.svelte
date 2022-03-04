@@ -37,6 +37,10 @@
 
 	$: activePlayers = $session.players.length;
 	$: title = $playset?.title ?? 'Playset';
+
+	function closeHand() {
+		openHandPlayerIndex = undefined;
+	}
 </script>
 
 <Title text="Setup" playsetTitle={title} />
@@ -44,16 +48,20 @@
 <div id="setup" class="page setup-page players-{activePlayers}">
 	<SetupToolbar bind:showTilt />
 	<div class="pairs-outer">
-		<SetupPairs {engine} {activePlayers} {showTilt} bind:selectedPlayer={openHandPlayerIndex} />
+		<SetupPairs
+			{engine}
+			{activePlayers}
+			{showTilt}
+			selectedPlayer={openHandPlayerIndex}
+			on:select={(event) => {
+				openHandPlayerIndex = event.detail.selectedPlayer;
+			}}
+			on:deselect={closeHand}
+		/>
 	</div>
 
 	{#if openHandPlayerIndex != undefined}
-		<Hand
-			playerIndex={openHandPlayerIndex}
-			on:click={() => {
-				openHandPlayerIndex = undefined;
-			}}
-		/>
+		<Hand playerIndex={openHandPlayerIndex} on:close={closeHand} />
 	{/if}
 </div>
 
