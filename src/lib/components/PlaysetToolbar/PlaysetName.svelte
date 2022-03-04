@@ -19,5 +19,6 @@
 	class="playset-name-text w-full"
 	multiline={$smallScreen ? 2 : 0}
 	value={title}
+	ariaLabel="Playset name"
 	on:change={changeTitle}
 />

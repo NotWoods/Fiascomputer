@@ -6,6 +6,7 @@
 	export let value: string;
 	export let editable = true;
 	export let multiline = 0;
+	export let ariaLabel: string | undefined = undefined;
 	let className = '';
 	export { className as class };
 
@@ -19,11 +20,18 @@
 		class="editable {className}"
 		rows={multiline}
 		{value}
+		aria-label={ariaLabel}
 		disabled={!editable}
 		on:change={handleChange}
 	/>
 {:else}
-	<input class="editable {className}" {value} disabled={!editable} on:change={handleChange} />
+	<input
+		class="editable {className}"
+		{value}
+		aria-label={ariaLabel}
+		disabled={!editable}
+		on:change={handleChange}
+	/>
 {/if}
 
 <style lang="scss">
@@ -43,6 +51,7 @@
 	}
 	.editable:disabled {
 		cursor: inherit;
+		pointer-events: none;
 	}
 	.editable:not(:disabled):hover {
 		outline-color: currentColor;

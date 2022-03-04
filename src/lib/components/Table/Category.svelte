@@ -23,26 +23,29 @@
 			class="category-link w-full"
 			value={categoryData.name}
 			{editable}
+			ariaLabel="Category for {table.title}"
 			on:change={(event) => dispatch('rename', { text: event.detail.value })}
 		/>
 	</h3>
 	<ol class="elements">
 		{#each categoryData.elements as elementData, element}
 			<li class="element-name font-sans" value={element + 1}>
-				<label class="element-name-label">
-					<input
-						type="radio"
-						class="category-radio"
-						name="category-{table.title}"
-						value={elementData}
-						aria-label={elementData}
-						checked={selected?.category === category && selected?.element === element}
-						on:change={() => dispatch('select', { element })}
-					/>
+				<input
+					type="radio"
+					id="radio-{category}-{element}"
+					class="category-radio"
+					name="category-{table.title}"
+					value={elementData}
+					aria-label={elementData}
+					checked={selected?.category === category && selected?.element === element}
+					on:change={() => dispatch('select', { element })}
+				/>
+				<label class="element-name-label" for="radio-{category}-{element}">
 					<Editable
 						class="element-link"
 						value={elementData}
 						{editable}
+						ariaLabel="Category element for {categoryData.name}"
 						on:change={(event) => dispatch('rename', { text: event.detail.value, element })}
 					/>
 				</label>
@@ -53,17 +56,20 @@
 
 <style>
 	.category-radio {
-		margin-right: 0.5rem;
+		cursor: pointer;
 	}
 
 	.element-name {
 		padding: 0;
+		display: flex;
 	}
 	.element-name-label {
+		padding-left: 0.5rem;
 		display: flex;
+		flex: 1;
 		cursor: pointer;
 	}
-	:global(.element-link) {
+	.element-name-label :global(.element-link) {
 		flex: 1;
 		text-align: left !important;
 	}

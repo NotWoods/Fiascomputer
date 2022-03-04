@@ -22,5 +22,6 @@
 	value={player?.name ?? `Player ${playerIndex + 1}`}
 	{multiline}
 	{editable}
+	ariaLabel="Player {playerIndex + 1}'s name"
 	on:change={changeName}
 />
