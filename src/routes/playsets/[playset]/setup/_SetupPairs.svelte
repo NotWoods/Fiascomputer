@@ -1,20 +1,14 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
 	import Pair from './_Pair.svelte';
 	import Player from './_Player.svelte';
-	import TiltCard from '$lib/components/FiascoCard/TiltCard.svelte';
-	import { OutcomeType } from '$lib/outcome';
-	import type { Engine } from '$lib/storage/engine';
-	import AftermathButton from './_AftermathButton.svelte';
-	import { createEventDispatcher } from 'svelte';
 
 	const dispatch = createEventDispatcher<{
 		select: { selectedPlayer: number };
 		deselect: undefined;
 	}>();
 
-	export let engine: Engine;
 	export let activePlayers: number;
-	export let showTilt: boolean;
 	export let selectedPlayer: number | undefined;
 
 	function onSelect(playerIndex: number) {
@@ -26,15 +20,8 @@
 	}
 </script>
 
-<div id="pairs" class="pairs" class:pairs-with-tilt={showTilt}>
-	{#if showTilt}
-		<div class="pair tilts">
-			<h3 class="sr-only">Tilts</h3>
-			<TiltCard {engine} outcomeType={OutcomeType.POSITIVE} editable />
-			<TiltCard {engine} outcomeType={OutcomeType.NEGATIVE} editable />
-			<AftermathButton />
-		</div>
-	{/if}
+<div id="pairs" class="pairs">
+	<slot />
 	<Player playerIndex={0} editable outcomes selected={selectedPlayer === 0} {onSelect} />
 	<Pair pairIndex={0} {activePlayers} editable />
 	<Player playerIndex={1} editable outcomes selected={selectedPlayer === 1} {onSelect} />
@@ -51,31 +38,22 @@
 	{/if}
 </div>
 
-<style lang="scss">
-	@use '../../../css/defs';
-
+<style>
 	@media (min-width: 40rem) {
 		.pairs {
-			--tilt-column: 0;
 			display: grid;
 			align-items: stretch;
-			grid-template-columns: repeat(calc(var(--columns) + var(--tilt-column)), minmax(20rem, 1fr));
-		}
-		.pairs-with-tilt {
-			--tilt-column: 1;
-		}
-
-		.tilts {
-			@include defs.flex($direction: column, $vertical: center, $horizontal: normal);
-			order: 0;
-			grid-row: 1 / span 2;
-			border-right: 1px solid defs.$shadow-color;
+			grid-template-columns: repeat(
+				calc(var(--columns) + var(--tilt-column, 0)),
+				minmax(20rem, 1fr)
+			);
 		}
 	}
 
 	@media (max-width: 40em) {
 		.pairs {
-			@include defs.flex(column, $horizontal: stretch);
+			display: flex;
+			flex-direction: column;
 		}
 	}
 </style>

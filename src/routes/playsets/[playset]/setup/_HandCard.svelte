@@ -46,7 +46,7 @@
 </button>
 
 <style lang="scss">
-	@use '../../../css/defs';
+	@use '../../../../css/defs';
 
 	.card-clickable {
 		@include defs.plain-button;

@@ -47,8 +47,6 @@
 	.players-page {
 		@include defs.vertical-margin(auto);
 
-		@include defs.flex(column, $horizontal: center, $vertical-spacing: 1rem);
-
 		@media (max-width: 40em) {
 			padding: 2rem;
 		}

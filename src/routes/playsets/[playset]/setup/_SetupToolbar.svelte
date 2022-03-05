@@ -54,7 +54,7 @@
 </PlaysetToolbar>
 
 <style lang="scss">
-	@use '../../../css/defs';
+	@use '../../../../css/defs';
 
 	#player-count-control {
 		align-self: center;

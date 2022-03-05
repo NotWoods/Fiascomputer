@@ -82,7 +82,7 @@
 </div>
 
 <style lang="scss">
-	@use '../../../css/defs';
+	@use '../../../../css/defs';
 
 	.pair > :global(.dropzone) {
 		margin-bottom: 1rem;

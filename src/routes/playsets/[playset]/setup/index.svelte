@@ -21,9 +21,10 @@
 	import { getStoreContext } from '$lib/store';
 	import Title from '$lib/components/Title.svelte';
 	import type { Engine } from '$lib/storage/engine';
-	import SetupPairs from './_SetupPairs.svelte';
-	import SetupToolbar from './_SetupToolbar.svelte';
 	import Hand from './_Hand.svelte';
+	import SetupPairs from './_SetupPairs.svelte';
+	import SetupTilts from './_SetupTilts.svelte';
+	import SetupToolbar from './_SetupToolbar.svelte';
 
 	const { playset, session } = getStoreContext();
 
@@ -47,17 +48,19 @@
 
 <div id="setup" class="page setup-page players-{activePlayers}">
 	<SetupToolbar bind:showTilt />
-	<div class="pairs-outer">
+	<div class="pairs-outer" class:pairs-with-tilt={showTilt}>
 		<SetupPairs
-			{engine}
 			{activePlayers}
-			{showTilt}
 			selectedPlayer={openHandPlayerIndex}
 			on:select={(event) => {
 				openHandPlayerIndex = event.detail.selectedPlayer;
 			}}
 			on:deselect={closeHand}
-		/>
+		>
+			{#if showTilt}
+				<SetupTilts {engine} />
+			{/if}
+		</SetupPairs>
 	</div>
 
 	{#if openHandPlayerIndex != undefined}
@@ -66,7 +69,7 @@
 </div>
 
 <style lang="scss">
-	@use '../../../css/defs';
+	@use '../../../../css/defs';
 
 	@mixin connector($top: false, $right: false, $bottom: false, $left: false) {
 		@include defs.line-through(
@@ -77,6 +80,10 @@
 			$color: defs.$shadow-color,
 			$width: 1rem
 		);
+	}
+
+	.pairs-with-tilt {
+		--tilt-column: 1;
 	}
 
 	@media (min-width: 40rem) {

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Outcome from '$lib/components/Outcome/Outcome.svelte';
 	import PlayerName from '$lib/components/PlayerName.svelte';
-	import PlayerOutcomes from './_PlayerOutcomes.svelte';
+	import PlayerOutcomes from '../_PlayerOutcomes.svelte';
 
 	export let playerIndex: number;
 	export let selected = false;
@@ -37,7 +37,7 @@
 </div>
 
 <style lang="scss">
-	@use '../../../css/defs';
+	@use '../../../../css/defs';
 
 	.player {
 		padding: 0.5rem;
