@@ -19,7 +19,8 @@
 	>
 		<img
 			class="player-image"
-			src="/images/player-{selected ? 'white' : 'black'}.svg"
+			class:selected
+			src="/images/player-black.svg"
 			alt="Player {playerIndex + 1}"
 			width="66"
 			height="96"
@@ -52,12 +53,16 @@
 	.player-image-outer {
 		@include defs.plain-button;
 		grid-area: icon;
+		border: 1rem solid defs.$background-color;
+		background-color: defs.$background-color;
 	}
 	.player-image {
 		width: auto;
-		height: 6rem;
-		border: 1rem solid defs.$background-color;
-		background-color: defs.$background-color;
+		height: 4rem;
+		display: block;
+	}
+	.player-image.selected {
+		filter: invert(1);
 	}
 	.player-name-outer {
 		grid-area: name;
