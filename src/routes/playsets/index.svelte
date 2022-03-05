@@ -14,16 +14,21 @@
 
 <script lang="ts">
 	import BlobUrl from '$lib/components/BlobUrl.svelte';
-	import DeckBox from '$lib/components/DeckBox.svelte';
+	import DeckBox from '$lib/components/PlaysetImage/DeckBox.svelte';
 	import Title from '$lib/components/Title.svelte';
-	import { BUNDLED_PLAYSETS, loadBundledPlayset, PlaysetData } from '$lib/playset';
+	import {
+		BUNDLED_PLAYSETS,
+		isDeckPlayset,
+		loadBundledPlayset,
+		type PlaysetData
+	} from '$lib/playset';
 	import { playsetLink } from '$lib/playset';
 
 	function sortPlaysets(a: PlaysetData, b: PlaysetData) {
-		if (Boolean(a.score) === Boolean(b.score)) {
+		if (isDeckPlayset(a) === isDeckPlayset(b)) {
 			return a.title.localeCompare(b.title);
 		} else {
-			return b.score ? 1 : -1;
+			return isDeckPlayset(b) ? 1 : -1;
 		}
 	}
 
@@ -47,7 +52,7 @@
 				>
 					{#if playset.thumbnail != undefined}
 						<a class="playset-link" href={playsetLink(playset)} class:playset-deck={playset.score}>
-							{#if playset.score}
+							{#if isDeckPlayset(playset)}
 								<DeckBox title={playset.title} cover={playset.thumbnail} />
 							{:else}
 								<BlobUrl src={playset.thumbnail} let:url>

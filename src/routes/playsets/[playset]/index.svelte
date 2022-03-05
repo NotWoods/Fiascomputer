@@ -28,16 +28,14 @@
 	import Title from '$lib/components/Title.svelte';
 	import { getStoreContext } from '$lib/store';
 	import { goto } from '$app/navigation';
-	import PlaysetOverviewLegacy from './_PlaysetOverviewLegacy.svelte';
-	import PlaysetOverviewDeck from './_PlaysetOverviewDeck.svelte';
 	import PlaysetToolbar from '$lib/components/PlaysetToolbar/PlaysetToolbar.svelte';
+	import PlaysetOverview from '$lib/components/PlaysetOverview.svelte';
 
 	const { playset } = getStoreContext();
 
 	export let pages: Playset['pages'] | undefined;
 	export let alreadyStarted: boolean;
 
-	$: cover = pages?.cover;
 	$: credits = pages?.credits;
 
 	async function newGame(event: MouseEvent) {
@@ -56,42 +54,43 @@
 
 <Title text={$playset.title} />
 
-<div
-	id="playset-preview"
-	class="page playset-preview-page"
-	style="--playset-background: {$playset.backgroundColor ?? ''}"
->
+<div id="playset-preview" class="page playset-preview-page">
 	<PlaysetToolbar>
 		<a slot="start" href="/playsets/" class="back">Back</a>
 	</PlaysetToolbar>
-	{#if $playset.score}
-		<PlaysetOverviewDeck title={$playset.title} {cover} score={$playset.score} />
-	{:else}
-		<PlaysetOverviewLegacy playsetTitle={$playset.title} {cover} score={pages?.score} />
-	{/if}
+
+	<PlaysetOverview playset={$playset} {pages} />
+	<div class="spacer" />
+
 	<div class="links">
-		<a
-			sveltekit:prefetch
-			href="./players"
-			class="play-link"
-			id="start-setup-control"
-			on:click={newGame}>Play!</a
-		>
-		<a
-			sveltekit:prefetch
-			href="./setup"
-			class="resume-link"
-			id="resume-setup-control"
-			hidden={!alreadyStarted}>Resume</a
-		>
-		{#if typeof credits === 'string'}
-			<a href={credits} target="_blank" class="credits-link" id="playset-credits-page-link"
-				>Credits</a
+		<div class="play-links">
+			<a
+				sveltekit:prefetch
+				href="./players"
+				class="play-link"
+				id="start-setup-control"
+				on:click={newGame}
 			>
+				Play!
+			</a>
+			<a
+				sveltekit:prefetch
+				href="./setup"
+				class="resume-link"
+				id="resume-setup-control"
+				hidden={!alreadyStarted}
+			>
+				Resume
+			</a>
+		</div>
+		{#if typeof credits === 'string'}
+			<a href={credits} target="_blank" class="credits-link" id="playset-credits-page-link">
+				Credits
+			</a>
 		{/if}
-		<a href="/playsets/" class="delete-link" id="delete-playset-control" on:click={deletePlayset}
-			>Delete playset</a
-		>
+		<a href="/playsets/" class="delete-link" id="delete-playset-control" on:click={deletePlayset}>
+			Delete playset
+		</a>
 	</div>
 </div>
 
@@ -102,99 +101,68 @@
 		flex: 1;
 		align-self: stretch;
 		overflow: auto;
-
-		.links {
-			@include defs.flex(column, $horizontal: center);
-		}
-
-		.play-link,
-		.resume-link,
-		.credits-link,
-		.delete-link {
-			@include defs.button;
-			display: inline-block;
-			padding: 1rem;
-		}
-
-		.play-link,
-		.resume-link {
-			font-size: 1.5rem;
-		}
+		display: flex;
+		flex-direction: column;
 	}
 
-	@media (max-width: 40em) {
-		.playset-preview-page {
-			@include defs.flex(column, $vertical-spacing: 1rem, $horizontal: stretch);
-
-			.playset-page {
-				display: block;
-				width: 100%;
-				height: auto;
-				object-fit: contain;
-			}
-
-			.pages-outer {
-				order: 3;
-			}
-
-			.links {
-				order: 2;
-			}
-
-			.credits-link,
-			.delete-link {
-				margin-top: 1rem;
-			}
-		}
-	}
-
-	@media (min-width: 40em) {
-		.playset-preview-page {
-			@include defs.flex(column, $horizontal: stretch, $vertical-spacing: 1rem);
-
-			.pages-outer {
-				flex: 1;
-				overflow: auto;
-				position: relative;
-			}
-
-			.pages-inner {
-				position: absolute;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-				font-size: 0;
-				text-align: center;
-			}
-
-			.links {
-				padding-bottom: 2rem;
-			}
-
-			.credits-link,
-			.delete-link {
-				// Fixed in order to prevent overflow when :active pseudoclass applies.
-				position: fixed;
-				margin: 2rem;
-				bottom: 0;
-			}
-
-			.credits-link {
-				left: 0;
-			}
-
-			.delete-link {
-				right: 0;
-			}
-		}
-	}
-
-	.resume-link {
-		margin-top: 1rem;
+	.spacer {
+		margin-top: 10rem;
 	}
 
 	.links {
+		display: grid;
 		margin-top: auto;
+		margin-bottom: 1rem;
+		column-gap: 1rem;
+		grid-template:
+			'play-links' auto
+			'credits-link' auto
+			'delete-link' auto
+			/ 1fr;
+	}
+
+	.play-link,
+	.resume-link,
+	.credits-link,
+	.delete-link {
+		@include defs.button;
+		display: inline-block;
+		padding: 1rem;
+		margin-top: 1rem;
+		text-align: center;
+	}
+	.play-links {
+		font-size: 1.5rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		grid-area: play-links;
+	}
+	.credits-link {
+		grid-area: credits-link;
+		justify-self: center;
+	}
+	.delete-link {
+		grid-area: delete-link;
+		justify-self: center;
+	}
+
+	@media (min-width: 40em) {
+		.links {
+			position: fixed;
+			left: 2rem;
+			right: 2rem;
+			bottom: 1rem;
+			grid-template:
+				'. play-links .' auto
+				'credits-link play-links delete-link' min-content
+				/ 1fr 1fr 1fr;
+		}
+		.credits-link {
+			justify-self: start;
+		}
+		.delete-link {
+			justify-self: end;
+		}
 	}
 </style>

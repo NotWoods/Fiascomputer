@@ -78,6 +78,13 @@ export const BUNDLED_PLAYSETS: readonly string[] = [
 	'trashfire_2020'
 ];
 
+/**
+ * If true, this playset uses the newer format and should be presented as a deck.
+ */
+export function isDeckPlayset(playset: PlaysetData) {
+	return Boolean(playset.backgroundColor);
+}
+
 function arrayBufferToBlob(buffer: ArrayBuffer | undefined, type = 'image/png') {
 	if (buffer) {
 		return new Blob([buffer], { type });
@@ -150,7 +157,7 @@ export async function loadBundledPlayset(id: string, fetch = globalThis.fetch): 
 	const withId = json as PlaysetDataWithId;
 	withId.id = id;
 
-	const playset = json.backgroundColor
+	const playset = isDeckPlayset(json)
 		? {
 				...withId,
 				thumbnail: `/bundled/${id}-cover.png`,

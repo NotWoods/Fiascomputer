@@ -1,5 +1,5 @@
 <script lang="ts">
-	import BlobUrl from './BlobUrl.svelte';
+	import BlobUrl from '../BlobUrl.svelte';
 
 	const BLANK_PAGE = '/images/blank-page.svg';
 
